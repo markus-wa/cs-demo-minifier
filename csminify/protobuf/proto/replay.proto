@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package protobuf;
+
+enum Team {
+	UNASSIGNED = 0;
+	TERRORIST = 1;
+	COUNTER_TERRORIST = 2;
+	SPECTATOR = 3;
+}
+
+message Point {
+	double x = 1;
+	double y = 2;
+}
+
+message Replay {
+	message Header {
+		string map = 1;
+		float tickRate = 2;
+		int32 snapshotRate = 3;
+	}
+
+	message Entity {
+		int32 id = 1;
+		string name = 2;
+		Team team = 3;
+		bool isNpc = 4;
+	}
+
+	message Snapshot {
+		message EntityUpdate{
+			int32 entityId = 1;
+			repeated Point positions = 2;
+			float angle = 3;
+			int32 hp = 4;
+			int32 armor = 5;
+			float flashDuration = 6;
+		}
+		
+		int32 tick = 1;
+		repeated EntityUpdate entityUpdate = 2;
+	}
+
+	message Tick {
+		message GameEvent {
+			string event = 1;
+			string text = 2;
+		}
+
+		message MapEvent {
+			string event = 1;
+			Point location = 2;
+			int32 triggeredBy = 3;
+		}
+
+		message EntityEvent {
+			string event = 1;
+			string entityId = 2;
+		}
+
+		int32 nr = 1;
+		repeated GameEvent gameEvents = 2;
+		repeated MapEvent mapEvents = 3;
+		repeated EntityEvent entityEvents = 4;
+	}
+
+	Header header = 1;
+	repeated Entity entities = 2;
+	repeated Snapshot snapshots = 3;
+	repeated Tick ticks = 4;
+}

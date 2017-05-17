@@ -5,6 +5,7 @@ import (
 	"fmt"
 	min "github.com/markus-wa/cs-demo-minifier/csminify"
 	"github.com/markus-wa/cs-demo-minifier/csminify/json"
+	pb "github.com/markus-wa/cs-demo-minifier/csminify/protobuf"
 	"io"
 	"os"
 )
@@ -19,6 +20,14 @@ func main() {
 	switch *p {
 	case "json":
 		marshaller = json.MarshalReplay
+
+	case "protobuf":
+		fallthrough
+	case "proto":
+		fallthrough
+	case "pb":
+		marshaller = pb.MarshalReplay
+
 	default:
 		panic(fmt.Sprintf("Protocol '%s' unknown", p))
 	}
