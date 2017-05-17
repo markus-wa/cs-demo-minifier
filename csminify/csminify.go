@@ -3,20 +3,22 @@ package csminify
 import (
 	"bufio"
 	"bytes"
-	"encoding/json"
+	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
 	dem "github.com/markus-wa/demoinfocs-golang"
 	"github.com/markus-wa/demoinfocs-golang/events"
 	"io"
 	"math"
 )
 
-func Minify(r io.Reader, snapsPerSec float32) []byte {
+type ReplayMarshaller func(rep rep.Replay, w io.Writer) error
+
+func Minify(r io.Reader, marshal ReplayMarshaller, snapsPerSec float32) []byte {
 	var buf bytes.Buffer
-	MinifyTo(r, bufio.NewWriter(&buf), snapsPerSec)
+	MinifyTo(r, snapsPerSec, marshal, bufio.NewWriter(&buf))
 	return buf.Bytes()
 }
 
-func MinifyTo(r io.Reader, w io.Writer, snapsPerSec float32) {
+func MinifyTo(r io.Reader, snapsPerSec float32, marshal ReplayMarshaller, w io.Writer) {
 	p := dem.NewParser(r)
 	p.ParseHeader()
 
@@ -37,23 +39,20 @@ func MinifyTo(r io.Reader, w io.Writer, snapsPerSec float32) {
 
 	p.ParseToEnd(nil)
 
-	// FIXME: Don't ignore error & use Marshal instead of MarshalIndent
-	//b, _ := json.MarshalIndent(m.replay, "", "\t")
-	b, _ := json.Marshal(m.replay)
-
-	w.Write(b)
+	// FIXME: Don't ignore error
+	marshal(m.replay, w)
 }
 
 type minifier struct {
 	parser      *dem.Parser
-	replay      replay
-	currentTick tick
+	replay      rep.Replay
+	currentTick rep.Tick
 }
 
 func (m *minifier) matchStarted(e events.MatchStartedEvent) {
 
 	for _, pl := range m.parser.PlayingParticipants() {
-		ent := entity{
+		ent := rep.Entity{
 			ID:    pl.EntityID,
 			Team:  int(pl.Team),
 			Name:  pl.Name,
@@ -74,18 +73,18 @@ func (m *minifier) matchStarted(e events.MatchStartedEvent) {
 
 func (m *minifier) tickDone(e events.TickDoneEvent) {
 	if tick := m.parser.CurrentTick(); tick%m.replay.Header.SnapshotRate == 0 {
-		snap := snapshot{
+		snap := rep.Snapshot{
 			Tick: tick,
 		}
 
 		for _, pl := range m.parser.PlayingParticipants() {
 			if pl.IsAlive() {
-				e := entityUpdate{
+				e := rep.EntityUpdate{
 					EntityID:      pl.EntityID,
 					Hp:            pl.Hp,
 					Armor:         pl.Armor,
 					FlashDuration: pl.FlashDuration,
-					Positions:     []point{r3VectorToPoint(pl.Position)}, // Maybe round this to save space
+					Positions:     []rep.Point{r3VectorToPoint(pl.Position)}, // Maybe round the coordinates to save space
 					Angle:         pl.ViewDirectionX,
 				}
 				// FIXME: Smoothify
@@ -99,7 +98,7 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 	if len(m.currentTick.GameEvents) > 0 || len(m.currentTick.MapEvents) > 0 || len(m.currentTick.EntityEvents) > 0 {
 		m.currentTick.Nr = m.parser.CurrentTick()
 		m.replay.Ticks = append(m.replay.Ticks, m.currentTick)
-		m.currentTick = tick{}
+		m.currentTick = rep.Tick{}
 	}
 }
 
