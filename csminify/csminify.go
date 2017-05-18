@@ -11,15 +11,18 @@ import (
 	"math"
 )
 
+// ReplayMarshaller is the signature for functions that serialize replay.Replay structs to an io.Writer
 type ReplayMarshaller func(rep rep.Replay, w io.Writer) error
 
+// Minify wraps MinifyTo with a bytes.Buffer and returns the written bytes
 func Minify(r io.Reader, marshal ReplayMarshaller, snapsPerSec float32) []byte {
 	var buf bytes.Buffer
 	MinifyTo(r, snapsPerSec, marshal, bufio.NewWriter(&buf))
 	return buf.Bytes()
 }
 
-func MinifyTo(r io.Reader, snapsPerSec float32, marshal ReplayMarshaller, w io.Writer) {
+// MinifyTo reads a demo from r, creates snapshots with a frequency of snapFreq/sec and writers the result of marshal to w
+func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writer) {
 	p := dem.NewParser(r)
 	p.ParseHeader()
 
@@ -27,11 +30,11 @@ func MinifyTo(r io.Reader, snapsPerSec float32, marshal ReplayMarshaller, w io.W
 
 	m.replay.Header.TickRate = p.TickRate()
 
-	f := float64(m.replay.Header.TickRate / snapsPerSec)
+	snapRage := float64(m.replay.Header.TickRate / snapFreq)
 
 	// How on earth is there still no math.Round()?! https://github.com/golang/go/issues/4594
 	if math.Abs(f) >= 0.5 {
-		m.replay.Header.SnapshotRate = int(f + math.Copysign(0.5, f))
+		m.replay.Header.SnapshotRate = int(snapRage + math.Copysign(0.5, snapRage))
 	}
 
 	m.replay.Header.MapName = p.Map()

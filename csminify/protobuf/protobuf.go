@@ -3,12 +3,12 @@ package protobuf
 //go:generate protoc -I=proto --gogofaster_out=Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types:. proto/*.proto
 
 import (
-	//"github.com/gogo/protobuf/types"
 	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
 	"github.com/markus-wa/demoinfocs-golang/common"
 	"io"
 )
 
+// MarshalReplay serializes a Replay as protobuf to an io.Writer
 func MarshalReplay(replay rep.Replay, w io.Writer) error {
 	ticks, err := mapTicks(replay.Ticks)
 	if err != nil {
