@@ -1,25 +1,30 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	min "github.com/markus-wa/cs-demo-minifier/csminify"
-	"github.com/markus-wa/cs-demo-minifier/csminify/json"
 	pb "github.com/markus-wa/cs-demo-minifier/csminify/protobuf"
+	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
+	"gopkg.in/vmihailenco/msgpack.v2"
 	"io"
 	"os"
 )
 
 func main() {
-	p := flag.String("protocol", "json", "Set protocol")
-	demPath := flag.String("demo", "", "Demo file")
-	outPath := flag.String("out", "", "Demo file")
+	prot := flag.String("protocol", "json", "Protocol to minify the demo to")
+	freq := flag.Float64("freq", 0.5, "Snapshot frequency - per second")
+	demPath := flag.String("demo", "", "Demo file path")
+	outPath := flag.String("out", "", "Output file path")
 	flag.Parse()
 
 	var marshaller min.ReplayMarshaller
-	switch *p {
+	switch *prot {
 	case "json":
-		marshaller = json.MarshalReplay
+		marshaller = func(replay rep.Replay, w io.Writer) error {
+			return json.NewEncoder(w).Encode(replay)
+		}
 
 	case "protobuf":
 		fallthrough
@@ -28,8 +33,15 @@ func main() {
 	case "pb":
 		marshaller = pb.MarshalReplay
 
+	case "msgpack":
+		fallthrough
+	case "mp":
+		marshaller = func(rep rep.Replay, w io.Writer) error {
+			return msgpack.NewEncoder(w).Encode(rep)
+		}
+
 	default:
-		panic(fmt.Sprintf("Protocol '%s' unknown", p))
+		panic(fmt.Sprintf("Protocol '%s' unknown", prot))
 	}
 
 	var in io.Reader
@@ -41,7 +53,7 @@ func main() {
 		defer f.Close()
 		in = f
 		if err != nil {
-			panic(err)
+			panic(err.Error())
 		}
 	}
 
@@ -54,9 +66,9 @@ func main() {
 		defer f.Close()
 		out = f
 		if err != nil {
-			panic(err)
+			panic(err.Error())
 		}
 	}
 
-	min.MinifyTo(in, 0.5, marshaller, out)
+	min.MinifyTo(in, float32(*freq), marshaller, out)
 }

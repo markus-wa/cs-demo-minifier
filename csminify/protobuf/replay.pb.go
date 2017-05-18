@@ -195,8 +195,8 @@ func (m *Replay_Entity) GetIsNpc() bool {
 }
 
 type Replay_Snapshot struct {
-	Tick         int32                           `protobuf:"varint,1,opt,name=tick,proto3" json:"tick,omitempty"`
-	EntityUpdate []*Replay_Snapshot_EntityUpdate `protobuf:"bytes,2,rep,name=entityUpdate" json:"entityUpdate,omitempty"`
+	Tick          int32                           `protobuf:"varint,1,opt,name=tick,proto3" json:"tick,omitempty"`
+	EntityUpdates []*Replay_Snapshot_EntityUpdate `protobuf:"bytes,2,rep,name=entityUpdates" json:"entityUpdates,omitempty"`
 }
 
 func (m *Replay_Snapshot) Reset()                    { *m = Replay_Snapshot{} }
@@ -211,9 +211,9 @@ func (m *Replay_Snapshot) GetTick() int32 {
 	return 0
 }
 
-func (m *Replay_Snapshot) GetEntityUpdate() []*Replay_Snapshot_EntityUpdate {
+func (m *Replay_Snapshot) GetEntityUpdates() []*Replay_Snapshot_EntityUpdate {
 	if m != nil {
-		return m.EntityUpdate
+		return m.EntityUpdates
 	}
 	return nil
 }
@@ -277,10 +277,8 @@ func (m *Replay_Snapshot_EntityUpdate) GetFlashDuration() float32 {
 }
 
 type Replay_Tick struct {
-	Nr           int32                      `protobuf:"varint,1,opt,name=nr,proto3" json:"nr,omitempty"`
-	GameEvents   []*Replay_Tick_GameEvent   `protobuf:"bytes,2,rep,name=gameEvents" json:"gameEvents,omitempty"`
-	MapEvents    []*Replay_Tick_MapEvent    `protobuf:"bytes,3,rep,name=mapEvents" json:"mapEvents,omitempty"`
-	EntityEvents []*Replay_Tick_EntityEvent `protobuf:"bytes,4,rep,name=entityEvents" json:"entityEvents,omitempty"`
+	Nr     int32                `protobuf:"varint,1,opt,name=nr,proto3" json:"nr,omitempty"`
+	Events []*Replay_Tick_Event `protobuf:"bytes,2,rep,name=events" json:"events,omitempty"`
 }
 
 func (m *Replay_Tick) Reset()                    { *m = Replay_Tick{} }
@@ -295,109 +293,87 @@ func (m *Replay_Tick) GetNr() int32 {
 	return 0
 }
 
-func (m *Replay_Tick) GetGameEvents() []*Replay_Tick_GameEvent {
+func (m *Replay_Tick) GetEvents() []*Replay_Tick_Event {
 	if m != nil {
-		return m.GameEvents
+		return m.Events
 	}
 	return nil
 }
 
-func (m *Replay_Tick) GetMapEvents() []*Replay_Tick_MapEvent {
-	if m != nil {
-		return m.MapEvents
-	}
-	return nil
+type Replay_Tick_Event struct {
+	Event      string                         `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
+	Attributes []*Replay_Tick_Event_Attribute `protobuf:"bytes,2,rep,name=attributes" json:"attributes,omitempty"`
 }
 
-func (m *Replay_Tick) GetEntityEvents() []*Replay_Tick_EntityEvent {
-	if m != nil {
-		return m.EntityEvents
-	}
-	return nil
-}
+func (m *Replay_Tick_Event) Reset()                    { *m = Replay_Tick_Event{} }
+func (m *Replay_Tick_Event) String() string            { return proto.CompactTextString(m) }
+func (*Replay_Tick_Event) ProtoMessage()               {}
+func (*Replay_Tick_Event) Descriptor() ([]byte, []int) { return fileDescriptorReplay, []int{1, 3, 0} }
 
-type Replay_Tick_GameEvent struct {
-	Event string `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
-	Text  string `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
-}
-
-func (m *Replay_Tick_GameEvent) Reset()         { *m = Replay_Tick_GameEvent{} }
-func (m *Replay_Tick_GameEvent) String() string { return proto.CompactTextString(m) }
-func (*Replay_Tick_GameEvent) ProtoMessage()    {}
-func (*Replay_Tick_GameEvent) Descriptor() ([]byte, []int) {
-	return fileDescriptorReplay, []int{1, 3, 0}
-}
-
-func (m *Replay_Tick_GameEvent) GetEvent() string {
+func (m *Replay_Tick_Event) GetEvent() string {
 	if m != nil {
 		return m.Event
 	}
 	return ""
 }
 
-func (m *Replay_Tick_GameEvent) GetText() string {
+func (m *Replay_Tick_Event) GetAttributes() []*Replay_Tick_Event_Attribute {
 	if m != nil {
-		return m.Text
-	}
-	return ""
-}
-
-type Replay_Tick_MapEvent struct {
-	Event       string `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
-	Location    *Point `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
-	TriggeredBy int32  `protobuf:"varint,3,opt,name=triggeredBy,proto3" json:"triggeredBy,omitempty"`
-}
-
-func (m *Replay_Tick_MapEvent) Reset()                    { *m = Replay_Tick_MapEvent{} }
-func (m *Replay_Tick_MapEvent) String() string            { return proto.CompactTextString(m) }
-func (*Replay_Tick_MapEvent) ProtoMessage()               {}
-func (*Replay_Tick_MapEvent) Descriptor() ([]byte, []int) { return fileDescriptorReplay, []int{1, 3, 1} }
-
-func (m *Replay_Tick_MapEvent) GetEvent() string {
-	if m != nil {
-		return m.Event
-	}
-	return ""
-}
-
-func (m *Replay_Tick_MapEvent) GetLocation() *Point {
-	if m != nil {
-		return m.Location
+		return m.Attributes
 	}
 	return nil
 }
 
-func (m *Replay_Tick_MapEvent) GetTriggeredBy() int32 {
+type Replay_Tick_Event_Attribute struct {
+	Key         string  `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	StringValue string  `protobuf:"bytes,2,opt,name=stringValue,proto3" json:"stringValue,omitempty"`
+	NumberValue float64 `protobuf:"fixed64,3,opt,name=numberValue,proto3" json:"numberValue,omitempty"`
+}
+
+func (m *Replay_Tick_Event_Attribute) Reset()         { *m = Replay_Tick_Event_Attribute{} }
+func (m *Replay_Tick_Event_Attribute) String() string { return proto.CompactTextString(m) }
+func (*Replay_Tick_Event_Attribute) ProtoMessage()    {}
+func (*Replay_Tick_Event_Attribute) Descriptor() ([]byte, []int) {
+	return fileDescriptorReplay, []int{1, 3, 0, 0}
+}
+
+func (m *Replay_Tick_Event_Attribute) GetKey() string {
 	if m != nil {
-		return m.TriggeredBy
+		return m.Key
+	}
+	return ""
+}
+
+func (m *Replay_Tick_Event_Attribute) GetStringValue() string {
+	if m != nil {
+		return m.StringValue
+	}
+	return ""
+}
+
+func (m *Replay_Tick_Event_Attribute) GetNumberValue() float64 {
+	if m != nil {
+		return m.NumberValue
 	}
 	return 0
 }
 
 type Replay_Tick_EntityEvent struct {
-	Event    string `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
-	EntityId string `protobuf:"bytes,2,opt,name=entityId,proto3" json:"entityId,omitempty"`
+	EntityId int32 `protobuf:"varint,1,opt,name=entityId,proto3" json:"entityId,omitempty"`
 }
 
 func (m *Replay_Tick_EntityEvent) Reset()         { *m = Replay_Tick_EntityEvent{} }
 func (m *Replay_Tick_EntityEvent) String() string { return proto.CompactTextString(m) }
 func (*Replay_Tick_EntityEvent) ProtoMessage()    {}
 func (*Replay_Tick_EntityEvent) Descriptor() ([]byte, []int) {
-	return fileDescriptorReplay, []int{1, 3, 2}
+	return fileDescriptorReplay, []int{1, 3, 1}
 }
 
-func (m *Replay_Tick_EntityEvent) GetEvent() string {
-	if m != nil {
-		return m.Event
-	}
-	return ""
-}
-
-func (m *Replay_Tick_EntityEvent) GetEntityId() string {
+func (m *Replay_Tick_EntityEvent) GetEntityId() int32 {
 	if m != nil {
 		return m.EntityId
 	}
-	return ""
+	return 0
 }
 
 func init() {
@@ -408,8 +384,8 @@ func init() {
 	proto.RegisterType((*Replay_Snapshot)(nil), "protobuf.Replay.Snapshot")
 	proto.RegisterType((*Replay_Snapshot_EntityUpdate)(nil), "protobuf.Replay.Snapshot.EntityUpdate")
 	proto.RegisterType((*Replay_Tick)(nil), "protobuf.Replay.Tick")
-	proto.RegisterType((*Replay_Tick_GameEvent)(nil), "protobuf.Replay.Tick.GameEvent")
-	proto.RegisterType((*Replay_Tick_MapEvent)(nil), "protobuf.Replay.Tick.MapEvent")
+	proto.RegisterType((*Replay_Tick_Event)(nil), "protobuf.Replay.Tick.Event")
+	proto.RegisterType((*Replay_Tick_Event_Attribute)(nil), "protobuf.Replay.Tick.Event.Attribute")
 	proto.RegisterType((*Replay_Tick_EntityEvent)(nil), "protobuf.Replay.Tick.EntityEvent")
 	proto.RegisterEnum("protobuf.Team", Team_name, Team_value)
 }
@@ -603,8 +579,8 @@ func (m *Replay_Snapshot) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintReplay(dAtA, i, uint64(m.Tick))
 	}
-	if len(m.EntityUpdate) > 0 {
-		for _, msg := range m.EntityUpdate {
+	if len(m.EntityUpdates) > 0 {
+		for _, msg := range m.EntityUpdates {
 			dAtA[i] = 0x12
 			i++
 			i = encodeVarintReplay(dAtA, i, uint64(msg.Size()))
@@ -693,8 +669,8 @@ func (m *Replay_Tick) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintReplay(dAtA, i, uint64(m.Nr))
 	}
-	if len(m.GameEvents) > 0 {
-		for _, msg := range m.GameEvents {
+	if len(m.Events) > 0 {
+		for _, msg := range m.Events {
 			dAtA[i] = 0x12
 			i++
 			i = encodeVarintReplay(dAtA, i, uint64(msg.Size()))
@@ -705,21 +681,33 @@ func (m *Replay_Tick) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
-	if len(m.MapEvents) > 0 {
-		for _, msg := range m.MapEvents {
-			dAtA[i] = 0x1a
-			i++
-			i = encodeVarintReplay(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
-			if err != nil {
-				return 0, err
-			}
-			i += n
-		}
+	return i, nil
+}
+
+func (m *Replay_Tick_Event) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
 	}
-	if len(m.EntityEvents) > 0 {
-		for _, msg := range m.EntityEvents {
-			dAtA[i] = 0x22
+	return dAtA[:n], nil
+}
+
+func (m *Replay_Tick_Event) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Event) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintReplay(dAtA, i, uint64(len(m.Event)))
+		i += copy(dAtA[i:], m.Event)
+	}
+	if len(m.Attributes) > 0 {
+		for _, msg := range m.Attributes {
+			dAtA[i] = 0x12
 			i++
 			i = encodeVarintReplay(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -732,7 +720,7 @@ func (m *Replay_Tick) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *Replay_Tick_GameEvent) Marshal() (dAtA []byte, err error) {
+func (m *Replay_Tick_Event_Attribute) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -742,61 +730,27 @@ func (m *Replay_Tick_GameEvent) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *Replay_Tick_GameEvent) MarshalTo(dAtA []byte) (int, error) {
+func (m *Replay_Tick_Event_Attribute) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
-	if len(m.Event) > 0 {
+	if len(m.Key) > 0 {
 		dAtA[i] = 0xa
 		i++
-		i = encodeVarintReplay(dAtA, i, uint64(len(m.Event)))
-		i += copy(dAtA[i:], m.Event)
+		i = encodeVarintReplay(dAtA, i, uint64(len(m.Key)))
+		i += copy(dAtA[i:], m.Key)
 	}
-	if len(m.Text) > 0 {
+	if len(m.StringValue) > 0 {
 		dAtA[i] = 0x12
 		i++
-		i = encodeVarintReplay(dAtA, i, uint64(len(m.Text)))
-		i += copy(dAtA[i:], m.Text)
+		i = encodeVarintReplay(dAtA, i, uint64(len(m.StringValue)))
+		i += copy(dAtA[i:], m.StringValue)
 	}
-	return i, nil
-}
-
-func (m *Replay_Tick_MapEvent) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *Replay_Tick_MapEvent) MarshalTo(dAtA []byte) (int, error) {
-	var i int
-	_ = i
-	var l int
-	_ = l
-	if len(m.Event) > 0 {
-		dAtA[i] = 0xa
+	if m.NumberValue != 0 {
+		dAtA[i] = 0x19
 		i++
-		i = encodeVarintReplay(dAtA, i, uint64(len(m.Event)))
-		i += copy(dAtA[i:], m.Event)
-	}
-	if m.Location != nil {
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintReplay(dAtA, i, uint64(m.Location.Size()))
-		n2, err := m.Location.MarshalTo(dAtA[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n2
-	}
-	if m.TriggeredBy != 0 {
-		dAtA[i] = 0x18
-		i++
-		i = encodeVarintReplay(dAtA, i, uint64(m.TriggeredBy))
+		i = encodeFixed64Replay(dAtA, i, uint64(math.Float64bits(float64(m.NumberValue))))
 	}
 	return i, nil
 }
@@ -816,17 +770,10 @@ func (m *Replay_Tick_EntityEvent) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Event) > 0 {
-		dAtA[i] = 0xa
+	if m.EntityId != 0 {
+		dAtA[i] = 0x8
 		i++
-		i = encodeVarintReplay(dAtA, i, uint64(len(m.Event)))
-		i += copy(dAtA[i:], m.Event)
-	}
-	if len(m.EntityId) > 0 {
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintReplay(dAtA, i, uint64(len(m.EntityId)))
-		i += copy(dAtA[i:], m.EntityId)
+		i = encodeVarintReplay(dAtA, i, uint64(m.EntityId))
 	}
 	return i, nil
 }
@@ -939,8 +886,8 @@ func (m *Replay_Snapshot) Size() (n int) {
 	if m.Tick != 0 {
 		n += 1 + sovReplay(uint64(m.Tick))
 	}
-	if len(m.EntityUpdate) > 0 {
-		for _, e := range m.EntityUpdate {
+	if len(m.EntityUpdates) > 0 {
+		for _, e := range m.EntityUpdates {
 			l = e.Size()
 			n += 1 + l + sovReplay(uint64(l))
 		}
@@ -981,20 +928,8 @@ func (m *Replay_Tick) Size() (n int) {
 	if m.Nr != 0 {
 		n += 1 + sovReplay(uint64(m.Nr))
 	}
-	if len(m.GameEvents) > 0 {
-		for _, e := range m.GameEvents {
-			l = e.Size()
-			n += 1 + l + sovReplay(uint64(l))
-		}
-	}
-	if len(m.MapEvents) > 0 {
-		for _, e := range m.MapEvents {
-			l = e.Size()
-			n += 1 + l + sovReplay(uint64(l))
-		}
-	}
-	if len(m.EntityEvents) > 0 {
-		for _, e := range m.EntityEvents {
+	if len(m.Events) > 0 {
+		for _, e := range m.Events {
 			l = e.Size()
 			n += 1 + l + sovReplay(uint64(l))
 		}
@@ -1002,33 +937,35 @@ func (m *Replay_Tick) Size() (n int) {
 	return n
 }
 
-func (m *Replay_Tick_GameEvent) Size() (n int) {
+func (m *Replay_Tick_Event) Size() (n int) {
 	var l int
 	_ = l
 	l = len(m.Event)
 	if l > 0 {
 		n += 1 + l + sovReplay(uint64(l))
 	}
-	l = len(m.Text)
-	if l > 0 {
-		n += 1 + l + sovReplay(uint64(l))
+	if len(m.Attributes) > 0 {
+		for _, e := range m.Attributes {
+			l = e.Size()
+			n += 1 + l + sovReplay(uint64(l))
+		}
 	}
 	return n
 }
 
-func (m *Replay_Tick_MapEvent) Size() (n int) {
+func (m *Replay_Tick_Event_Attribute) Size() (n int) {
 	var l int
 	_ = l
-	l = len(m.Event)
+	l = len(m.Key)
 	if l > 0 {
 		n += 1 + l + sovReplay(uint64(l))
 	}
-	if m.Location != nil {
-		l = m.Location.Size()
+	l = len(m.StringValue)
+	if l > 0 {
 		n += 1 + l + sovReplay(uint64(l))
 	}
-	if m.TriggeredBy != 0 {
-		n += 1 + sovReplay(uint64(m.TriggeredBy))
+	if m.NumberValue != 0 {
+		n += 9
 	}
 	return n
 }
@@ -1036,13 +973,8 @@ func (m *Replay_Tick_MapEvent) Size() (n int) {
 func (m *Replay_Tick_EntityEvent) Size() (n int) {
 	var l int
 	_ = l
-	l = len(m.Event)
-	if l > 0 {
-		n += 1 + l + sovReplay(uint64(l))
-	}
-	l = len(m.EntityId)
-	if l > 0 {
-		n += 1 + l + sovReplay(uint64(l))
+	if m.EntityId != 0 {
+		n += 1 + sovReplay(uint64(m.EntityId))
 	}
 	return n
 }
@@ -1621,7 +1553,7 @@ func (m *Replay_Snapshot) Unmarshal(dAtA []byte) error {
 			}
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EntityUpdate", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field EntityUpdates", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1645,8 +1577,8 @@ func (m *Replay_Snapshot) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.EntityUpdate = append(m.EntityUpdate, &Replay_Snapshot_EntityUpdate{})
-			if err := m.EntityUpdate[len(m.EntityUpdate)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.EntityUpdates = append(m.EntityUpdates, &Replay_Snapshot_EntityUpdate{})
+			if err := m.EntityUpdates[len(m.EntityUpdates)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1887,7 +1819,7 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 			}
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GameEvents", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Events", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1911,70 +1843,8 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.GameEvents = append(m.GameEvents, &Replay_Tick_GameEvent{})
-			if err := m.GameEvents[len(m.GameEvents)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field MapEvents", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowReplay
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthReplay
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.MapEvents = append(m.MapEvents, &Replay_Tick_MapEvent{})
-			if err := m.MapEvents[len(m.MapEvents)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EntityEvents", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowReplay
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthReplay
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.EntityEvents = append(m.EntityEvents, &Replay_Tick_EntityEvent{})
-			if err := m.EntityEvents[len(m.EntityEvents)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Events = append(m.Events, &Replay_Tick_Event{})
+			if err := m.Events[len(m.Events)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1999,7 +1869,7 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *Replay_Tick_GameEvent) Unmarshal(dAtA []byte) error {
+func (m *Replay_Tick_Event) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2022,10 +1892,10 @@ func (m *Replay_Tick_GameEvent) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: GameEvent: wiretype end group for non-group")
+			return fmt.Errorf("proto: Event: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GameEvent: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: Event: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -2059,115 +1929,7 @@ func (m *Replay_Tick_GameEvent) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowReplay
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthReplay
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Text = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipReplay(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthReplay
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *Replay_Tick_MapEvent) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowReplay
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MapEvent: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MapEvent: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Event", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowReplay
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthReplay
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Event = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Location", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Attributes", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -2191,18 +1953,66 @@ func (m *Replay_Tick_MapEvent) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Location == nil {
-				m.Location = &Point{}
-			}
-			if err := m.Location.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Attributes = append(m.Attributes, &Replay_Tick_Event_Attribute{})
+			if err := m.Attributes[len(m.Attributes)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TriggeredBy", wireType)
+		default:
+			iNdEx = preIndex
+			skippy, err := skipReplay(dAtA[iNdEx:])
+			if err != nil {
+				return err
 			}
-			m.TriggeredBy = 0
+			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowReplay
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Attribute: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Attribute: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Key", wireType)
+			}
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowReplay
@@ -2212,11 +2022,68 @@ func (m *Replay_Tick_MapEvent) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.TriggeredBy |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthReplay
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Key = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StringValue", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowReplay
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthReplay
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.StringValue = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 1 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NumberValue", wireType)
+			}
+			var v uint64
+			if (iNdEx + 8) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 8
+			v = uint64(dAtA[iNdEx-8])
+			v |= uint64(dAtA[iNdEx-7]) << 8
+			v |= uint64(dAtA[iNdEx-6]) << 16
+			v |= uint64(dAtA[iNdEx-5]) << 24
+			v |= uint64(dAtA[iNdEx-4]) << 32
+			v |= uint64(dAtA[iNdEx-3]) << 40
+			v |= uint64(dAtA[iNdEx-2]) << 48
+			v |= uint64(dAtA[iNdEx-1]) << 56
+			m.NumberValue = float64(math.Float64frombits(v))
 		default:
 			iNdEx = preIndex
 			skippy, err := skipReplay(dAtA[iNdEx:])
@@ -2268,39 +2135,10 @@ func (m *Replay_Tick_EntityEvent) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Event", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowReplay
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthReplay
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Event = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EntityId", wireType)
 			}
-			var stringLen uint64
+			m.EntityId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowReplay
@@ -2310,21 +2148,11 @@ func (m *Replay_Tick_EntityEvent) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				m.EntityId |= (int32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthReplay
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.EntityId = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipReplay(dAtA[iNdEx:])
@@ -2454,46 +2282,44 @@ var (
 func init() { proto.RegisterFile("replay.proto", fileDescriptorReplay) }
 
 var fileDescriptorReplay = []byte{
-	// 647 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x53, 0xcd, 0x6e, 0xd3, 0x5c,
-	0x10, 0xad, 0x9d, 0x38, 0xb2, 0xa7, 0x69, 0xbe, 0x7c, 0x23, 0x2a, 0x8c, 0x17, 0x21, 0x04, 0x84,
-	0x2a, 0x2a, 0x82, 0xd4, 0x0a, 0xb1, 0x41, 0xaa, 0xfa, 0x63, 0x95, 0x82, 0x48, 0xab, 0x89, 0xbb,
-	0x61, 0x83, 0x6e, 0x93, 0xdb, 0xc4, 0x6a, 0xfc, 0x23, 0xdb, 0x45, 0xcd, 0x33, 0xb0, 0xe1, 0x31,
-	0x78, 0x07, 0xd6, 0x48, 0x2c, 0x79, 0x04, 0x54, 0x5e, 0x04, 0xdd, 0x7b, 0xfd, 0x93, 0xa8, 0xe9,
-	0xca, 0x77, 0xe6, 0x9e, 0x73, 0xee, 0xcc, 0x99, 0x31, 0x34, 0x13, 0x1e, 0xcf, 0xd8, 0xbc, 0x1f,
-	0x27, 0x51, 0x16, 0xa1, 0x29, 0x3f, 0x17, 0xd7, 0x97, 0xbd, 0xa7, 0x60, 0x9c, 0x45, 0x7e, 0x98,
-	0x61, 0x13, 0xb4, 0x1b, 0x5b, 0xeb, 0x6a, 0x5b, 0x1a, 0x69, 0x37, 0x22, 0x9a, 0xdb, 0xba, 0x8a,
-	0xe6, 0xbd, 0xaf, 0x16, 0x34, 0x48, 0xf2, 0xf1, 0x15, 0x34, 0xa6, 0x9c, 0x8d, 0x79, 0x22, 0xb1,
-	0xeb, 0x3b, 0x0f, 0xfb, 0x85, 0x54, 0x5f, 0x21, 0xfa, 0xef, 0xe4, 0x35, 0xe5, 0x30, 0xdc, 0x05,
-	0x93, 0x87, 0x99, 0x9f, 0xf9, 0x3c, 0xb5, 0xf5, 0x6e, 0x6d, 0x25, 0xc5, 0x15, 0x80, 0x39, 0x95,
-	0x40, 0x7c, 0x03, 0x56, 0x1a, 0xb2, 0x38, 0x9d, 0x46, 0x59, 0x6a, 0xd7, 0x24, 0xeb, 0xd1, 0x1d,
-	0xd6, 0x30, 0x47, 0x50, 0x85, 0xc5, 0x6d, 0x30, 0x32, 0x7f, 0x74, 0x95, 0xda, 0x75, 0x49, 0xda,
-	0xbc, 0x43, 0xf2, 0xfc, 0xd1, 0x15, 0x29, 0x8c, 0xf3, 0x09, 0x1a, 0xaa, 0x58, 0x6c, 0x43, 0x2d,
-	0x60, 0xb1, 0x6c, 0xc9, 0x22, 0x71, 0x44, 0x07, 0x4c, 0x01, 0x22, 0x96, 0x71, 0xe9, 0x83, 0x4e,
-	0x65, 0x8c, 0x3d, 0x68, 0x16, 0x2f, 0xca, 0xfb, 0x5a, 0x57, 0xdb, 0x32, 0x68, 0x29, 0xe7, 0x5c,
-	0x42, 0x43, 0x75, 0x85, 0x2d, 0xd0, 0xfd, 0xb1, 0x94, 0x36, 0x48, 0xf7, 0xc7, 0x88, 0x50, 0x0f,
-	0x59, 0xa0, 0x54, 0x2d, 0x92, 0x67, 0xec, 0x41, 0x3d, 0xe3, 0x2c, 0x90, 0x4a, 0xad, 0x9d, 0x56,
-	0x55, 0xb5, 0xc7, 0x59, 0x40, 0xf2, 0x0e, 0x1f, 0x80, 0xe1, 0xa7, 0x83, 0x78, 0x64, 0xd7, 0xbb,
-	0xda, 0x96, 0x49, 0x2a, 0x70, 0xbe, 0xeb, 0x60, 0x16, 0x46, 0x08, 0x69, 0x51, 0x64, 0xfe, 0x98,
-	0x3c, 0xe3, 0x7b, 0x68, 0x4a, 0x5b, 0xe7, 0xe7, 0xf1, 0x58, 0x35, 0x23, 0x8c, 0x79, 0x7e, 0xaf,
-	0x9b, 0xf9, 0x30, 0x14, 0x9a, 0x96, 0xb8, 0xce, 0x0f, 0x0d, 0x9a, 0x8b, 0xd7, 0xc2, 0x25, 0x05,
-	0x38, 0x29, 0x3a, 0x2c, 0x63, 0x7c, 0x09, 0x56, 0x1c, 0xa5, 0x7e, 0xe6, 0x47, 0x61, 0x31, 0xf9,
-	0xff, 0xaa, 0x57, 0xe5, 0xd2, 0x51, 0x85, 0x10, 0xed, 0xb1, 0x70, 0x32, 0x53, 0x6e, 0xea, 0xa4,
-	0x02, 0x61, 0xde, 0x34, 0x96, 0x1d, 0x1b, 0xa4, 0x4f, 0x63, 0x89, 0x4a, 0x82, 0x28, 0xb1, 0x0d,
-	0x99, 0x52, 0x01, 0x3e, 0x83, 0x8d, 0xcb, 0x19, 0x4b, 0xa7, 0x47, 0xd7, 0x09, 0x13, 0x6a, 0x76,
-	0x43, 0x6a, 0x2c, 0x27, 0x9d, 0x9f, 0x35, 0xa8, 0x8b, 0xf1, 0x0b, 0xd1, 0x30, 0x29, 0x26, 0x12,
-	0x26, 0xb8, 0x07, 0x30, 0x61, 0x01, 0x77, 0xbf, 0xf0, 0x30, 0x2b, 0x4a, 0x7d, 0xbc, 0x72, 0x73,
-	0xfa, 0xc7, 0x05, 0x8e, 0x16, 0x28, 0xf8, 0x16, 0xac, 0x80, 0xc5, 0x39, 0x5f, 0xad, 0x6b, 0x67,
-	0x35, 0xff, 0x63, 0x0e, 0xa3, 0x8a, 0x80, 0x6e, 0x31, 0xa1, 0x5c, 0x40, 0xad, 0xee, 0x93, 0xd5,
-	0x02, 0x6e, 0x85, 0xa4, 0x25, 0x9a, 0xf3, 0x1a, 0xac, 0xb2, 0x3a, 0xe1, 0x13, 0x17, 0x87, 0x7c,
-	0xa5, 0x55, 0x20, 0xf7, 0x83, 0xdf, 0x64, 0xc5, 0xea, 0x89, 0xb3, 0x13, 0x81, 0x59, 0x14, 0x75,
-	0x0f, 0x6b, 0x1b, 0xcc, 0x59, 0x34, 0x52, 0xc6, 0xea, 0xf2, 0xa7, 0xbf, 0x33, 0xc7, 0x12, 0x80,
-	0x5d, 0x58, 0xcf, 0x12, 0x7f, 0x32, 0xe1, 0x09, 0x1f, 0x1f, 0xcc, 0xf3, 0x5f, 0x63, 0x31, 0xe5,
-	0xec, 0xc1, 0xfa, 0x42, 0x13, 0xf7, 0xbc, 0xb9, 0xb8, 0x58, 0xaa, 0xda, 0x32, 0x7e, 0xf1, 0x01,
-	0xea, 0xe2, 0xb7, 0xc0, 0x16, 0xc0, 0xf9, 0x60, 0x7f, 0x38, 0x3c, 0x39, 0x1e, 0xb8, 0x47, 0xed,
-	0x35, 0xdc, 0x00, 0xcb, 0x73, 0x89, 0x4e, 0xe9, 0x64, 0xe8, 0xb5, 0x35, 0xdc, 0x84, 0xff, 0x0f,
-	0x4f, 0xcf, 0x07, 0x9e, 0x4b, 0x9f, 0xab, 0xb4, 0x2e, 0x50, 0xc3, 0x33, 0xf7, 0xd0, 0xdb, 0xf7,
-	0x4e, 0xa9, 0x5d, 0x3b, 0x68, 0xff, 0xba, 0xed, 0x68, 0xbf, 0x6f, 0x3b, 0xda, 0x9f, 0xdb, 0x8e,
-	0xf6, 0xed, 0x6f, 0x67, 0xed, 0xa2, 0x21, 0x7b, 0xdb, 0xfd, 0x17, 0x00, 0x00, 0xff, 0xff, 0x89,
-	0x3d, 0x66, 0x6c, 0x32, 0x05, 0x00, 0x00,
+	// 620 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x93, 0xcf, 0x6e, 0xd3, 0x4e,
+	0x10, 0xc7, 0xbb, 0x4e, 0x6c, 0x25, 0xd3, 0x34, 0xbf, 0xfc, 0x56, 0x54, 0x18, 0x23, 0x45, 0x51,
+	0xf8, 0xa3, 0x02, 0x22, 0x48, 0xed, 0x81, 0x73, 0x69, 0x2d, 0xa8, 0x40, 0x69, 0x35, 0x71, 0x39,
+	0x70, 0x41, 0x9b, 0x66, 0xdb, 0x58, 0x49, 0x6c, 0xcb, 0xde, 0xa0, 0xfa, 0x0d, 0x38, 0xf2, 0x1c,
+	0xbc, 0x02, 0x17, 0x6e, 0x70, 0xe4, 0x11, 0x50, 0x79, 0x11, 0xb4, 0xb3, 0x71, 0x9c, 0xa8, 0xa5,
+	0xa7, 0x78, 0x66, 0x3e, 0x33, 0x3b, 0x7f, 0xbe, 0x81, 0x46, 0x2a, 0x93, 0xa9, 0xc8, 0x7b, 0x49,
+	0x1a, 0xab, 0x98, 0xd7, 0xe8, 0x67, 0x38, 0x3f, 0xef, 0x3e, 0x00, 0xfb, 0x24, 0x0e, 0x23, 0xc5,
+	0x1b, 0xc0, 0x2e, 0x5d, 0xd6, 0x61, 0x3b, 0x0c, 0xd9, 0xa5, 0xb6, 0x72, 0xd7, 0x32, 0x56, 0xde,
+	0xfd, 0x5c, 0x03, 0x07, 0x29, 0x9f, 0xbf, 0x00, 0x67, 0x2c, 0xc5, 0x48, 0xa6, 0xc4, 0x6e, 0xee,
+	0xde, 0xed, 0x15, 0xa5, 0x7a, 0x86, 0xe8, 0xbd, 0xa1, 0x30, 0x2e, 0x30, 0xbe, 0x07, 0x35, 0x19,
+	0xa9, 0x50, 0x85, 0x32, 0x73, 0xad, 0x4e, 0xe5, 0xc6, 0x14, 0x5f, 0x03, 0x39, 0x2e, 0x41, 0xfe,
+	0x12, 0xea, 0x59, 0x24, 0x92, 0x6c, 0x1c, 0xab, 0xcc, 0xad, 0x50, 0xd6, 0xbd, 0x6b, 0x59, 0x83,
+	0x05, 0x81, 0x25, 0xcb, 0x9f, 0x81, 0xad, 0xc2, 0xb3, 0x49, 0xe6, 0x56, 0x29, 0x69, 0xfb, 0x5a,
+	0x52, 0x10, 0x9e, 0x4d, 0xd0, 0x30, 0xde, 0x07, 0x70, 0x4c, 0xb3, 0xbc, 0x05, 0x95, 0x99, 0x48,
+	0x68, 0xa4, 0x3a, 0xea, 0x4f, 0xee, 0x41, 0x4d, 0x43, 0x28, 0x94, 0xa4, 0x3d, 0x58, 0xb8, 0xb4,
+	0x79, 0x17, 0x1a, 0xc5, 0x8b, 0x14, 0xaf, 0x74, 0xd8, 0x8e, 0x8d, 0x6b, 0x3e, 0xef, 0x1c, 0x1c,
+	0x33, 0x15, 0x6f, 0x82, 0x15, 0x8e, 0xa8, 0xb4, 0x8d, 0x56, 0x38, 0xe2, 0x1c, 0xaa, 0x91, 0x98,
+	0x99, 0xaa, 0x75, 0xa4, 0x6f, 0xde, 0x85, 0xaa, 0x92, 0x62, 0x46, 0x95, 0x9a, 0xbb, 0xcd, 0xb2,
+	0xeb, 0x40, 0x8a, 0x19, 0x52, 0x8c, 0xdf, 0x01, 0x3b, 0xcc, 0xfa, 0xc9, 0x99, 0x5b, 0xed, 0xb0,
+	0x9d, 0x1a, 0x1a, 0xc3, 0xfb, 0x6a, 0x41, 0xad, 0x58, 0x84, 0x2e, 0xad, 0x9b, 0x5c, 0x3c, 0x46,
+	0xdf, 0xfc, 0x1d, 0x6c, 0xd1, 0x5a, 0xf3, 0xd3, 0x64, 0x24, 0xd4, 0xf2, 0x08, 0x8f, 0xff, 0xb9,
+	0xce, 0xc5, 0x35, 0x0c, 0x8e, 0xeb, 0xc9, 0xde, 0x37, 0x06, 0x8d, 0xd5, 0xb8, 0xde, 0x93, 0x21,
+	0x8e, 0x8a, 0x19, 0x97, 0x36, 0x7f, 0x0e, 0xf5, 0x24, 0xce, 0x42, 0x15, 0xc6, 0x51, 0xf1, 0xec,
+	0x7f, 0xe5, 0xb3, 0x24, 0x3b, 0x2c, 0x09, 0x3d, 0xa0, 0x88, 0x2e, 0xa6, 0x66, 0x9f, 0x16, 0x1a,
+	0x43, 0xaf, 0x6f, 0x9c, 0xd0, 0xcc, 0x36, 0x5a, 0xe3, 0x84, 0xa8, 0x74, 0x16, 0xa7, 0xae, 0x4d,
+	0x2e, 0x63, 0xf0, 0x87, 0xb0, 0x75, 0x3e, 0x15, 0xd9, 0xf8, 0x70, 0x9e, 0x0a, 0x5d, 0xcd, 0x75,
+	0xa8, 0xc6, 0xba, 0xd3, 0xfb, 0x6e, 0x41, 0x55, 0x0b, 0x40, 0x17, 0x8d, 0xd2, 0xe2, 0x26, 0x91,
+	0x16, 0xa9, 0x23, 0x3f, 0xc9, 0x48, 0x15, 0x6d, 0xde, 0xbf, 0x51, 0x37, 0x3d, 0x5f, 0x33, 0xb8,
+	0x40, 0xbd, 0x1f, 0x0c, 0x6c, 0xf2, 0xe8, 0x9e, 0xc8, 0xb7, 0x10, 0x90, 0x31, 0xb8, 0x0f, 0x20,
+	0x94, 0x4a, 0xc3, 0xe1, 0xbc, 0x5c, 0xfb, 0xa3, 0x5b, 0x0a, 0xf7, 0xf6, 0x0b, 0x1a, 0x57, 0x12,
+	0x3d, 0x01, 0xf5, 0x65, 0x40, 0x0b, 0x75, 0x22, 0xf3, 0x42, 0xa8, 0x13, 0x99, 0xf3, 0x0e, 0x6c,
+	0x66, 0x2a, 0x0d, 0xa3, 0x8b, 0xf7, 0x62, 0x3a, 0x2f, 0x54, 0xb5, 0xea, 0xd2, 0x44, 0x34, 0x9f,
+	0x0d, 0x65, 0x6a, 0x88, 0x0a, 0xfd, 0xab, 0x57, 0x5d, 0xde, 0x13, 0xd8, 0x34, 0x47, 0x35, 0xe3,
+	0xdc, 0x72, 0xd3, 0xa7, 0x6f, 0xa1, 0xaa, 0x35, 0xc9, 0x9b, 0x00, 0xa7, 0xfd, 0xfd, 0xc1, 0xe0,
+	0xe8, 0x75, 0xdf, 0x3f, 0x6c, 0x6d, 0xf0, 0x2d, 0xa8, 0x07, 0x3e, 0xe2, 0x31, 0x1e, 0x0d, 0x82,
+	0x16, 0xe3, 0xdb, 0xf0, 0xff, 0xc1, 0xf1, 0x69, 0x3f, 0xf0, 0xf1, 0x63, 0xe9, 0xb6, 0x34, 0x35,
+	0x38, 0xf1, 0x0f, 0x82, 0xfd, 0xe0, 0x18, 0x5b, 0x95, 0x57, 0xad, 0x9f, 0x57, 0x6d, 0xf6, 0xeb,
+	0xaa, 0xcd, 0x7e, 0x5f, 0xb5, 0xd9, 0x97, 0x3f, 0xed, 0x8d, 0xa1, 0x43, 0xeb, 0xd9, 0xfb, 0x1b,
+	0x00, 0x00, 0xff, 0xff, 0xe9, 0x69, 0xb7, 0xe1, 0xaf, 0x04, 0x00, 0x00,
 }

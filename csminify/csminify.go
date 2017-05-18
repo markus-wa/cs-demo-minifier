@@ -3,6 +3,7 @@ package csminify
 import (
 	"bufio"
 	"bytes"
+	"github.com/golang/geo/r3"
 	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
 	dem "github.com/markus-wa/demoinfocs-golang"
 	"github.com/markus-wa/demoinfocs-golang/events"
@@ -95,7 +96,7 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 		m.replay.Snapshots = append(m.replay.Snapshots, snap)
 	}
 
-	if len(m.currentTick.GameEvents) > 0 || len(m.currentTick.MapEvents) > 0 || len(m.currentTick.EntityEvents) > 0 {
+	if len(m.currentTick.Events) > 0 {
 		m.currentTick.Nr = m.parser.CurrentTick()
 		m.replay.Ticks = append(m.replay.Ticks, m.currentTick)
 		m.currentTick = rep.Tick{}
@@ -103,7 +104,7 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 }
 
 func (m *minifier) roundStarted(e events.RoundStartedEvent) {
-	m.currentTick.GameEvents = append(m.currentTick.GameEvents, createGameEvent("round_started", "New round started"))
+	m.currentTick.Events = append(m.currentTick.Events, createEvent("round_started"))
 }
 
 func (m *minifier) playerKilled(e events.PlayerKilledEvent) {
@@ -111,44 +112,83 @@ func (m *minifier) playerKilled(e events.PlayerKilledEvent) {
 		return
 	}
 
-	var msg string
+	eb := buildEvent("kill").numAttr("victim", e.Victim.EntityID)
 
-	if e.Killer == nil || e.Killer == e.Victim {
-		msg = e.Victim.Name + " killed himself"
-	} else {
-		msg = e.Killer.Name + " killed " + e.Victim.Name
+	if e.Killer != nil && e.Killer != e.Victim {
+		eb.numAttr("killer", e.Killer.EntityID)
 	}
 
 	if e.Assister != nil {
-		msg += " with the help of " + e.Assister.Name
+		eb.numAttr("assister", e.Assister.EntityID)
 	}
 
-	m.currentTick.GameEvents = append(m.currentTick.GameEvents, createGameEvent("kill", msg))
-	m.currentTick.EntityEvents = append(m.currentTick.EntityEvents, createEntityEvent("die", e.Victim.EntityID))
+	m.currentTick.Events = append(m.currentTick.Events, eb.build())
 }
 
 func (m *minifier) playerHurt(e events.PlayerHurtEvent) {
-	m.currentTick.EntityEvents = append(m.currentTick.EntityEvents, createEntityEvent("hurt", e.Player.EntityID))
+	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("hurt", e.Player.EntityID))
 }
 
 func (m *minifier) playerFlashed(e events.PlayerFlashedEvent) {
-	m.currentTick.EntityEvents = append(m.currentTick.EntityEvents, createEntityEvent("flashed", e.Player.EntityID))
+	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("flashed", e.Player.EntityID))
 }
 
 func (m *minifier) playerJump(e events.PlayerJumpEvent) {
-	m.currentTick.EntityEvents = append(m.currentTick.EntityEvents, createEntityEvent("jump", e.Player.EntityID))
+	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("jump", e.Player.EntityID))
 }
 
 func (m *minifier) playerTeamChange(e events.PlayerTeamChangeEvent) {
-	m.currentTick.GameEvents = append(m.currentTick.GameEvents, createGameEvent("player_swap_team", e.Player.Name+" switched teams"))
-	m.currentTick.EntityEvents = append(m.currentTick.EntityEvents, createEntityEvent("swap_team", e.Player.EntityID))
+	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("swap_team", e.Player.EntityID))
 }
 
 func (m *minifier) playerDisconnect(e events.PlayerDisconnectEvent) {
-	m.currentTick.GameEvents = append(m.currentTick.GameEvents, createGameEvent("player_disconnect", e.Player.Name+" disconnected"))
-	m.currentTick.EntityEvents = append(m.currentTick.EntityEvents, createEntityEvent("disconnect", e.Player.EntityID))
+	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("disconnect", e.Player.EntityID))
 }
 
 func (m *minifier) weaponFired(e events.WeaponFiredEvent) {
-	m.currentTick.EntityEvents = append(m.currentTick.EntityEvents, createEntityEvent("fire", e.Shooter.EntityID))
+	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("fire", e.Shooter.EntityID))
+}
+
+func r3VectorToPoint(v r3.Vector) rep.Point {
+	return rep.Point{X: v.X, Y: v.Y}
+}
+
+type eventBuilder struct {
+	event rep.Event
+}
+
+func (b eventBuilder) stringAttr(key string, value string) eventBuilder {
+	b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
+		Key:    key,
+		StrVal: value,
+	})
+	return b
+}
+
+func (b eventBuilder) numAttr(key string, value int) eventBuilder {
+	b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
+		Key:    key,
+		NumVal: float64(value),
+	})
+	return b
+}
+
+func (b eventBuilder) build() rep.Event {
+	return b.event
+}
+
+func buildEvent(eventName string) eventBuilder {
+	return eventBuilder{
+		event: createEvent(eventName),
+	}
+}
+
+func createEvent(eventName string) rep.Event {
+	return rep.Event{
+		Name: eventName,
+	}
+}
+
+func createEntityEvent(eventName string, entityId int) rep.Event {
+	return buildEvent(eventName).numAttr("entityId", entityId).build()
 }

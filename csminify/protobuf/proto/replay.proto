@@ -39,30 +39,23 @@ message Replay {
 		}
 		
 		int32 tick = 1;
-		repeated EntityUpdate entityUpdate = 2;
+		repeated EntityUpdate entityUpdates = 2;
 	}
 
 	message Tick {
-		message GameEvent {
-			string event = 1;
-			string text = 2;
-		}
+		message Event {
+			message Attribute {
+				string key = 1;
+				string stringValue = 2;
+				double numberValue = 3;
+			}
 
-		message MapEvent {
-			string event = 1;
-			Point location = 2;
-			int32 triggeredBy = 3;
-		}
-
-		message EntityEvent {
-			string event = 1;
-			string entityId = 2;
+			string event = 1;//change to enum
+			repeated Attribute attributes = 2;//change to map??
 		}
 
 		int32 nr = 1;
-		repeated GameEvent gameEvents = 2;
-		repeated MapEvent mapEvents = 3;
-		repeated EntityEvent entityEvents = 4;
+		repeated Event events = 2;
 	}
 
 	Header header = 1;
