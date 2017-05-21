@@ -13,11 +13,16 @@ import (
 )
 
 func main() {
-	prot := flag.String("protocol", "json", "Protocol to minify the demo to")
-	freq := flag.Float64("freq", 0.5, "Snapshot frequency - per second")
-	demPath := flag.String("demo", "", "Demo file path")
-	outPath := flag.String("out", "", "Output file path")
-	flag.Parse()
+	Minify(os.Args[1:])
+}
+
+func Minify(args []string) {
+	fl := new(flag.FlagSet)
+	prot := fl.String("protocol", "json", "Protocol to minify the demo to")
+	freq := fl.Float64("freq", 0.5, "Snapshot frequency - per second")
+	demPath := fl.String("demo", "", "Demo file path")
+	outPath := fl.String("out", "", "Output file path")
+	fl.Parse(args)
 
 	var marshaller min.ReplayMarshaller
 	switch *prot {

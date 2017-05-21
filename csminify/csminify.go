@@ -30,11 +30,11 @@ func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writ
 
 	m.replay.Header.TickRate = p.TickRate()
 
-	snapRage := float64(m.replay.Header.TickRate / snapFreq)
+	snapRate := float64(m.replay.Header.TickRate / snapFreq)
 
 	// How on earth is there still no math.Round()?! https://github.com/golang/go/issues/4594
-	if math.Abs(f) >= 0.5 {
-		m.replay.Header.SnapshotRate = int(snapRage + math.Copysign(0.5, snapRage))
+	if math.Abs(snapRate) >= 0.5 {
+		m.replay.Header.SnapshotRate = int(snapRate + math.Copysign(0.5, snapRate))
 	}
 
 	m.replay.Header.MapName = p.Map()
