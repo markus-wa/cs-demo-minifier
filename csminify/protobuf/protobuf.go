@@ -1,8 +1,13 @@
+// Package protobuf provides a replay marshaller for protobuf.
+// Use 'go generate' to generate the code from the .proto files inside the proto sub directory.
 package protobuf
 
-//go:generate protoc -I=proto --gogofaster_out=Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types:. proto/*.proto
+// -I=proto is required, otherwise the generated .pb.go file will be put inside the proto directory
+// No idea what that is about to be honest. . .
+//go:generate protoc -I=proto --gogofaster_out=. proto/replay.proto
 
 import (
+	"fmt"
 	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
 	"github.com/markus-wa/demoinfocs-golang/common"
 	"io"
@@ -93,8 +98,8 @@ func mapPositions(positions []rep.Point) []*Point {
 
 func mapPosition(p rep.Point) *Point {
 	return &Point{
-		X: p.X,
-		Y: p.Y,
+		X: int32(p.X),
+		Y: int32(p.Y),
 	}
 }
 
@@ -117,7 +122,7 @@ func mapEvents(events []rep.Event) ([]*Replay_Tick_Event, error) {
 	result := make([]*Replay_Tick_Event, 0)
 	for _, e := range events {
 		result = append(result, &Replay_Tick_Event{
-			Event:      e.Name,
+			Type:       mapEventType(e.Name),
 			Attributes: mapAttributes(e.Attributes),
 			//Details:    details,
 		})
@@ -129,10 +134,60 @@ func mapAttributes(attrs []rep.EventAttribute) []*Replay_Tick_Event_Attribute {
 	result := make([]*Replay_Tick_Event_Attribute, 0)
 	for _, a := range attrs {
 		result = append(result, &Replay_Tick_Event_Attribute{
-			Key:         a.Key,
+			Kind:        mapAttributeKind(a.Key),
 			NumberValue: a.NumVal,
 			StringValue: a.StrVal,
 		})
 	}
 	return result
+}
+
+func mapAttributeKind(key string) Replay_Tick_Event_Attribute_Kind {
+	switch key {
+	case "entityId":
+		return Replay_Tick_Event_Attribute_ENTITY_ID
+
+	case "victim":
+		return Replay_Tick_Event_Attribute_VICTIM
+
+	case "killer":
+		return Replay_Tick_Event_Attribute_KILLER
+
+	case "assister":
+		return Replay_Tick_Event_Attribute_ASSISTER
+
+	default:
+		panic(fmt.Errorf("Unknown key %q", key))
+	}
+}
+
+func mapEventType(name string) Replay_Tick_Event_Type {
+	switch name {
+	case "jump":
+		return Replay_Tick_Event_JUMP
+
+	case "fire":
+		return Replay_Tick_Event_FIRE
+
+	case "hurt":
+		return Replay_Tick_Event_HURT
+
+	case "kill":
+		return Replay_Tick_Event_KILL
+
+	case "flashed":
+		return Replay_Tick_Event_FLASHED
+
+	case "round_started":
+		return Replay_Tick_Event_ROUND_STARTED
+
+	case "swap_team":
+		return Replay_Tick_Event_SWAP_TEAM
+
+	case "disconnect":
+		return Replay_Tick_Event_DISCONNECT
+
+	default:
+		panic(fmt.Errorf("Unknown event %q", name))
+	}
 }

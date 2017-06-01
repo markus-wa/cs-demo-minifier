@@ -10,8 +10,8 @@ enum Team {
 }
 
 message Point {
-	double x = 1;
-	double y = 2;
+	int32 x = 1;
+	int32 y = 2;
 }
 
 message Replay {
@@ -44,14 +44,32 @@ message Replay {
 
 	message Tick {
 		message Event {
+			enum Type {
+				JUMP = 0;
+				FIRE = 1;
+				HURT = 2;
+				FLASHED = 3;
+				KILL = 4;
+				ROUND_STARTED = 5;
+				SWAP_TEAM = 6;
+				DISCONNECT = 7;
+			}
+
 			message Attribute {
-				string key = 1;
+				enum Kind {
+					ENTITY_ID = 0;
+					VICTIM = 1;
+					KILLER = 2;
+					ASSISTER = 3;
+				}
+
+				Kind kind = 1;
 				string stringValue = 2;
 				double numberValue = 3;
 			}
 
-			string event = 1;//change to enum
-			repeated Attribute attributes = 2;//change to map??
+			Type type = 1;
+			repeated Attribute attributes = 2; // TODO: change to map?? - probably better the way it is tbh
 		}
 
 		int32 nr = 1;
