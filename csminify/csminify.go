@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"github.com/golang/geo/r3"
-	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
+	rep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay"
 	dem "github.com/markus-wa/demoinfocs-golang"
 	"github.com/markus-wa/demoinfocs-golang/events"
 	"io"
@@ -15,20 +15,26 @@ import (
 type ReplayMarshaller func(rep rep.Replay, w io.Writer) error
 
 // Minify wraps MinifyTo with a bytes.Buffer and returns the written bytes
-func Minify(r io.Reader, marshal ReplayMarshaller, snapsPerSec float32) []byte {
+func Minify(r io.Reader, marshal ReplayMarshaller, snapsPerSec float32) (error, []byte) {
 	var buf bytes.Buffer
-	MinifyTo(r, snapsPerSec, marshal, bufio.NewWriter(&buf))
-	return buf.Bytes()
+	err := MinifyTo(r, snapsPerSec, marshal, bufio.NewWriter(&buf))
+	if err != nil {
+		return err, nil
+	}
+	return nil, buf.Bytes()
 }
 
 // MinifyTo reads a demo from r, creates snapshots with a frequency of snapFreq/sec and writers the result of marshal to w
-func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writer) {
+func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writer) error {
 	p := dem.NewParser(r)
-	p.ParseHeader()
+	err := p.ParseHeader()
+	if err != nil {
+		return err;
+	}
 
 	m := minifier{parser: p}
 
-	m.replay.Header.TickRate = p.TickRate()
+	m.replay.Header.TickRate = p.FrameRate()
 
 	snapRate := float64(m.replay.Header.TickRate / snapFreq)
 
@@ -41,10 +47,14 @@ func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writ
 
 	p.RegisterEventHandler(m.matchStarted)
 
-	p.ParseToEnd(nil)
+	err = p.ParseToEnd()
+	if err != nil {
+		return err
+	}
 
 	// FIXME: Don't ignore error
 	marshal(m.replay, w)
+	return nil
 }
 
 type minifier struct {
@@ -76,7 +86,7 @@ func (m *minifier) matchStarted(e events.MatchStartedEvent) {
 }
 
 func (m *minifier) tickDone(e events.TickDoneEvent) {
-	if tick := m.parser.CurrentTick(); tick%m.replay.Header.SnapshotRate == 0 {
+	if tick := m.parser.CurrentFrame(); tick%m.replay.Header.SnapshotRate == 0 {
 		snap := rep.Snapshot{
 			Tick: tick,
 		}
@@ -100,7 +110,7 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 	}
 
 	if len(m.currentTick.Events) > 0 {
-		m.currentTick.Nr = m.parser.CurrentTick()
+		m.currentTick.Nr = m.parser.CurrentFrame()
 		m.replay.Ticks = append(m.replay.Ticks, m.currentTick)
 		m.currentTick = rep.Tick{}
 	}

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	min "github.com/markus-wa/cs-demo-minifier/csminify"
-	pb "github.com/markus-wa/cs-demo-minifier/csminify/protobuf"
-	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
+	min "gitlab.com/markus-wa/cs-demo-minifier/csminify"
+	pb "gitlab.com/markus-wa/cs-demo-minifier/csminify/protobuf"
+	rep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay"
 	"gopkg.in/vmihailenco/msgpack.v2"
 	"io"
 	"os"
@@ -75,5 +75,8 @@ func Minify(args []string) {
 		}
 	}
 
-	min.MinifyTo(in, float32(*freq), marshaller, out)
+	err := min.MinifyTo(in, float32(*freq), marshaller, out)
+	if err != nil {
+		panic(err)
+	}
 }

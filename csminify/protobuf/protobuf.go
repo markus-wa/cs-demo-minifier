@@ -8,7 +8,7 @@ package protobuf
 
 import (
 	"fmt"
-	rep "github.com/markus-wa/cs-demo-minifier/csminify/replay"
+	rep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay"
 	"github.com/markus-wa/demoinfocs-golang/common"
 	"io"
 )

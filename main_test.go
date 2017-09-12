@@ -2,7 +2,7 @@ package main_test
 
 import (
 	"fmt"
-	min "github.com/markus-wa/cs-demo-minifier"
+	min "gitlab.com/markus-wa/cs-demo-minifier"
 	"os"
 	"testing"
 )
