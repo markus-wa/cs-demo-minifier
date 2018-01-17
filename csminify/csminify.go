@@ -220,6 +220,6 @@ func createEvent(eventName string) rep.Event {
 	}
 }
 
-func createEntityEvent(eventName string, entityId int) rep.Event {
-	return buildEvent(eventName).numAttr("entityId", entityId).build()
+func createEntityEvent(eventName string, entityID int) rep.Event {
+	return buildEvent(eventName).numAttr("entityId", entityID).build()
 }
