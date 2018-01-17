@@ -36,6 +36,8 @@ message Replay {
 			int32 hp = 4;
 			int32 armor = 5;
 			float flashDuration = 6;
+			Team team = 7;
+			bool isNpc = 8;
 		}
 		
 		int32 tick = 1;
@@ -44,7 +46,7 @@ message Replay {
 
 	message Tick {
 		message Event {
-			enum Type {
+			enum Kind {
 				JUMP = 0;
 				FIRE = 1;
 				HURT = 2;
@@ -68,7 +70,7 @@ message Replay {
 				double numberValue = 3;
 			}
 
-			Type type = 1;
+			Kind kind = 1;
 			repeated Attribute attributes = 2; // TODO: change to map?? - probably better the way it is tbh
 		}
 
