@@ -1,23 +1,27 @@
-package main_test
+package main
 
 import (
 	"fmt"
-	min "gitlab.com/markus-wa/cs-demo-minifier"
 	"os"
 	"testing"
 )
 
-var demPath = "test/cs-demos/default.dem"
-var outDir = "test/results"
-var outPath = outDir + "/demo.min"
+var (
+	demPath = "test/cs-demos/default.dem"
+	outDir  = "test/results"
+	outPath = outDir + "/demo.min"
+)
 
-func init() {
+func TestMain(m *testing.M) {
+	// Check if test demo exists
 	if _, err := os.Stat(demPath); err != nil {
 		panic(fmt.Sprintf("Can't read test demo %q", demPath))
 	}
-	if err := os.MkdirAll(outDir, 0777); err != nil {
+	// Create test result folder if it doesn't exist
+	if err := os.MkdirAll(outDir, 0644); err != nil {
 		panic(fmt.Sprintf("Couldn't create output dir %q", outDir))
 	}
+	os.Exit(m.Run())
 }
 
 func TestStdInOut(t *testing.T) {
@@ -27,18 +31,18 @@ func TestStdInOut(t *testing.T) {
 	f, err = os.Open(demPath)
 	os.Stdin = f
 	if err != nil {
-		panic(err.Error())
+		t.Fatal(err)
 	}
 
 	out := outPath + ".stdout"
 	f, err = os.Create(out)
 	if err != nil {
-		panic(err.Error())
+		t.Fatal(err)
 	}
 
 	stdOut := os.Stdout
 	os.Stdout = f
-	min.Minify([]string{})
+	runMainWithArgs([]string{})
 	os.Stdout = stdOut
 
 	assertOutFileCreated(out, t)
@@ -46,12 +50,12 @@ func TestStdInOut(t *testing.T) {
 
 func TestInOut(t *testing.T) {
 	out := outPath + ".out"
-	min.Minify([]string{"-demo", demPath, "-out", out})
+	runMainWithArgs([]string{"-demo", demPath, "-out", out})
 	assertOutFileCreated(out, t)
 }
 
 func TestFreq(t *testing.T) {
-	min.Minify([]string{"-demo", demPath, "-freq", "0.2", "-out", os.TempDir() + "/demo-freq.out"})
+	runMainWithArgs([]string{"-demo", demPath, "-freq", "0.2", "-out", os.TempDir() + "/demo-freq.out"})
 }
 
 func TestJson(t *testing.T) {
@@ -67,8 +71,19 @@ func TestProtobuf(t *testing.T) {
 }
 
 func testProtocol(protocol string, suffix string, t *testing.T) {
-	min.Minify([]string{"-demo", demPath, "-protocol", protocol, "-out", outPath + suffix})
+	runMainWithArgs([]string{"-demo", demPath, "-protocol", protocol, "-out", outPath + suffix})
 	assertOutFileCreated(outPath+suffix, t)
+}
+
+func runMainWithArgs(args []string) {
+	// Store original arguments and restore them at the end
+	oldArgs := os.Args
+	defer func() { os.Args = oldArgs }()
+
+	// Add dummy command name to args
+	args = append([]string{"cmd"}, args...)
+	os.Args = args
+	main()
 }
 
 func assertOutFileCreated(path string, t *testing.T) {
