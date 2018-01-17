@@ -45,11 +45,11 @@ func mapToEntities(entities []rep.Entity) []*Replay_Entity {
 func mapToTeam(team int) Team {
 	var result Team
 	switch common.Team(team) {
-	case common.Team_Terrorists:
+	case common.TeamTerrorists:
 		result = Team_TERRORIST
-	case common.Team_CounterTerrorists:
+	case common.TeamCounterTerrorists:
 		result = Team_COUNTER_TERRORIST
-	case common.Team_Spectators:
+	case common.TeamSpectators:
 		result = Team_SPECTATOR
 	default:
 		result = Team_UNASSIGNED

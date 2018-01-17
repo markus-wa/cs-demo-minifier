@@ -55,13 +55,13 @@ func mapFromTeam(team Team) int {
 	var result common.Team
 	switch team {
 	case Team_TERRORIST:
-		result = common.Team_Terrorists
+		result = common.TeamTerrorists
 	case Team_COUNTER_TERRORIST:
-		result = common.Team_CounterTerrorists
+		result = common.TeamCounterTerrorists
 	case Team_SPECTATOR:
-		result = common.Team_Spectators
+		result = common.TeamSpectators
 	default:
-		result = common.Team_Unassigned
+		result = common.TeamUnassigned
 	}
 	return int(result)
 }
