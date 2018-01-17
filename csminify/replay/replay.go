@@ -36,7 +36,7 @@ type EntityUpdate struct {
 	Team          int     `json:"team,omitempty" msgpack:"team,omitempty"`
 	IsNpc         bool    `json:"isNpc,omitempty" msgpack:"isNpc,omitempty"`
 	Positions     []Point `json:"positions,omitempty" msgpack:"positions,omitempty"` // This allows us smoother replay with less overhead compared to higher snapshot rate
-	Angle         float32 `json:"angle,omitempty" msgpack:"angle,omitempty"`
+	Angle         int     `json:"angle,omitempty" msgpack:"angle,omitempty"`
 	Hp            int     `json:"hp,omitempty" msgpack:"hp,omitempty"`
 	Armor         int     `json:"armor,omitempty" msgpack:"armor,omitempty"`
 	FlashDuration float32 `json:"flashDuration,omitempty" msgpack:"flashDuration,omitempty"`
@@ -44,8 +44,8 @@ type EntityUpdate struct {
 
 // Point is a position on the map
 type Point struct {
-	X float64 `json:"x" msgpack:"x"`
-	Y float64 `json:"y" msgpack:"y"`
+	X int `json:"x" msgpack:"x"`
+	Y int `json:"y" msgpack:"y"`
 }
 
 // Tick contains all events occuring at a specific tick

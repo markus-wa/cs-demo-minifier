@@ -32,7 +32,7 @@ message Replay {
 		message EntityUpdate{
 			int32 entityId = 1;
 			repeated Point positions = 2;
-			float angle = 3;
+			int32 angle = 3;
 			int32 hp = 4;
 			int32 armor = 5;
 			float flashDuration = 6;

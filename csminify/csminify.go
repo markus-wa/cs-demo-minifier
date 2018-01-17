@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"bytes"
 	"io"
-	"math"
 
 	r3 "github.com/golang/geo/r3"
 	dem "github.com/markus-wa/demoinfocs-golang"
@@ -53,16 +52,9 @@ func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
 
 	m := minifier{parser: p}
 
-	m.replay.Header.TickRate = p.FrameRate()
-
-	snapRate := float64(m.replay.Header.TickRate / snapFreq)
-
-	// How on earth is there still no math.Round()?! https://github.com/golang/go/issues/4594
-	if math.Abs(snapRate) >= 0.5 {
-		m.replay.Header.SnapshotRate = int(snapRate + math.Copysign(0.5, snapRate))
-	}
-
 	m.replay.Header.MapName = p.Map()
+	m.replay.Header.TickRate = p.FrameRate()
+	m.replay.Header.SnapshotRate = int(round(float64(m.replay.Header.TickRate / snapFreq)))
 
 	p.RegisterEventHandler(m.matchStarted)
 
@@ -115,9 +107,9 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 					EntityID:      pl.EntityID,
 					Hp:            pl.Hp,
 					Armor:         pl.Armor,
-					FlashDuration: pl.FlashDuration,
-					Positions:     []rep.Point{r3VectorToPoint(pl.Position)}, // Maybe round the coordinates to save space
-					Angle:         pl.ViewDirectionX,
+					FlashDuration: float32(roundTo(float64(pl.FlashDuration), 0.1)), // Round to nearest 0.1
+					Positions:     []rep.Point{r3VectorToPoint(pl.Position)},        // Maybe round the coordinates to save space
+					Angle:         int(pl.ViewDirectionX),
 				}
 				// FIXME: Smoothify
 				snap.EntityUpdates = append(snap.EntityUpdates, e)
@@ -181,7 +173,7 @@ func (m *minifier) weaponFired(e events.WeaponFiredEvent) {
 }
 
 func r3VectorToPoint(v r3.Vector) rep.Point {
-	return rep.Point{X: v.X, Y: v.Y}
+	return rep.Point{X: int(v.X), Y: int(v.Y)}
 }
 
 type eventBuilder struct {
