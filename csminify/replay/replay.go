@@ -1,3 +1,4 @@
+// Package replay contains all types that make up a replay.
 package replay
 
 // Replay contains a minified demo

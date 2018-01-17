@@ -1,35 +1,54 @@
+// Package csminify provides functions for parsing CS:GO demos and minifying them into various formats.
 package csminify
 
 import (
 	"bufio"
 	"bytes"
-	"github.com/golang/geo/r3"
-	rep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay"
-	dem "github.com/markus-wa/demoinfocs-golang"
-	"github.com/markus-wa/demoinfocs-golang/events"
 	"io"
 	"math"
+
+	r3 "github.com/golang/geo/r3"
+	dem "github.com/markus-wa/demoinfocs-golang"
+	events "github.com/markus-wa/demoinfocs-golang/events"
+
+	rep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay"
 )
 
 // ReplayMarshaller is the signature for functions that serialize replay.Replay structs to an io.Writer
-type ReplayMarshaller func(rep rep.Replay, w io.Writer) error
+type ReplayMarshaller func(rep.Replay, io.Writer) error
 
-// Minify wraps MinifyTo with a bytes.Buffer and returns the written bytes
-func Minify(r io.Reader, marshal ReplayMarshaller, snapsPerSec float32) (error, []byte) {
+// Minify wraps MinifyTo with a bytes.Buffer and returns the written bytes.
+func Minify(r io.Reader, snapFreq float32, marshal ReplayMarshaller) ([]byte, error) {
 	var buf bytes.Buffer
-	err := MinifyTo(r, snapsPerSec, marshal, bufio.NewWriter(&buf))
+	err := MinifyTo(r, snapFreq, marshal, bufio.NewWriter(&buf))
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
-	return nil, buf.Bytes()
+	return buf.Bytes(), nil
 }
 
-// MinifyTo reads a demo from r, creates snapshots with a frequency of snapFreq/sec and writers the result of marshal to w
+// MinifyTo reads a demo from r, creates a replay and marshals it to w.
+// See also: ToReplay
 func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writer) error {
+	var replay rep.Replay
+	err := ToReplay(r, snapFreq, &replay)
+	if err != nil {
+		return err
+	}
+
+	err = marshal(replay, w)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// ToReplay reads a demo from r, takes snapshots (snapFreq/sec) and records events into a Replay.
+func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
 	p := dem.NewParser(r)
 	err := p.ParseHeader()
 	if err != nil {
-		return err;
+		return err
 	}
 
 	m := minifier{parser: p}
@@ -52,8 +71,7 @@ func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writ
 		return err
 	}
 
-	// FIXME: Don't ignore error
-	marshal(m.replay, w)
+	*replay = m.replay
 	return nil
 }
 
