@@ -41,12 +41,12 @@ func TestMain(m *testing.M) {
 
 // Test data preservation of JSON marshalling & unmarshalling with a 'non-default' replay.
 func TestJSONNonDefault(t *testing.T) {
-	testNonDefaultMarshalling(nonDefaultReplay, marshalJSON, unmarshalJSON, t)
+	testDataPreservation(nonDefaultReplay, marshalJSON, unmarshalJSON, t)
 }
 
 // Test data preservation of JSON marshalling & unmarshalling with a real, parsed replay.
 func TestJSONDemo(t *testing.T) {
-	testNonDefaultMarshalling(parsedReplay, marshalJSON, unmarshalJSON, t)
+	testDataPreservation(parsedReplay, marshalJSON, unmarshalJSON, t)
 }
 
 func marshalJSON(r rep.Replay, w io.Writer) error {
@@ -59,12 +59,12 @@ func unmarshalJSON(r io.Reader, rp *rep.Replay) error {
 
 // Test data preservation of MessagePack marshalling & unmarshalling with a 'non-default' replay.
 func TestMsgPackNonDefault(t *testing.T) {
-	testNonDefaultMarshalling(nonDefaultReplay, marshalMsgPack, unmarshalMsgPack, t)
+	testDataPreservation(nonDefaultReplay, marshalMsgPack, unmarshalMsgPack, t)
 }
 
 // Test data preservation of MessagePack marshalling & unmarshalling with a real, parsed replay.
 func TestMsgPackDemo(t *testing.T) {
-	testNonDefaultMarshalling(parsedReplay, marshalMsgPack, unmarshalMsgPack, t)
+	testDataPreservation(parsedReplay, marshalMsgPack, unmarshalMsgPack, t)
 }
 
 func marshalMsgPack(r rep.Replay, w io.Writer) error {
@@ -77,17 +77,17 @@ func unmarshalMsgPack(r io.Reader, rp *rep.Replay) error {
 
 // Test data preservation of Protobuf marshalling & unmarshalling with a 'non-default' replay.
 func TestProtobufNonDefault(t *testing.T) {
-	testNonDefaultMarshalling(nonDefaultReplay, protobuf.MarshalReplay, protobuf.UnmarshalReplay, t)
+	testDataPreservation(nonDefaultReplay, protobuf.MarshalReplay, protobuf.UnmarshalReplay, t)
 }
 
 // Test data preservation of Protobuf marshalling & unmarshalling with a real, parsed replay.
 func TestProtobufDemo(t *testing.T) {
-	testNonDefaultMarshalling(parsedReplay, protobuf.MarshalReplay, protobuf.UnmarshalReplay, t)
+	testDataPreservation(parsedReplay, protobuf.MarshalReplay, protobuf.UnmarshalReplay, t)
 }
 
 type replayUnmarshaller func(io.Reader, *rep.Replay) error
 
-func testNonDefaultMarshalling(replay rep.Replay, marshal csminify.ReplayMarshaller, unmarshal replayUnmarshaller, t *testing.T) {
+func testDataPreservation(replay rep.Replay, marshal csminify.ReplayMarshaller, unmarshal replayUnmarshaller, t *testing.T) {
 	buf := new(bytes.Buffer)
 	err := marshal(replay, buf)
 	if err != nil {
