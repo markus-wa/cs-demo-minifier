@@ -1,6 +1,8 @@
 # cs-demo-minifier
 
-	TODO
+This tool and library aims to provide a way of converting CS:GO demos into a more easily digestible format while decreasing the data size and retaining all important information.
+	
+It is still under development and the data formats may change in backwards-incompatible ways without notice.
 
 [![GoDoc](https://godoc.org/github.com/markus-wa/cs-demo-minifier?status.svg)](https://godoc.org/github.com/markus-wa/cs-demo-minifier)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE.md)
