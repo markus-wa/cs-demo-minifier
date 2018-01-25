@@ -10,7 +10,7 @@ import (
 	dem "github.com/markus-wa/demoinfocs-golang"
 	events "github.com/markus-wa/demoinfocs-golang/events"
 
-	rep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay"
+	rep "gitlab.com/markus-wa/cs-demo-minifier/replay"
 )
 
 // ReplayMarshaller is the signature for functions that serialize replay.Replay structs to an io.Writer

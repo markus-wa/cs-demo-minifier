@@ -12,13 +12,13 @@ import (
 	diff "github.com/d4l3k/messagediff"
 	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 
-	csminify "gitlab.com/markus-wa/cs-demo-minifier/csminify"
-	protobuf "gitlab.com/markus-wa/cs-demo-minifier/csminify/protobuf"
-	rep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay"
-	nondefaultrep "gitlab.com/markus-wa/cs-demo-minifier/csminify/replay/nondefault"
+	csminify "gitlab.com/markus-wa/cs-demo-minifier"
+	protobuf "gitlab.com/markus-wa/cs-demo-minifier/protobuf"
+	rep "gitlab.com/markus-wa/cs-demo-minifier/replay"
+	nondefaultrep "gitlab.com/markus-wa/cs-demo-minifier/replay/nondefault"
 )
 
-var demPath = "../test/cs-demos/default.dem"
+var demPath = "test/cs-demos/default.dem"
 
 var nonDefaultReplay, parsedReplay rep.Replay
 
