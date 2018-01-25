@@ -4,8 +4,8 @@ import (
 	fmt "fmt"
 	io "io"
 
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
 	common "github.com/markus-wa/demoinfocs-golang/common"
-	rep "gitlab.com/markus-wa/cs-demo-minifier/replay"
 )
 
 // MarshalReplay serializes a Replay as protobuf to an io.Writer

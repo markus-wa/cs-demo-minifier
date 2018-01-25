@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"unsafe"
 
-	rep "gitlab.com/markus-wa/cs-demo-minifier/replay"
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
 
 var nonDefaultReplay rep.Replay

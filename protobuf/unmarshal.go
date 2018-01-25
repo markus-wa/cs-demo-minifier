@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 
 	common "github.com/markus-wa/demoinfocs-golang/common"
-	rep "gitlab.com/markus-wa/cs-demo-minifier/replay"
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
 
 // UnmarshalReplay deserializes protobuf data from a io.Reader into a Replay.

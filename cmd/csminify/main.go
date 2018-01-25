@@ -9,9 +9,9 @@ import (
 
 	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 
-	min "gitlab.com/markus-wa/cs-demo-minifier"
-	pb "gitlab.com/markus-wa/cs-demo-minifier/protobuf"
-	rep "gitlab.com/markus-wa/cs-demo-minifier/replay"
+	min "github.com/markus-wa/cs-demo-minifier"
+	pb "github.com/markus-wa/cs-demo-minifier/protobuf"
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
 
 func main() {
