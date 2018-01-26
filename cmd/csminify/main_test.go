@@ -15,11 +15,11 @@ var (
 func TestMain(m *testing.M) {
 	// Check if test demo exists
 	if _, err := os.Stat(demPath); err != nil {
-		panic(fmt.Sprintf("Can't read test demo %q", demPath))
+		panic(fmt.Sprintf("Can't read test demo %q: %s", demPath, err.Error()))
 	}
-	// Create test result folder if it doesn't exist
-	if err := os.MkdirAll(outDir, 0644); err != nil {
-		panic(fmt.Sprintf("Couldn't create output dir %q", outDir))
+	// Create test result folder if it doesn't exist, somehow 0666 isn't enough for travis??
+	if err := os.MkdirAll(outDir, 0777); err != nil {
+		panic(fmt.Sprintf("Couldn't create output dir %q: %s", outDir, err.Error()))
 	}
 	os.Exit(m.Run())
 }
