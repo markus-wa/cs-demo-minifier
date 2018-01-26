@@ -1,0 +1,23 @@
+language: go
+sudo: required
+
+go:
+  - 1.9.x
+  - stable
+  - master
+
+matrix:
+  # Failing on the development version of Go isn't too bad.
+  allow_failures:
+    - go: master
+
+before_script:
+  # Use goverage to get coverage over multiple packages
+  # Will be fixed with Go 1.10
+  - go get github.com/haya14busa/goverage
+
+script:
+  - goverage -v -coverprofile=coverage.txt ./...
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
