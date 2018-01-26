@@ -17,11 +17,76 @@ It is still under development and the data formats may change in backwards-incom
 
 ## Usage
 
-	TODO
+### Command Line
+
+The following command takes one snapshot of a demo every two seconds (`-freq 0.5`) and saves the resulting, replay in the `MessagePack` format to `demo.mp`.
+
+	csminify -demo /path/to/demo.dem -format msgpack -freq 0.5 -out demo.mp
+
+### Library
+
+This is an example on how to minify a demo to JSON and decode it to a `replay.Replay` again.
+
+```go
+import (
+	"bytes"
+	"encoding/json"
+	"log"
+	"os"
+
+	csminify "github.com/markus-wa/cs-demo-minifier"
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
+)
+
+func main() {
+	// Open the demo file
+	f, err := os.Open("/path/to/demo.dem")
+	defer f.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Minify the replay to a byte buffer - or any other io.Writer (JSON)
+	// Take 0.5 snapshots per second (=one every two seconds)
+	freq := 0.5
+	buf := new(bytes.Buffer)
+	err = csminify.MinifyTo(f, freq, marshalJSON, buf)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Decoding it again is just as easy
+	var r rep.Replay
+	err = json.NewDecoder(buf).Decode(&r)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// JSON marshaller
+func marshalJSON(r rep.Replay, w io.Writer) error {
+	return json.NewEncoder(w).Encode(r)
+}
+```
+
+MessagePack marshalling works pretty much the same way as JSON.<br>
+For Protobuf use `protobuf.Unmarshal()` (in the sub-package).
+
+## Supported Formats
+
+Format | Command Line (`-format` Flag)
+--- | --- | ---
+JSON | `json`
+MessagePack | `msgpack`, `mp`
+Protocol Buffers | `protobuf`, `proto`, `pb`
+
+More formats can be added programmatically by implementing the `ReplayMarshaller` interface.
+
+If you would like to see additional formats supported please open a feature request (issue) or a pull request if you already have an implementation ready.
 
 ## Development
 
-### Running tests
+### Running Tests
 
 To run tests [Git LFS](https://git-lfs.github.com) is required.
 
@@ -32,7 +97,7 @@ pushd test/cs-demos && git lfs pull && popd
 go test ./...
 ```
 
-### Generating protobuf code
+### Generating Protobuf Code
 
 Should you need to re-generate the protobuf generated code in the `protobuf` package, you will need the following tools:
 
