@@ -25,10 +25,10 @@ func TestMain(m *testing.M) {
 }
 
 func TestStdInOut(t *testing.T) {
-	var f *os.File
-	var err error
+	oldStdin := os.Stdin
+	defer func() { os.Stdin = oldStdin }()
 
-	f, err = os.Open(demPath)
+	f, err := os.Open(demPath)
 	os.Stdin = f
 	if err != nil {
 		t.Fatal(err)
