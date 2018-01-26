@@ -58,11 +58,11 @@ func TestFreq(t *testing.T) {
 	runMainWithArgs([]string{"-demo", demPath, "-freq", "0.2", "-out", os.TempDir() + "/demo-freq.out"})
 }
 
-func TestJson(t *testing.T) {
+func TestJSON(t *testing.T) {
 	testFormat("json", ".json", t)
 }
 
-func TestMsgpack(t *testing.T) {
+func TestMsgPack(t *testing.T) {
 	testFormat("msgpack", ".mp", t)
 }
 
