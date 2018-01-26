@@ -16,19 +16,31 @@ import (
 
 func main() {
 	fl := new(flag.FlagSet)
-	protPtr := fl.String("protocol", "json", "Protocol to minify the demo to")
-	freqPtr := fl.Float64("freq", 0.5, "Snapshot frequency - per second")
-	demPathPtr := fl.String("demo", "", "Demo file path")
-	outPathPtr := fl.String("out", "", "Output file path")
-	fl.Parse(os.Args[1:])
+	fl.Usage = func() {
+		fmt.Fprintln(os.Stderr, "Usage of csminify:")
+		fl.PrintDefaults()
+		fmt.Fprintln(os.Stderr)
+		fmt.Fprintln(os.Stderr, "Direct bug reports and feature requests to https://github.com/markus-wa/cs-demo-minifier")
+	}
 
-	prot := *protPtr
+	formatPtr := fl.String("format", "json", "Format into which the demo should me minified")
+	freqPtr := fl.Float64("freq", 0.5, "Snapshot frequency - per second")
+	demPathPtr := fl.String("demo", "", "Demo file `path` (default stdin)")
+	outPathPtr := fl.String("out", "", "Output file `path` (default stdout)")
+
+	err := fl.Parse(os.Args[1:])
+	if err != nil {
+		// Some parsing problem, the flag.Parse() already prints the error to stderr
+		return
+	}
+
+	format := *formatPtr
 	freq := float32(*freqPtr)
 	demPath := *demPathPtr
 	outPath := *outPathPtr
 
 	var marshaller min.ReplayMarshaller
-	switch prot {
+	switch format {
 	case "json":
 		marshaller = func(replay rep.Replay, w io.Writer) error {
 			return json.NewEncoder(w).Encode(replay)
@@ -49,7 +61,8 @@ func main() {
 		}
 
 	default:
-		panic(fmt.Sprintf("Protocol '%s' unknown", prot))
+		fmt.Fprintf(os.Stderr, "Format '%s' unknown, known formats are 'json', 'msgpack' & 'protobuf'\n", format)
+		os.Exit(2)
 	}
 
 	var in io.Reader
@@ -78,7 +91,7 @@ func main() {
 		}
 	}
 
-	err := min.MinifyTo(in, freq, marshaller, out)
+	err = min.MinifyTo(in, freq, marshaller, out)
 	if err != nil {
 		panic(err.Error())
 	}

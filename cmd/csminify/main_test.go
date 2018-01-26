@@ -59,19 +59,19 @@ func TestFreq(t *testing.T) {
 }
 
 func TestJson(t *testing.T) {
-	testProtocol("json", ".json", t)
+	testFormat("json", ".json", t)
 }
 
 func TestMsgpack(t *testing.T) {
-	testProtocol("msgpack", ".mp", t)
+	testFormat("msgpack", ".mp", t)
 }
 
 func TestProtobuf(t *testing.T) {
-	testProtocol("protobuf", ".pb", t)
+	testFormat("protobuf", ".pb", t)
 }
 
-func testProtocol(protocol string, suffix string, t *testing.T) {
-	runMainWithArgs([]string{"-demo", demPath, "-protocol", protocol, "-out", outPath + suffix})
+func testFormat(format string, suffix string, t *testing.T) {
+	runMainWithArgs([]string{"-demo", demPath, "-format", format, "-out", outPath + suffix})
 	assertOutFileCreated(outPath+suffix, t)
 }
 
