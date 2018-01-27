@@ -77,7 +77,7 @@ For Protobuf use `protobuf.Unmarshal()` (in the sub-package).
 ## Supported Formats
 
 Format | Command Line (`-format` Flag)
---- | --- | ---
+--- | ---
 JSON | `json`
 MessagePack | `msgpack`, `mp`
 Protocol Buffers | `protobuf`, `proto`, `pb`
