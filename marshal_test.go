@@ -24,16 +24,17 @@ var nonDefaultReplay, parsedReplay rep.Replay
 
 func TestMain(m *testing.M) {
 	nonDefaultReplay = nondefaultrep.GetNonDefaultReplay()
+
+	if _, err := os.Stat(demPath); err != nil {
+		panic(fmt.Sprintf("Can't read test demo %q", demPath))
+	}
+
 	initParsedReplay()
 
 	os.Exit(m.Run())
 }
 
 func initParsedReplay() {
-	if _, err := os.Stat(demPath); err != nil {
-		panic(fmt.Sprintf("Can't read test demo %q", demPath))
-	}
-
 	f, err := os.Open(demPath)
 	defer f.Close()
 	if err != nil {
@@ -41,6 +42,22 @@ func initParsedReplay() {
 	}
 
 	csminify.ToReplay(f, 0.5, &parsedReplay)
+}
+
+func TestMinify(t *testing.T) {
+	f, err := os.Open(demPath)
+	defer f.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	b, err := csminify.Minify(f, 0.2, marshalJSON)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(b) == 0 {
+		t.Fatal("Resulting []byte of minification is empty")
+	}
 }
 
 // Test data preservation of JSON marshalling & unmarshalling with a 'non-default' replay.
