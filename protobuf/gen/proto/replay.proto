@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protobuf;
+package gen;
 
 enum Team {
 	UNASSIGNED = 0;

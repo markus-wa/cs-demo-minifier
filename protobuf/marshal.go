@@ -4,15 +4,17 @@ import (
 	fmt "fmt"
 	io "io"
 
-	rep "github.com/markus-wa/cs-demo-minifier/replay"
 	common "github.com/markus-wa/demoinfocs-golang/common"
+
+	gen "github.com/markus-wa/cs-demo-minifier/protobuf/gen"
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
 
 // MarshalReplay serializes a Replay as protobuf to an io.Writer
 func MarshalReplay(r rep.Replay, w io.Writer) error {
-	pbReplay := Replay{
+	pbReplay := gen.Replay{
 		Entities: mapToEntities(r.Entities),
-		Header: &Replay_Header{
+		Header: &gen.Replay_Header{
 			Map:          r.Header.MapName,
 			SnapshotRate: int32(r.Header.SnapshotRate),
 			TickRate:     r.Header.TickRate,
@@ -29,10 +31,10 @@ func MarshalReplay(r rep.Replay, w io.Writer) error {
 	return err
 }
 
-func mapToEntities(entities []rep.Entity) []*Replay_Entity {
-	result := make([]*Replay_Entity, 0)
+func mapToEntities(entities []rep.Entity) []*gen.Replay_Entity {
+	result := make([]*gen.Replay_Entity, 0)
 	for _, e := range entities {
-		result = append(result, &Replay_Entity{
+		result = append(result, &gen.Replay_Entity{
 			Id:    int32(e.ID),
 			Team:  mapToTeam(e.Team),
 			Name:  e.Name,
@@ -42,25 +44,25 @@ func mapToEntities(entities []rep.Entity) []*Replay_Entity {
 	return result
 }
 
-func mapToTeam(team int) Team {
-	var result Team
+func mapToTeam(team int) gen.Team {
+	var result gen.Team
 	switch common.Team(team) {
 	case common.TeamTerrorists:
-		result = Team_TERRORIST
+		result = gen.Team_TERRORIST
 	case common.TeamCounterTerrorists:
-		result = Team_COUNTER_TERRORIST
+		result = gen.Team_COUNTER_TERRORIST
 	case common.TeamSpectators:
-		result = Team_SPECTATOR
+		result = gen.Team_SPECTATOR
 	default:
-		result = Team_UNASSIGNED
+		result = gen.Team_UNASSIGNED
 	}
 	return result
 }
 
-func mapToSnapshots(snaps []rep.Snapshot) []*Replay_Snapshot {
-	result := make([]*Replay_Snapshot, 0)
+func mapToSnapshots(snaps []rep.Snapshot) []*gen.Replay_Snapshot {
+	result := make([]*gen.Replay_Snapshot, 0)
 	for _, s := range snaps {
-		result = append(result, &Replay_Snapshot{
+		result = append(result, &gen.Replay_Snapshot{
 			Tick:          int32(s.Tick),
 			EntityUpdates: mapToEntityUpdates(s.EntityUpdates),
 		})
@@ -68,10 +70,10 @@ func mapToSnapshots(snaps []rep.Snapshot) []*Replay_Snapshot {
 	return result
 }
 
-func mapToEntityUpdates(entityUpdates []rep.EntityUpdate) []*Replay_Snapshot_EntityUpdate {
-	result := make([]*Replay_Snapshot_EntityUpdate, 0)
+func mapToEntityUpdates(entityUpdates []rep.EntityUpdate) []*gen.Replay_Snapshot_EntityUpdate {
+	result := make([]*gen.Replay_Snapshot_EntityUpdate, 0)
 	for _, u := range entityUpdates {
-		result = append(result, &Replay_Snapshot_EntityUpdate{
+		result = append(result, &gen.Replay_Snapshot_EntityUpdate{
 			Angle:         int32(u.Angle),
 			Armor:         int32(u.Armor),
 			EntityId:      int32(u.EntityID),
@@ -85,25 +87,25 @@ func mapToEntityUpdates(entityUpdates []rep.EntityUpdate) []*Replay_Snapshot_Ent
 	return result
 }
 
-func mapToPositions(positions []rep.Point) []*Point {
-	result := make([]*Point, 0)
+func mapToPositions(positions []rep.Point) []*gen.Point {
+	result := make([]*gen.Point, 0)
 	for _, p := range positions {
 		result = append(result, mapToPosition(p))
 	}
 	return result
 }
 
-func mapToPosition(p rep.Point) *Point {
-	return &Point{
+func mapToPosition(p rep.Point) *gen.Point {
+	return &gen.Point{
 		X: int32(p.X),
 		Y: int32(p.Y),
 	}
 }
 
-func mapToTicks(ticks []rep.Tick) []*Replay_Tick {
-	result := make([]*Replay_Tick, 0)
+func mapToTicks(ticks []rep.Tick) []*gen.Replay_Tick {
+	result := make([]*gen.Replay_Tick, 0)
 	for _, t := range ticks {
-		result = append(result, &Replay_Tick{
+		result = append(result, &gen.Replay_Tick{
 			Nr:     int32(t.Nr),
 			Events: mapToEvents(t.Events),
 		})
@@ -111,10 +113,10 @@ func mapToTicks(ticks []rep.Tick) []*Replay_Tick {
 	return result
 }
 
-func mapToEvents(events []rep.Event) []*Replay_Tick_Event {
-	result := make([]*Replay_Tick_Event, 0)
+func mapToEvents(events []rep.Event) []*gen.Replay_Tick_Event {
+	result := make([]*gen.Replay_Tick_Event, 0)
 	for _, e := range events {
-		result = append(result, &Replay_Tick_Event{
+		result = append(result, &gen.Replay_Tick_Event{
 			Kind:       mapToEventKind(e.Name),
 			Attributes: mapToAttributes(e.Attributes),
 		})
@@ -122,13 +124,13 @@ func mapToEvents(events []rep.Event) []*Replay_Tick_Event {
 	return result
 }
 
-func mapToAttributes(attrs []rep.EventAttribute) []*Replay_Tick_Event_Attribute {
+func mapToAttributes(attrs []rep.EventAttribute) []*gen.Replay_Tick_Event_Attribute {
 	if attrs == nil {
 		return nil
 	}
-	result := make([]*Replay_Tick_Event_Attribute, 0)
+	result := make([]*gen.Replay_Tick_Event_Attribute, 0)
 	for _, a := range attrs {
-		result = append(result, &Replay_Tick_Event_Attribute{
+		result = append(result, &gen.Replay_Tick_Event_Attribute{
 			Kind:        mapToAttributeKind(a.Key),
 			NumberValue: a.NumVal,
 			StringValue: a.StrVal,
@@ -137,18 +139,18 @@ func mapToAttributes(attrs []rep.EventAttribute) []*Replay_Tick_Event_Attribute 
 	return result
 }
 
-func mapToAttributeKind(key string) Replay_Tick_Event_Attribute_Kind {
+func mapToAttributeKind(key string) gen.Replay_Tick_Event_Attribute_Kind {
 	kind, ok := attributeKindMap.Get(key)
 	if !ok {
 		panic(fmt.Errorf("Unknown attribute kind %q", key))
 	}
-	return kind.(Replay_Tick_Event_Attribute_Kind)
+	return kind.(gen.Replay_Tick_Event_Attribute_Kind)
 }
 
-func mapToEventKind(name string) Replay_Tick_Event_Kind {
+func mapToEventKind(name string) gen.Replay_Tick_Event_Kind {
 	kind, ok := eventKindMap.Get(name)
 	if !ok {
 		panic(fmt.Errorf("Unknown event kind %q", name))
 	}
-	return kind.(Replay_Tick_Event_Kind)
+	return kind.(gen.Replay_Tick_Event_Kind)
 }
