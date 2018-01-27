@@ -88,6 +88,6 @@ func runMainWithArgs(args []string) {
 
 func assertOutFileCreated(path string, t *testing.T) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		t.Fatalf("Output file %s not created", path)
+		t.Fatalf("Output file %q not created: %s", path, err.Error())
 	}
 }
