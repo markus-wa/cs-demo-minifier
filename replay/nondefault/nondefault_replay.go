@@ -53,14 +53,14 @@ func init() {
 
 	var attrs []rep.EventAttribute
 	attrs = append(attrs, rep.EventAttribute{
-		Key:    "entityId",
+		Key:    rep.AttrKindEntityID,
 		NumVal: 5,
 		StrVal: "test",
 	})
 
 	var events []rep.Event
 	events = append(events, rep.Event{
-		Name:       "jump",
+		Name:       rep.EventJump,
 		Attributes: attrs,
 	})
 

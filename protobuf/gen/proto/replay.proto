@@ -55,6 +55,7 @@ message Replay {
 				ROUND_STARTED = 5;
 				SWAP_TEAM = 6;
 				DISCONNECT = 7;
+				CHAT_MESSAGE = 8;
 			}
 
 			message Attribute {
@@ -63,6 +64,7 @@ message Replay {
 					VICTIM = 1;
 					KILLER = 2;
 					ASSISTER = 3;
+					TEXT = 4;
 				}
 
 				Kind kind = 1;

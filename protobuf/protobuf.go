@@ -6,6 +6,7 @@ import (
 	bimap "github.com/vishalkuo/bimap"
 
 	gen "github.com/markus-wa/cs-demo-minifier/protobuf/gen"
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
 
 var (
@@ -14,17 +15,19 @@ var (
 )
 
 func init() {
-	attributeKindMap.Insert("entityId", gen.Replay_Tick_Event_Attribute_ENTITY_ID)
-	attributeKindMap.Insert("victim", gen.Replay_Tick_Event_Attribute_VICTIM)
-	attributeKindMap.Insert("killer", gen.Replay_Tick_Event_Attribute_KILLER)
-	attributeKindMap.Insert("assister", gen.Replay_Tick_Event_Attribute_ASSISTER)
+	attributeKindMap.Insert(rep.AttrKindEntityID, gen.Replay_Tick_Event_Attribute_ENTITY_ID)
+	attributeKindMap.Insert(rep.AttrKindVictim, gen.Replay_Tick_Event_Attribute_VICTIM)
+	attributeKindMap.Insert(rep.AttrKindKiller, gen.Replay_Tick_Event_Attribute_KILLER)
+	attributeKindMap.Insert(rep.AttrKindAssister, gen.Replay_Tick_Event_Attribute_ASSISTER)
+	attributeKindMap.Insert(rep.AttrKindText, gen.Replay_Tick_Event_Attribute_TEXT)
 
-	eventKindMap.Insert("jump", gen.Replay_Tick_Event_JUMP)
-	eventKindMap.Insert("fire", gen.Replay_Tick_Event_FIRE)
-	eventKindMap.Insert("hurt", gen.Replay_Tick_Event_HURT)
-	eventKindMap.Insert("kill", gen.Replay_Tick_Event_KILL)
-	eventKindMap.Insert("flashed", gen.Replay_Tick_Event_FLASHED)
-	eventKindMap.Insert("round_started", gen.Replay_Tick_Event_ROUND_STARTED)
-	eventKindMap.Insert("swap_team", gen.Replay_Tick_Event_SWAP_TEAM)
-	eventKindMap.Insert("disconnect", gen.Replay_Tick_Event_DISCONNECT)
+	eventKindMap.Insert(rep.EventJump, gen.Replay_Tick_Event_JUMP)
+	eventKindMap.Insert(rep.EventFire, gen.Replay_Tick_Event_FIRE)
+	eventKindMap.Insert(rep.EventHurt, gen.Replay_Tick_Event_HURT)
+	eventKindMap.Insert(rep.EventKill, gen.Replay_Tick_Event_KILL)
+	eventKindMap.Insert(rep.EventFlashed, gen.Replay_Tick_Event_FLASHED)
+	eventKindMap.Insert(rep.EventRoundStarted, gen.Replay_Tick_Event_ROUND_STARTED)
+	eventKindMap.Insert(rep.EventSwapTeam, gen.Replay_Tick_Event_SWAP_TEAM)
+	eventKindMap.Insert(rep.EventDisconnect, gen.Replay_Tick_Event_DISCONNECT)
+	eventKindMap.Insert(rep.EventChatMessage, gen.Replay_Tick_Event_CHAT_MESSAGE)
 }

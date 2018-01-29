@@ -4,10 +4,13 @@ package csminify
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"io"
+	"os"
 
 	r3 "github.com/golang/geo/r3"
 	dem "github.com/markus-wa/demoinfocs-golang"
+	common "github.com/markus-wa/demoinfocs-golang/common"
 	events "github.com/markus-wa/demoinfocs-golang/events"
 
 	rep "github.com/markus-wa/cs-demo-minifier/replay"
@@ -74,7 +77,6 @@ type minifier struct {
 }
 
 func (m *minifier) matchStarted(e events.MatchStartedEvent) {
-
 	for _, pl := range m.parser.PlayingParticipants() {
 		ent := rep.Entity{
 			ID:    pl.EntityID,
@@ -93,6 +95,9 @@ func (m *minifier) matchStarted(e events.MatchStartedEvent) {
 	m.parser.RegisterEventHandler(m.playerHurt)
 	m.parser.RegisterEventHandler(m.playerFlashed)
 	m.parser.RegisterEventHandler(m.playerJump)
+	m.parser.RegisterEventHandler(m.chatMessage)
+	// TODO: Maybe hook up SayText (admin / console messages)
+	//m.parser.RegisterEventHandler(m.sayText)
 }
 
 func (m *minifier) tickDone(e events.TickDoneEvent) {
@@ -127,7 +132,7 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 }
 
 func (m *minifier) roundStarted(e events.RoundStartedEvent) {
-	m.currentTick.Events = append(m.currentTick.Events, createEvent("round_started"))
+	m.currentTick.Events = append(m.currentTick.Events, createEvent(rep.EventRoundStarted))
 }
 
 func (m *minifier) playerKilled(e events.PlayerKilledEvent) {
@@ -135,45 +140,68 @@ func (m *minifier) playerKilled(e events.PlayerKilledEvent) {
 		return
 	}
 
-	eb := buildEvent("kill").numAttr("victim", e.Victim.EntityID)
+	eb := buildEvent(rep.EventKill).intAttr(rep.AttrKindVictim, e.Victim.EntityID)
 
 	if e.Killer != nil && e.Killer != e.Victim {
-		eb.numAttr("killer", e.Killer.EntityID)
+		eb.intAttr(rep.AttrKindKiller, e.Killer.EntityID)
 	}
 
 	if e.Assister != nil {
-		eb.numAttr("assister", e.Assister.EntityID)
+		eb.intAttr(rep.AttrKindAssister, e.Assister.EntityID)
 	}
 
 	m.currentTick.Events = append(m.currentTick.Events, eb.build())
 }
 
 func (m *minifier) playerHurt(e events.PlayerHurtEvent) {
-	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("hurt", e.Player.EntityID))
+	m.addEntityEvent(rep.EventHurt, e.Player)
+}
+
+func (m *minifier) addEntityEvent(eventName string, pl *common.Player) {
+	if pl != nil {
+		m.currentTick.Events = append(m.currentTick.Events, createEntityEvent(eventName, pl.EntityID))
+	} else {
+		fmt.Fprintf(os.Stderr, "WARNING: Received %q event without player info\n", eventName)
+	}
 }
 
 func (m *minifier) playerFlashed(e events.PlayerFlashedEvent) {
-	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("flashed", e.Player.EntityID))
+	m.addEntityEvent(rep.EventHurt, e.Player)
 }
 
 func (m *minifier) playerJump(e events.PlayerJumpEvent) {
-	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("jump", e.Player.EntityID))
+	m.addEntityEvent(rep.EventJump, e.Player)
 }
 
 func (m *minifier) playerTeamChange(e events.PlayerTeamChangeEvent) {
-	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("swap_team", e.Player.EntityID))
+	m.addEntityEvent(rep.EventSwapTeam, e.Player)
 }
 
 func (m *minifier) playerDisconnect(e events.PlayerDisconnectEvent) {
-	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("disconnect", e.Player.EntityID))
+	m.addEntityEvent(rep.EventDisconnect, e.Player)
 }
 
 func (m *minifier) weaponFired(e events.WeaponFiredEvent) {
-	m.currentTick.Events = append(m.currentTick.Events, createEntityEvent("fire", e.Shooter.EntityID))
+	m.addEntityEvent(rep.EventFire, e.Shooter)
 }
 
 func r3VectorToPoint(v r3.Vector) rep.Point {
 	return rep.Point{X: int(v.X), Y: int(v.Y)}
+}
+
+func (m *minifier) chatMessage(e events.ChatMessageEvent) {
+	eb := buildEvent(rep.EventChatMessage)
+	eb = eb.stringAttr(rep.AttrKindText, e.Text)
+
+	// Skip for now, probably always true anyway
+	//eb = eb.boolAttr("isChatAll", e.IsChatAll)
+
+	if e.Sender != nil {
+		eb = eb.intAttr(rep.AttrKindSender, e.Sender.EntityID)
+	} else {
+	}
+
+	m.currentTick.Events = append(m.currentTick.Events, eb.build())
 }
 
 type eventBuilder struct {
@@ -188,7 +216,7 @@ func (b eventBuilder) stringAttr(key string, value string) eventBuilder {
 	return b
 }
 
-func (b eventBuilder) numAttr(key string, value int) eventBuilder {
+func (b eventBuilder) intAttr(key string, value int) eventBuilder {
 	b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
 		Key:    key,
 		NumVal: float64(value),
@@ -213,5 +241,5 @@ func createEvent(eventName string) rep.Event {
 }
 
 func createEntityEvent(eventName string, entityID int) rep.Event {
-	return buildEvent(eventName).numAttr("entityId", entityID).build()
+	return buildEvent(eventName).intAttr(rep.AttrKindEntityID, entityID).build()
 }

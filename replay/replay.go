@@ -1,6 +1,29 @@
 // Package replay contains all types that make up a replay.
 package replay
 
+// Possible attribute kinds
+const (
+	AttrKindEntityID = "entityId"
+	AttrKindVictim   = "victim"
+	AttrKindKiller   = "killer"
+	AttrKindAssister = "assister"
+	AttrKindText     = "text"
+	AttrKindSender   = "sender"
+)
+
+// Possible event types
+const (
+	EventJump         = "jump"
+	EventFire         = "fire"
+	EventHurt         = "hurt"
+	EventKill         = "kill"
+	EventFlashed      = "flashed"
+	EventRoundStarted = "round_started"
+	EventSwapTeam     = "swap_team"
+	EventDisconnect   = "disconnect"
+	EventChatMessage  = "chat_message"
+)
+
 // Replay contains a minified demo
 type Replay struct {
 	Header    Header     `json:"header" msgpack:"header"`
