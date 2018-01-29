@@ -83,16 +83,6 @@ type Event struct {
 	Attributes []EventAttribute `json:"attrs,omitempty" msgpack:"attrs,omitempty"`
 }
 
-// HasAttribute returns true only if an attribute with the given key exists
-func (e Event) HasAttribute(key string) bool {
-	for _, v := range e.Attributes {
-		if v.Key == key {
-			return true
-		}
-	}
-	return false
-}
-
 // EventAttribute stores an additional attribute to an event
 type EventAttribute struct {
 	Key    string  `json:"key" msgpack:"key"`
