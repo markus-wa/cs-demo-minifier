@@ -9,6 +9,13 @@ It is still under development and the data formats may change in backwards-incom
 [![codecov](https://codecov.io/gh/markus-wa/cs-demo-minifier/branch/master/graph/badge.svg)](https://codecov.io/gh/markus-wa/cs-demo-minifier)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE.md)
 
+## Discussions / Chat
+
+Use gitter to ask questions and discuss ideas about this project.<br>
+There are also [some other rooms](https://gitter.im/csgodemos) available around the topic of CS:GO demos.
+
+[![Gitter chat](https://badges.gitter.im/csgodemos/demo-minifier.png)](https://gitter.im/csgodemos/demo-minifier)
+
 ## Go Get
 
 	# Library
