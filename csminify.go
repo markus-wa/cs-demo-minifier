@@ -47,6 +47,7 @@ func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writ
 
 // ToReplay reads a demo from r, takes snapshots (snapFreq/sec) and records events into a Replay.
 func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
+	// FIXME: Smoothify flag
 	// TODO: Maybe pass a WarnHandler along
 	p := dem.NewParser(r, nil)
 	err := p.ParseHeader()
@@ -60,11 +61,31 @@ func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
 	m.replay.Header.TickRate = p.FrameRate()
 	m.replay.Header.SnapshotRate = int(round(float64(m.replay.Header.TickRate / snapFreq)))
 
-	p.RegisterEventHandler(m.matchStarted)
+	m.parser.RegisterEventHandler(m.tickDone)
+	m.parser.RegisterEventHandler(m.roundStarted)
+	m.parser.RegisterEventHandler(m.playerKilled)
+	m.parser.RegisterEventHandler(m.playerHurt)
+	m.parser.RegisterEventHandler(m.playerFlashed)
+	m.parser.RegisterEventHandler(m.playerJump)
+	m.parser.RegisterEventHandler(m.chatMessage)
+	// TODO: Maybe hook up SayText (admin / console messages)
+	//m.parser.RegisterEventHandler(m.sayText)
 
 	err = p.ParseToEnd()
 	if err != nil {
 		return err
+	}
+
+	// TODO: There's probably a better place for this
+	for _, pl := range m.parser.Participants() {
+		ent := rep.Entity{
+			ID:    pl.EntityID,
+			Team:  int(pl.Team),
+			Name:  pl.Name,
+			IsNpc: pl.IsBot,
+		}
+
+		m.replay.Entities = append(m.replay.Entities, ent)
 	}
 
 	*replay = m.replay
@@ -75,30 +96,6 @@ type minifier struct {
 	parser      *dem.Parser
 	replay      rep.Replay
 	currentTick rep.Tick
-}
-
-func (m *minifier) matchStarted(e events.MatchStartedEvent) {
-	for _, pl := range m.parser.PlayingParticipants() {
-		ent := rep.Entity{
-			ID:    pl.EntityID,
-			Team:  int(pl.Team),
-			Name:  pl.Name,
-			IsNpc: pl.IsBot,
-		}
-		// FIXME: Smoothify flag
-
-		m.replay.Entities = append(m.replay.Entities, ent)
-	}
-
-	m.parser.RegisterEventHandler(m.tickDone)
-	m.parser.RegisterEventHandler(m.roundStarted)
-	m.parser.RegisterEventHandler(m.playerKilled)
-	m.parser.RegisterEventHandler(m.playerHurt)
-	m.parser.RegisterEventHandler(m.playerFlashed)
-	m.parser.RegisterEventHandler(m.playerJump)
-	m.parser.RegisterEventHandler(m.chatMessage)
-	// TODO: Maybe hook up SayText (admin / console messages)
-	//m.parser.RegisterEventHandler(m.sayText)
 }
 
 func (m *minifier) tickDone(e events.TickDoneEvent) {
