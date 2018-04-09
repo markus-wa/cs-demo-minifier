@@ -71,7 +71,7 @@ type Point struct {
 	Y int `json:"y" msgpack:"y"`
 }
 
-// Tick contains all events occuring at a specific tick
+// Tick contains all events occurring at a specific tick
 type Tick struct {
 	Nr     int     `json:"nr" msgpack:"nr"`
 	Events []Event `json:"events" msgpack:"events"`
