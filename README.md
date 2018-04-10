@@ -7,6 +7,7 @@ It is still under development and the data formats may change in backwards-incom
 [![GoDoc](https://godoc.org/github.com/markus-wa/cs-demo-minifier?status.svg)](https://godoc.org/github.com/markus-wa/cs-demo-minifier)
 [![Build Status](https://travis-ci.org/markus-wa/cs-demo-minifier.svg?branch=master)](https://travis-ci.org/markus-wa/cs-demo-minifier)
 [![codecov](https://codecov.io/gh/markus-wa/cs-demo-minifier/branch/master/graph/badge.svg)](https://codecov.io/gh/markus-wa/cs-demo-minifier)
+[![Go Report](https://goreportcard.com/badge/github.com/markus-wa/cs-demo-minifier)](https://goreportcard.com/report/github.com/markus-wa/cs-demo-minifier)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE.md)
 
 ## Discussions / Chat
