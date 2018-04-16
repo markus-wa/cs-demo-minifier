@@ -50,7 +50,7 @@ func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
 	// FIXME: Smoothify flag
 	// TODO: Maybe pass a WarnHandler along
 	p := dem.NewParser(r, nil)
-	err := p.ParseHeader()
+	_, err := p.ParseHeader()
 	if err != nil {
 		return err
 	}
