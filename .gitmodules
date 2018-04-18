@@ -1,3 +1,6 @@
 [submodule "test/cs-demos"]
 	path = test/cs-demos
 	url = https://gitlab.com/markus-wa/cs-demos
+[submodule "vendor"]
+	path = vendor
+	url = https://github.com/markus-wa/cs-demo-minifier-vendor.git
