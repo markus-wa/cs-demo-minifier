@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"math"
 	"os"
 
 	r3 "github.com/golang/geo/r3"
@@ -55,7 +56,7 @@ func ToReplay(r io.Reader, snapFreq float32) (rep.Replay, error) {
 
 	m.replay.Header.MapName = p.Map()
 	m.replay.Header.TickRate = p.FrameRate()
-	m.replay.Header.SnapshotRate = int(round(float64(m.replay.Header.TickRate / snapFreq)))
+	m.replay.Header.SnapshotRate = int(math.Round(float64(m.replay.Header.TickRate / snapFreq)))
 
 	m.parser.RegisterEventHandler(m.tickDone)
 	m.parser.RegisterEventHandler(m.roundStarted)
@@ -105,8 +106,8 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 					EntityID:      pl.EntityID,
 					Hp:            pl.Hp,
 					Armor:         pl.Armor,
-					FlashDuration: float32(roundTo(float64(pl.FlashDuration), 0.1)), // Round to nearest 0.1
-					Positions:     []rep.Point{r3VectorToPoint(pl.Position)},        // Maybe round the coordinates to save space
+					FlashDuration: float32(roundTo(float64(pl.FlashDuration), 0.1)), // Round to nearest 0.1 sec - saves space in JSON
+					Positions:     []rep.Point{r3VectorToPoint(pl.Position)},
 					Angle:         int(pl.ViewDirectionX),
 				}
 				// FIXME: Smoothify
@@ -235,4 +236,9 @@ func createEvent(eventName string) rep.Event {
 
 func createEntityEvent(eventName string, entityID int) rep.Event {
 	return buildEvent(eventName).intAttr(rep.AttrKindEntityID, entityID).build()
+}
+
+// roundTo wraps math.Round and allows specifying the rounding precision.
+func roundTo(x, precision float64) float64 {
+	return math.Round(x/precision) * precision
 }
