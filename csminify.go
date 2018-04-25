@@ -32,8 +32,7 @@ func Minify(r io.Reader, snapFreq float32, marshal ReplayMarshaller) ([]byte, er
 // MinifyTo reads a demo from r, creates a replay and marshals it to w.
 // See also: ToReplay
 func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writer) error {
-	var replay rep.Replay
-	err := ToReplay(r, snapFreq, &replay)
+	replay, err := ToReplay(r, snapFreq)
 	if err != nil {
 		return err
 	}
@@ -46,13 +45,13 @@ func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writ
 }
 
 // ToReplay reads a demo from r, takes snapshots (snapFreq/sec) and records events into a Replay.
-func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
+func ToReplay(r io.Reader, snapFreq float32) (rep.Replay, error) {
 	// FIXME: Smoothify flag
 	// TODO: Maybe pass a WarnHandler along
 	p := dem.NewParser(r, nil)
 	_, err := p.ParseHeader()
 	if err != nil {
-		return err
+		return rep.Replay{}, err
 	}
 
 	m := minifier{parser: p}
@@ -73,7 +72,7 @@ func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
 
 	err = p.ParseToEnd()
 	if err != nil {
-		return err
+		return rep.Replay{}, err
 	}
 
 	// TODO: There's probably a better place for this
@@ -88,8 +87,7 @@ func ToReplay(r io.Reader, snapFreq float32, replay *rep.Replay) error {
 		m.replay.Entities = append(m.replay.Entities, ent)
 	}
 
-	*replay = m.replay
-	return nil
+	return m.replay, nil
 }
 
 type minifier struct {

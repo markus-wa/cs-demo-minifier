@@ -41,7 +41,10 @@ func initParsedReplay() {
 		panic(err.Error())
 	}
 
-	csminify.ToReplay(f, 0.5, &parsedReplay)
+	parsedReplay, err = csminify.ToReplay(f, 0.5)
+	if err != nil {
+		panic(err.Error())
+	}
 }
 
 func TestMinify(t *testing.T) {
