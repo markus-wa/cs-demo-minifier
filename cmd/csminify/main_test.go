@@ -24,6 +24,10 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
+func TestUsage(t *testing.T) {
+	runMainWithArgs([]string{"-h"})
+}
+
 func TestStdInOut(t *testing.T) {
 	oldStdin := os.Stdin
 	defer func() { os.Stdin = oldStdin }()
