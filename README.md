@@ -20,10 +20,10 @@ There are also [some other rooms](https://gitter.im/csgodemos) available around 
 ## Go Get
 
 	# Library
-	go get github.com/markus-wa/cs-demo-minifier
+	go get -u github.com/markus-wa/cs-demo-minifier
 
 	# Command line tool
-	go get github.com/markus-wa/cs-demo-minifier/cmd/csminify
+	go get -u github.com/markus-wa/cs-demo-minifier/cmd/csminify
 
 ## Usage
 
