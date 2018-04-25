@@ -57,10 +57,19 @@ func init() {
 		NumVal: 5,
 		StrVal: "test",
 	})
+	attrs = append(attrs, rep.EventAttribute{
+		Key:    "custom_attr",
+		NumVal: 10,
+		StrVal: "custom_val",
+	})
 
 	var events []rep.Event
 	events = append(events, rep.Event{
 		Name:       rep.EventJump,
+		Attributes: attrs,
+	})
+	events = append(events, rep.Event{
+		Name:       "custom_event",
 		Attributes: attrs,
 	})
 

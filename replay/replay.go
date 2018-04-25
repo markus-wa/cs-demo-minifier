@@ -22,6 +22,7 @@ const (
 	EventSwapTeam     = "swap_team"
 	EventDisconnect   = "disconnect"
 	EventChatMessage  = "chat_message"
+	EventFootstep     = "footstep"
 )
 
 // Replay contains a minified demo

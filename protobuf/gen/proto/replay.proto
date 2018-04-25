@@ -56,6 +56,7 @@ message Replay {
 				SWAP_TEAM = 6;
 				DISCONNECT = 7;
 				CHAT_MESSAGE = 8;
+				CUSTOM = 9;
 			}
 
 			message Attribute {
@@ -65,11 +66,14 @@ message Replay {
 					KILLER = 2;
 					ASSISTER = 3;
 					TEXT = 4;
+					EVENT_NAME = 5;
+					CUSTOM = 6;
 				}
 
 				Kind kind = 1;
 				string stringValue = 2;
 				double numberValue = 3;
+				string customName = 4;
 			}
 
 			Kind kind = 1;

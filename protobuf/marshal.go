@@ -1,7 +1,6 @@
 package protobuf
 
 import (
-	fmt "fmt"
 	io "io"
 
 	common "github.com/markus-wa/demoinfocs-golang/common"
@@ -116,8 +115,16 @@ func mapToTicks(ticks []rep.Tick) []*gen.Replay_Tick {
 func mapToEvents(events []rep.Event) []*gen.Replay_Tick_Event {
 	result := make([]*gen.Replay_Tick_Event, 0)
 	for _, e := range events {
+		kind := mapToEventKind(e.Name)
+		// Custom events
+		if kind == gen.Replay_Tick_Event_CUSTOM {
+			e.Attributes = append(e.Attributes, rep.EventAttribute{
+				Key:    attrKindEventName,
+				StrVal: e.Name,
+			})
+		}
 		result = append(result, &gen.Replay_Tick_Event{
-			Kind:       mapToEventKind(e.Name),
+			Kind:       kind,
 			Attributes: mapToAttributes(e.Attributes),
 		})
 	}
@@ -130,10 +137,17 @@ func mapToAttributes(attrs []rep.EventAttribute) []*gen.Replay_Tick_Event_Attrib
 	}
 	result := make([]*gen.Replay_Tick_Event_Attribute, 0)
 	for _, a := range attrs {
+		kind := mapToAttributeKind(a.Key)
+		// Custom attributes
+		var customName string
+		if kind == gen.Replay_Tick_Event_Attribute_CUSTOM {
+			customName = a.Key
+		}
 		result = append(result, &gen.Replay_Tick_Event_Attribute{
-			Kind:        mapToAttributeKind(a.Key),
+			Kind:        kind,
 			NumberValue: a.NumVal,
 			StringValue: a.StrVal,
+			CustomName:  customName,
 		})
 	}
 	return result
@@ -142,7 +156,7 @@ func mapToAttributes(attrs []rep.EventAttribute) []*gen.Replay_Tick_Event_Attrib
 func mapToAttributeKind(key string) gen.Replay_Tick_Event_Attribute_Kind {
 	kind, ok := attributeKindMap.Get(key)
 	if !ok {
-		panic(fmt.Errorf("Unknown attribute kind %q", key))
+		return gen.Replay_Tick_Event_Attribute_CUSTOM
 	}
 	return kind.(gen.Replay_Tick_Event_Attribute_Kind)
 }
@@ -150,7 +164,7 @@ func mapToAttributeKind(key string) gen.Replay_Tick_Event_Attribute_Kind {
 func mapToEventKind(name string) gen.Replay_Tick_Event_Kind {
 	kind, ok := eventKindMap.Get(name)
 	if !ok {
-		panic(fmt.Errorf("Unknown event kind %q", name))
+		return gen.Replay_Tick_Event_CUSTOM
 	}
 	return kind.(gen.Replay_Tick_Event_Kind)
 }

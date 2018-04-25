@@ -9,6 +9,10 @@ import (
 	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
 
+const (
+	attrKindEventName = "INTERNAL_EVENT_NAME"
+)
+
 var (
 	attributeKindMap = bimap.NewBiMap()
 	eventKindMap     = bimap.NewBiMap()
@@ -20,6 +24,7 @@ func init() {
 	attributeKindMap.Insert(rep.AttrKindKiller, gen.Replay_Tick_Event_Attribute_KILLER)
 	attributeKindMap.Insert(rep.AttrKindAssister, gen.Replay_Tick_Event_Attribute_ASSISTER)
 	attributeKindMap.Insert(rep.AttrKindText, gen.Replay_Tick_Event_Attribute_TEXT)
+	attributeKindMap.Insert(attrKindEventName, gen.Replay_Tick_Event_Attribute_EVENT_NAME)
 
 	eventKindMap.Insert(rep.EventJump, gen.Replay_Tick_Event_JUMP)
 	eventKindMap.Insert(rep.EventFire, gen.Replay_Tick_Event_FIRE)

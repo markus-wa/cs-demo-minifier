@@ -86,3 +86,38 @@ func TestChat(t *testing.T) {
 		t.Fatal("No chat events recorded when there should have been some")
 	}
 }
+
+func TestExtraHandlers(t *testing.T) {
+	f, err := os.Open(demPath)
+	defer f.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Register extra handlers
+	ec := new(csminify.EventCollector)
+	csminify.EventHandlers.Extra.RegisterAll(ec)
+
+	r, err := csminify.ToReplayWithCustomEvents(f, 0.2, ec)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Check for extra events
+	// Currently only footsteps
+	ok := false
+	for _, t := range r.Ticks {
+		for _, e := range t.Events {
+			if e.Name == rep.EventFootstep {
+				for _, a := range e.Attributes {
+					if a.Key == rep.AttrKindEntityID && a.NumVal > 0 {
+						ok = true
+					}
+				}
+			}
+		}
+	}
+	if !ok {
+		t.Fatal("No footstep events recorded when there should have been some")
+	}
+}

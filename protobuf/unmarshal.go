@@ -125,8 +125,19 @@ func mapFromTicks(ticks []*gen.Replay_Tick) []rep.Tick {
 func mapFromEvents(events []*gen.Replay_Tick_Event) []rep.Event {
 	result := make([]rep.Event, 0)
 	for _, e := range events {
+		// Custom events
+		var name string
+		if e.Kind == gen.Replay_Tick_Event_CUSTOM {
+			for _, attr := range e.Attributes {
+				if attr.Kind == gen.Replay_Tick_Event_Attribute_EVENT_NAME {
+					name = attr.StringValue
+				}
+			}
+		} else {
+			name = mapFromEventKind(e.Kind)
+		}
 		result = append(result, rep.Event{
-			Name:       mapFromEventKind(e.Kind),
+			Name:       name,
 			Attributes: mapFromAttributes(e.Attributes),
 		})
 	}
@@ -139,11 +150,21 @@ func mapFromAttributes(attrs []*gen.Replay_Tick_Event_Attribute) []rep.EventAttr
 	}
 	result := make([]rep.EventAttribute, 0)
 	for _, a := range attrs {
-		result = append(result, rep.EventAttribute{
-			Key:    mapFromAttributeKind(a.Kind),
-			NumVal: a.NumberValue,
-			StrVal: a.StringValue,
-		})
+		// Skip the internal 'event name' attributes
+		if a.Kind != gen.Replay_Tick_Event_Attribute_EVENT_NAME {
+			// Custom attributes
+			var key string
+			if a.Kind == gen.Replay_Tick_Event_Attribute_CUSTOM {
+				key = a.CustomName
+			} else {
+				key = mapFromAttributeKind(a.Kind)
+			}
+			result = append(result, rep.EventAttribute{
+				Key:    key,
+				NumVal: a.NumberValue,
+				StrVal: a.StringValue,
+			})
+		}
 	}
 	return result
 }
