@@ -39,6 +39,13 @@ func main() {
 	demPath := *demPathPtr
 	outPath := *outPathPtr
 
+	err = minify(demPath, freq, format, outPath)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func minify(demPath string, freq float32, format string, outPath string) error {
 	var marshaller min.ReplayMarshaller
 	switch format {
 	case "json":
@@ -62,7 +69,7 @@ func main() {
 
 	default:
 		fmt.Fprintf(os.Stderr, "Format '%s' unknown, known formats are 'json', 'msgpack' & 'protobuf'\n", format)
-		os.Exit(2)
+		os.Exit(1)
 	}
 
 	var in io.Reader
@@ -74,7 +81,7 @@ func main() {
 		defer f.Close()
 		in = f
 		if err != nil {
-			panic(err.Error())
+			return err
 		}
 	}
 
@@ -87,12 +94,9 @@ func main() {
 		defer f.Close()
 		out = f
 		if err != nil {
-			panic(err.Error())
+			return err
 		}
 	}
 
-	err = min.MinifyTo(in, freq, marshaller, out)
-	if err != nil {
-		panic(err.Error())
-	}
+	return min.MinifyTo(in, freq, marshaller, out)
 }
