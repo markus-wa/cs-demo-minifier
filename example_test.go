@@ -26,7 +26,7 @@ func TestExample(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// Decoding the it again is just as easy
+	// Decoding it again is just as easy
 	var r rep.Replay
 	err = json.NewDecoder(buf).Decode(&r)
 	if err != nil {
