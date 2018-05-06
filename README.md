@@ -29,7 +29,7 @@ There are also [some other rooms](https://gitter.im/csgodemos) available around 
 
 ### Command Line
 
-The following command takes one snapshot of a demo every two seconds (`-freq 0.5`) and saves the resulting, replay in the `MessagePack` format to `demo.mp`.
+The following command takes one snapshot of a demo every two seconds (`-freq 0.5`) and saves the resulting replay in the `MessagePack` format to `demo.mp`.
 
 	csminify -demo /path/to/demo.dem -format msgpack -freq 0.5 -out demo.mp
 
