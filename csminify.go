@@ -38,10 +38,7 @@ func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writ
 	}
 
 	err = marshal(replay, w)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 // ToReplay reads a demo from r, takes snapshots (snapFreq/sec) and records events into a Replay.
