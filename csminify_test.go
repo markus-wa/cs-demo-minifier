@@ -98,7 +98,7 @@ func TestExtraHandlers(t *testing.T) {
 	ec := new(csminify.EventCollector)
 	csminify.EventHandlers.Extra.RegisterAll(ec)
 
-	r, err := csminify.ToReplayWithCustomEvents(f, 0.2, ec)
+	r, err := csminify.ToReplayWithConfig(f, csminify.ReplayConfig{SnapshotFrequency: 0.2, EventCollector: ec})
 	if err != nil {
 		t.Fatal(err)
 	}

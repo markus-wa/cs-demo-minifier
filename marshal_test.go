@@ -82,7 +82,7 @@ func TestProtobufCustomEvents(t *testing.T) {
 		})
 	})
 
-	customReplay, err := min.ToReplayWithCustomEvents(f, 0.5, ec)
+	customReplay, err := min.ToReplayWithConfig(f, min.ReplayConfig{SnapshotFrequency: 0.5, EventCollector: ec})
 	if err != nil {
 		panic(err.Error())
 	}

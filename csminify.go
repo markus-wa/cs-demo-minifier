@@ -19,8 +19,13 @@ type ReplayMarshaller func(rep.Replay, io.Writer) error
 
 // Minify wraps MinifyTo with a bytes.Buffer and returns the written bytes.
 func Minify(r io.Reader, snapFreq float32, marshal ReplayMarshaller) ([]byte, error) {
+	return MinifyWithConfig(r, DefaultReplayConfig(snapFreq), marshal)
+}
+
+// MinifyWithConfig wraps MinifyToWithConfig with a bytes.Buffer and returns the written bytes.
+func MinifyWithConfig(r io.Reader, cfg ReplayConfig, marshal ReplayMarshaller) ([]byte, error) {
 	var buf bytes.Buffer
-	err := MinifyTo(r, snapFreq, marshal, bufio.NewWriter(&buf))
+	err := MinifyToWithConfig(r, cfg, marshal, bufio.NewWriter(&buf))
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +35,13 @@ func Minify(r io.Reader, snapFreq float32, marshal ReplayMarshaller) ([]byte, er
 // MinifyTo reads a demo from r, creates a replay and marshals it to w.
 // See also: ToReplay
 func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writer) error {
-	replay, err := ToReplay(r, snapFreq)
+	return MinifyToWithConfig(r, DefaultReplayConfig(snapFreq), marshal, w)
+}
+
+// MinifyToWithConfig reads a demo from r, creates a replay and marshals it to w.
+// See also: ToReplayWithConfig
+func MinifyToWithConfig(r io.Reader, cfg ReplayConfig, marshal ReplayMarshaller, w io.Writer) error {
+	replay, err := ToReplayWithConfig(r, cfg)
 	if err != nil {
 		return err
 	}
@@ -39,17 +50,32 @@ func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writ
 	return err
 }
 
-// ToReplay reads a demo from r, takes snapshots (snapFreq/sec) and records events into a Replay.
-func ToReplay(r io.Reader, snapFreq float32) (rep.Replay, error) {
+// DefaultReplayConfig returns the default configuration with a given snapshot frequency.
+// May be overridden.
+var DefaultReplayConfig = func(snapFreq float32) ReplayConfig {
 	ec := new(EventCollector)
 	EventHandlers.Default.RegisterAll(ec)
-	return ToReplayWithCustomEvents(r, snapFreq, ec)
+	return ReplayConfig{
+		SnapshotFrequency: snapFreq,
+		EventCollector:    ec,
+	}
 }
 
-// ToReplayWithCustomEvents is like ToReplay but with a custom EventCollector.
-func ToReplayWithCustomEvents(r io.Reader, snapFreq float32, eventCollector *EventCollector) (rep.Replay, error) {
-	// FIXME: Smoothify flag
-	// TODO: Maybe pass a WarnHandler along
+// ReplayConfig contains the configuration for generating a replay.
+type ReplayConfig struct {
+	SnapshotFrequency float32
+	EventCollector    *EventCollector
+	// TODO: Smoothify flag?
+}
+
+// ToReplay reads a demo from r, takes snapshots (snapFreq/sec) and records events into a Replay.
+func ToReplay(r io.Reader, snapFreq float32) (rep.Replay, error) {
+	return ToReplayWithConfig(r, DefaultReplayConfig(snapFreq))
+}
+
+// ToReplayWithConfig reads a demo from r, takes snapshots and records events into a Replay with a custom configuration.
+func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
+	// TODO: Provide a way to pass on warnings to the caller
 	p := dem.NewParser(r, nil)
 	_, err := p.ParseHeader()
 	if err != nil {
@@ -57,16 +83,16 @@ func ToReplayWithCustomEvents(r io.Reader, snapFreq float32, eventCollector *Eve
 	}
 
 	// Make the parser accessible for the custom event handlers
-	eventCollector.parser = p
+	cfg.EventCollector.parser = p
 
-	m := minifier{parser: p, eventCollector: eventCollector}
+	m := minifier{parser: p, eventCollector: cfg.EventCollector}
 
 	m.replay.Header.MapName = p.Map()
 	m.replay.Header.TickRate = p.FrameRate()
-	m.replay.Header.SnapshotRate = int(math.Round(float64(m.replay.Header.TickRate / snapFreq)))
+	m.replay.Header.SnapshotRate = int(math.Round(float64(m.replay.Header.TickRate / cfg.SnapshotFrequency)))
 
 	// Register event handlers from collector
-	for _, h := range eventCollector.handlers {
+	for _, h := range cfg.EventCollector.handlers {
 		m.parser.RegisterEventHandler(h)
 	}
 
