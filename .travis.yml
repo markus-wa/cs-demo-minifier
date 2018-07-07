@@ -12,14 +12,11 @@ matrix:
     - go: master
 
 before_script:
-  # Use goverage to get coverage over multiple packages
-  # Will be fixed with Go 1.10
-  - go get github.com/haya14busa/goverage
   # Don't record coverage for protobuf/gen & replay/nondefault
-  - cover_packages=$(go list ./... | grep -v "protobuf/gen\|replay/nondefault" | awk -vORS=' ' '{ print $1 }' | sed 's/,$/\n/')
+  - cover_packages=$(go list ./... | grep -v "protobuf/gen\|replay/nondefault" | awk -vORS=',' '{ print $1 }' | sed 's/,$/\n/')
 
 script:
-  - goverage -v -coverprofile=coverage.txt $cover_packages
+  - go test -coverprofile=coverage.txt -coverpkg=$cover_packages ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
