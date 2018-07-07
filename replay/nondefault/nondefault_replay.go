@@ -234,6 +234,8 @@ func deepValueUnEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) b
 		}
 		return true
 	case reflect.Slice:
+		fallthrough
+	case reflect.Map:
 		if v1.IsNil() || v2.IsNil() {
 			return v1.IsNil() != v2.IsNil()
 		}
@@ -259,17 +261,6 @@ func deepValueUnEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) b
 			if !deepValueUnEqual(v1.Field(i), v2.Field(i), visited, depth+1) {
 				return false
 			}
-		}
-		return true
-	case reflect.Map:
-		if v1.IsNil() || v2.IsNil() {
-			return v1.IsNil() != v2.IsNil()
-		}
-		if v1.Pointer() == v2.Pointer() {
-			return false
-		}
-		if v1.Len() == v2.Len() {
-			return false
 		}
 		return true
 	case reflect.Func:
