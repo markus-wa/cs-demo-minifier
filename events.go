@@ -72,13 +72,9 @@ func (defaultEventHandlers) RegisterRoundStarted(ec *EventCollector) {
 
 func (defaultEventHandlers) RegisterPlayerKilled(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerKilledEvent) {
-		if e.Victim == nil {
-			return
-		}
-
 		eb := buildEvent(rep.EventKill).intAttr(rep.AttrKindVictim, e.Victim.EntityID)
 
-		if e.Killer != nil && e.Killer != e.Victim {
+		if e.Killer != nil {
 			eb.intAttr(rep.AttrKindKiller, e.Killer.EntityID)
 		}
 
@@ -92,30 +88,18 @@ func (defaultEventHandlers) RegisterPlayerKilled(ec *EventCollector) {
 
 func (defaultEventHandlers) RegisterPlayerHurt(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerHurtEvent) {
-		if e.Player == nil {
-			return
-		}
-
 		ec.AddEvent(createEntityEvent(rep.EventHurt, e.Player.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterPlayerFlashed(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerFlashedEvent) {
-		if e.Player == nil {
-			return
-		}
-
 		ec.AddEvent(createEntityEvent(rep.EventFlashed, e.Player.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterPlayerJump(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerJumpEvent) {
-		if e.Player == nil {
-			return
-		}
-
 		ec.AddEvent(createEntityEvent(rep.EventJump, e.Player.EntityID))
 	})
 }
@@ -132,20 +116,12 @@ func (defaultEventHandlers) RegisterPlayerTeamChange(ec *EventCollector) {
 
 func (defaultEventHandlers) RegisterPlayerDisconnect(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerDisconnectEvent) {
-		if e.Player == nil {
-			return
-		}
-
 		ec.AddEvent(createEntityEvent(rep.EventDisconnect, e.Player.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterWeaponFired(ec *EventCollector) {
 	ec.AddHandler(func(e events.WeaponFiredEvent) {
-		if e.Shooter == nil {
-			return
-		}
-
 		ec.AddEvent(createEntityEvent(rep.EventFire, e.Shooter.EntityID))
 	})
 }
@@ -174,10 +150,6 @@ func (extraEventHandlers) RegisterAll(ec *EventCollector) {
 
 func (extraEventHandlers) RegisterFootstep(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerFootstepEvent) {
-		if e.Player == nil {
-			return
-		}
-
 		ec.AddEvent(createEntityEvent(rep.EventFootstep, e.Player.EntityID))
 	})
 }
