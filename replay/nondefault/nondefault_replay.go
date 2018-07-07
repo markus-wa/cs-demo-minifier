@@ -138,6 +138,7 @@ func deepValueNonDefault(v reflect.Value) bool {
 			}
 		}
 		return true
+
 	case reflect.Slice:
 		fallthrough
 	case reflect.Map:
@@ -153,13 +154,16 @@ func deepValueNonDefault(v reflect.Value) bool {
 			}
 		}
 		return true
+
 	case reflect.Interface:
 		if v.IsNil() {
 			return false
 		}
 		return deepValueNonDefault(v.Elem())
+
 	case reflect.Ptr:
 		return deepValueNonDefault(v.Elem())
+
 	case reflect.Struct:
 		for i, n := 0, v.NumField(); i < n; i++ {
 			if !deepValueNonDefault(v.Field(i)) {
@@ -169,12 +173,14 @@ func deepValueNonDefault(v reflect.Value) bool {
 
 		// Shouldn't be the default value
 		return deepValueUnEqual(v, reflect.New(v.Type()).Elem(), make(map[visit]bool), 0)
+
 	case reflect.Func:
 		if v.IsNil() {
 			return false
 		}
 		// Can't do better than this:
 		return false
+
 	default:
 		// Normal inequality suffices
 		return v.Interface() != nil
@@ -233,6 +239,7 @@ func deepValueUnEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) b
 			}
 		}
 		return true
+
 	case reflect.Slice:
 		fallthrough
 	case reflect.Map:
@@ -246,16 +253,19 @@ func deepValueUnEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) b
 			return false
 		}
 		return true
+
 	case reflect.Interface:
 		if v1.IsNil() || v2.IsNil() {
 			return v1.IsNil() != v2.IsNil()
 		}
 		return deepValueUnEqual(v1.Elem(), v2.Elem(), visited, depth+1)
+
 	case reflect.Ptr:
 		if v1.Pointer() == v2.Pointer() {
 			return false
 		}
 		return deepValueUnEqual(v1.Elem(), v2.Elem(), visited, depth+1)
+
 	case reflect.Struct:
 		for i, n := 0, v1.NumField(); i < n; i++ {
 			if !deepValueUnEqual(v1.Field(i), v2.Field(i), visited, depth+1) {
@@ -263,12 +273,14 @@ func deepValueUnEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) b
 			}
 		}
 		return true
+
 	case reflect.Func:
 		if v1.IsNil() || v2.IsNil() {
 			return v1.IsNil() != v2.IsNil()
 		}
 		// Can't do better than this:
 		return false
+
 	default:
 		// Normal inequality suffices
 		return v1.Interface() != v2.Interface()
