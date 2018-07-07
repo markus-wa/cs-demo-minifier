@@ -16,7 +16,7 @@ before_script:
   - cover_packages=$(go list ./... | grep -v "protobuf/gen\|replay/nondefault" | awk -vORS=',' '{ print $1 }' | sed 's/,$/\n/')
 
 script:
-  - go test -coverprofile=coverage.txt -coverpkg=$cover_packages ./...
+  - go test -coverprofile=coverage.txt -covermode=count -coverpkg=$cover_packages ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
