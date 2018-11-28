@@ -36,7 +36,7 @@ type Replay struct {
 // Header holds the replay's general information
 type Header struct {
 	MapName      string  `json:"map" msgpack:"map"`
-	TickRate     float32 `json:"tickRate" msgpack:"tickRate"`         // How many ticks per second
+	TickRate     float64 `json:"tickRate" msgpack:"tickRate"`         // How many ticks per second
 	SnapshotRate int     `json:"snapshotRate" msgpack:"snapshotRate"` // How many ticks per snapshot
 }
 

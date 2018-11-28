@@ -65,13 +65,13 @@ func (defaultEventHandlers) RegisterAll(ec *EventCollector) {
 }
 
 func (defaultEventHandlers) RegisterRoundStarted(ec *EventCollector) {
-	ec.AddHandler(func(e events.RoundStartedEvent) {
+	ec.AddHandler(func(e events.RoundStart) {
 		ec.AddEvent(createEvent(rep.EventRoundStarted))
 	})
 }
 
 func (defaultEventHandlers) RegisterPlayerKilled(ec *EventCollector) {
-	ec.AddHandler(func(e events.PlayerKilledEvent) {
+	ec.AddHandler(func(e events.Kill) {
 		eb := buildEvent(rep.EventKill).intAttr(rep.AttrKindVictim, e.Victim.EntityID)
 
 		if e.Killer != nil {
@@ -87,25 +87,25 @@ func (defaultEventHandlers) RegisterPlayerKilled(ec *EventCollector) {
 }
 
 func (defaultEventHandlers) RegisterPlayerHurt(ec *EventCollector) {
-	ec.AddHandler(func(e events.PlayerHurtEvent) {
+	ec.AddHandler(func(e events.PlayerHurt) {
 		ec.AddEvent(createEntityEvent(rep.EventHurt, e.Player.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterPlayerFlashed(ec *EventCollector) {
-	ec.AddHandler(func(e events.PlayerFlashedEvent) {
+	ec.AddHandler(func(e events.PlayerFlashed) {
 		ec.AddEvent(createEntityEvent(rep.EventFlashed, e.Player.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterPlayerJump(ec *EventCollector) {
-	ec.AddHandler(func(e events.PlayerJumpEvent) {
+	ec.AddHandler(func(e events.PlayerJump) {
 		ec.AddEvent(createEntityEvent(rep.EventJump, e.Player.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterPlayerTeamChange(ec *EventCollector) {
-	ec.AddHandler(func(e events.PlayerTeamChangeEvent) {
+	ec.AddHandler(func(e events.PlayerTeamChange) {
 		if e.Player == nil {
 			return
 		}
@@ -115,19 +115,19 @@ func (defaultEventHandlers) RegisterPlayerTeamChange(ec *EventCollector) {
 }
 
 func (defaultEventHandlers) RegisterPlayerDisconnect(ec *EventCollector) {
-	ec.AddHandler(func(e events.PlayerDisconnectEvent) {
+	ec.AddHandler(func(e events.PlayerDisconnected) {
 		ec.AddEvent(createEntityEvent(rep.EventDisconnect, e.Player.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterWeaponFired(ec *EventCollector) {
-	ec.AddHandler(func(e events.WeaponFiredEvent) {
+	ec.AddHandler(func(e events.WeaponFire) {
 		ec.AddEvent(createEntityEvent(rep.EventFire, e.Shooter.EntityID))
 	})
 }
 
 func (defaultEventHandlers) RegisterChatMessage(ec *EventCollector) {
-	ec.AddHandler(func(e events.ChatMessageEvent) {
+	ec.AddHandler(func(e events.ChatMessage) {
 		eb := buildEvent(rep.EventChatMessage)
 		eb = eb.stringAttr(rep.AttrKindText, e.Text)
 
@@ -149,7 +149,7 @@ func (extraEventHandlers) RegisterAll(ec *EventCollector) {
 }
 
 func (extraEventHandlers) RegisterFootstep(ec *EventCollector) {
-	ec.AddHandler(func(e events.PlayerFootstepEvent) {
+	ec.AddHandler(func(e events.Footstep) {
 		ec.AddEvent(createEntityEvent(rep.EventFootstep, e.Player.EntityID))
 	})
 }

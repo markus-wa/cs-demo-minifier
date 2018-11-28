@@ -17,7 +17,7 @@ message Point {
 message Replay {
 	message Header {
 		string map = 1;
-		float tickRate = 2;
+		double tickRate = 2;
 		int32 snapshotRate = 3;
 	}
 

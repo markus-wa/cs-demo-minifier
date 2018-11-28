@@ -7,12 +7,12 @@ import (
 	"os"
 	"testing"
 
-	events "github.com/markus-wa/demoinfocs-golang/events"
-	assert "github.com/stretchr/testify/assert"
-	msgpack "gopkg.in/vmihailenco/msgpack.v2"
+	"github.com/markus-wa/demoinfocs-golang/events"
+	"github.com/stretchr/testify/assert"
+	"gopkg.in/vmihailenco/msgpack.v2"
 
 	min "github.com/markus-wa/cs-demo-minifier"
-	protobuf "github.com/markus-wa/cs-demo-minifier/protobuf"
+	"github.com/markus-wa/cs-demo-minifier/protobuf"
 	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
 
@@ -71,7 +71,7 @@ func TestProtobufCustomEvents(t *testing.T) {
 	defer f.Close()
 
 	ec := new(min.EventCollector)
-	ec.AddHandler(func(events.BombPlantedEvent) {
+	ec.AddHandler(func(events.BombPlanted) {
 		// Test access to parser
 		ec.Parser().GameState().IngameTick()
 

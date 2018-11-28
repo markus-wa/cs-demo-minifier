@@ -18,7 +18,7 @@ import (
 type ReplayMarshaller func(rep.Replay, io.Writer) error
 
 // Minify wraps MinifyTo with a bytes.Buffer and returns the written bytes.
-func Minify(r io.Reader, snapFreq float32, marshal ReplayMarshaller) ([]byte, error) {
+func Minify(r io.Reader, snapFreq float64, marshal ReplayMarshaller) ([]byte, error) {
 	return MinifyWithConfig(r, DefaultReplayConfig(snapFreq), marshal)
 }
 
@@ -34,7 +34,7 @@ func MinifyWithConfig(r io.Reader, cfg ReplayConfig, marshal ReplayMarshaller) (
 
 // MinifyTo reads a demo from r, creates a replay and marshals it to w.
 // See also: ToReplay
-func MinifyTo(r io.Reader, snapFreq float32, marshal ReplayMarshaller, w io.Writer) error {
+func MinifyTo(r io.Reader, snapFreq float64, marshal ReplayMarshaller, w io.Writer) error {
 	return MinifyToWithConfig(r, DefaultReplayConfig(snapFreq), marshal, w)
 }
 
@@ -52,7 +52,7 @@ func MinifyToWithConfig(r io.Reader, cfg ReplayConfig, marshal ReplayMarshaller,
 
 // DefaultReplayConfig returns the default configuration with a given snapshot frequency.
 // May be overridden.
-var DefaultReplayConfig = func(snapFreq float32) ReplayConfig {
+var DefaultReplayConfig = func(snapFreq float64) ReplayConfig {
 	ec := new(EventCollector)
 	EventHandlers.Default.RegisterAll(ec)
 	return ReplayConfig{
@@ -63,13 +63,13 @@ var DefaultReplayConfig = func(snapFreq float32) ReplayConfig {
 
 // ReplayConfig contains the configuration for generating a replay.
 type ReplayConfig struct {
-	SnapshotFrequency float32
+	SnapshotFrequency float64
 	EventCollector    *EventCollector
 	// TODO: Smoothify flag?
 }
 
 // ToReplay reads a demo from r, takes snapshots (snapFreq/sec) and records events into a Replay.
-func ToReplay(r io.Reader, snapFreq float32) (rep.Replay, error) {
+func ToReplay(r io.Reader, snapFreq float64) (rep.Replay, error) {
 	return ToReplayWithConfig(r, DefaultReplayConfig(snapFreq))
 }
 
@@ -89,7 +89,7 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 
 	m.replay.Header.MapName = header.MapName
 	m.replay.Header.TickRate = header.FrameRate()
-	m.replay.Header.SnapshotRate = int(math.Round(float64(m.replay.Header.TickRate / cfg.SnapshotFrequency)))
+	m.replay.Header.SnapshotRate = int(math.Round(m.replay.Header.TickRate / cfg.SnapshotFrequency))
 
 	// Register event handlers from collector
 	for _, h := range cfg.EventCollector.handlers {
@@ -104,7 +104,7 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 	}
 
 	// TODO: There's probably a better place for this
-	for _, pl := range m.parser.GameState().Participants() {
+	for _, pl := range m.parser.GameState().Participants().All() {
 		ent := rep.Entity{
 			ID:    pl.EntityID,
 			Team:  int(pl.Team),
@@ -124,7 +124,7 @@ type minifier struct {
 	eventCollector *EventCollector
 }
 
-func (m *minifier) tickDone(e events.TickDoneEvent) {
+func (m *minifier) tickDone(e events.TickDone) {
 	tick := m.parser.CurrentFrame()
 	// Is it snapshot o'clock?
 	if tick%m.replay.Header.SnapshotRate == 0 {
@@ -132,7 +132,7 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 			Tick: tick,
 		}
 
-		for _, pl := range m.parser.GameState().PlayingParticipants() {
+		for _, pl := range m.parser.GameState().Participants().Playing() {
 			if pl.IsAlive() {
 				e := rep.EntityUpdate{
 					EntityID:      pl.EntityID,

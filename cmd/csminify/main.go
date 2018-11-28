@@ -35,7 +35,7 @@ func main() {
 	}
 
 	format := *formatPtr
-	freq := float32(*freqPtr)
+	freq := *freqPtr
 	demPath := *demPathPtr
 	outPath := *outPathPtr
 
@@ -45,7 +45,7 @@ func main() {
 	}
 }
 
-func minify(demPath string, freq float32, format string, outPath string) error {
+func minify(demPath string, freq float64, format string, outPath string) error {
 	var marshaller min.ReplayMarshaller
 	switch format {
 	case "json":
