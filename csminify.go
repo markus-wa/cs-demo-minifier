@@ -76,8 +76,8 @@ func ToReplay(r io.Reader, snapFreq float32) (rep.Replay, error) {
 // ToReplayWithConfig reads a demo from r, takes snapshots and records events into a Replay with a custom configuration.
 func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 	// TODO: Provide a way to pass on warnings to the caller
-	p := dem.NewParser(r, nil)
-	_, err := p.ParseHeader()
+	p := dem.NewParser(r)
+	header, err := p.ParseHeader()
 	if err != nil {
 		return rep.Replay{}, err
 	}
@@ -87,8 +87,8 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 
 	m := minifier{parser: p, eventCollector: cfg.EventCollector}
 
-	m.replay.Header.MapName = p.Map()
-	m.replay.Header.TickRate = p.FrameRate()
+	m.replay.Header.MapName = header.MapName
+	m.replay.Header.TickRate = header.FrameRate()
 	m.replay.Header.SnapshotRate = int(math.Round(float64(m.replay.Header.TickRate / cfg.SnapshotFrequency)))
 
 	// Register event handlers from collector
@@ -104,7 +104,7 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 	}
 
 	// TODO: There's probably a better place for this
-	for _, pl := range m.parser.Participants() {
+	for _, pl := range m.parser.GameState().Participants() {
 		ent := rep.Entity{
 			ID:    pl.EntityID,
 			Team:  int(pl.Team),
@@ -132,7 +132,7 @@ func (m *minifier) tickDone(e events.TickDoneEvent) {
 			Tick: tick,
 		}
 
-		for _, pl := range m.parser.PlayingParticipants() {
+		for _, pl := range m.parser.GameState().PlayingParticipants() {
 			if pl.IsAlive() {
 				e := rep.EntityUpdate{
 					EntityID:      pl.EntityID,

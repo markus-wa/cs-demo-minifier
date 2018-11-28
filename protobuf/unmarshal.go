@@ -1,7 +1,7 @@
 package protobuf
 
 import (
-	fmt "fmt"
+	"fmt"
 	"io"
 	"io/ioutil"
 
@@ -41,15 +41,20 @@ func mapFromHeader(header *gen.Replay_Header) rep.Header {
 }
 
 func mapFromEntities(entities []*gen.Replay_Entity) []rep.Entity {
-	result := make([]rep.Entity, 0)
-	for _, e := range entities {
-		result = append(result, rep.Entity{
+	if entities == nil {
+		return nil
+	}
+
+	result := make([]rep.Entity, len(entities))
+	for i, e := range entities {
+		result[i] = rep.Entity{
 			ID:    int(e.Id),
 			Team:  mapFromTeam(e.Team),
 			Name:  e.Name,
 			IsNpc: e.IsNpc,
-		})
+		}
 	}
+
 	return result
 }
 
@@ -69,20 +74,29 @@ func mapFromTeam(team gen.Team) int {
 }
 
 func mapFromSnapshots(snaps []*gen.Replay_Snapshot) []rep.Snapshot {
-	result := make([]rep.Snapshot, 0)
-	for _, s := range snaps {
-		result = append(result, rep.Snapshot{
+	if snaps == nil {
+		return nil
+	}
+
+	result := make([]rep.Snapshot, len(snaps))
+	for i, s := range snaps {
+		result[i] = rep.Snapshot{
 			Tick:          int(s.Tick),
 			EntityUpdates: mapFromEntityUpdates(s.EntityUpdates),
-		})
+		}
 	}
+
 	return result
 }
 
 func mapFromEntityUpdates(entityUpdates []*gen.Replay_Snapshot_EntityUpdate) []rep.EntityUpdate {
-	result := make([]rep.EntityUpdate, 0)
-	for _, u := range entityUpdates {
-		result = append(result, rep.EntityUpdate{
+	if entityUpdates == nil {
+		return nil
+	}
+
+	result := make([]rep.EntityUpdate, len(entityUpdates))
+	for i, u := range entityUpdates {
+		result[i] = rep.EntityUpdate{
 			Angle:         int(u.Angle),
 			Armor:         int(u.Armor),
 			EntityID:      int(u.EntityId),
@@ -91,16 +105,22 @@ func mapFromEntityUpdates(entityUpdates []*gen.Replay_Snapshot_EntityUpdate) []r
 			Positions:     mapFromPositions(u.Positions),
 			IsNpc:         u.IsNpc,
 			Team:          mapFromTeam(u.Team),
-		})
+		}
 	}
+
 	return result
 }
 
 func mapFromPositions(positions []*gen.Point) []rep.Point {
-	result := make([]rep.Point, 0)
-	for _, p := range positions {
-		result = append(result, mapFromPosition(p))
+	if positions == nil {
+		return nil
 	}
+
+	result := make([]rep.Point, len(positions))
+	for i, p := range positions {
+		result[i] = mapFromPosition(p)
+	}
+
 	return result
 }
 
@@ -112,19 +132,28 @@ func mapFromPosition(p *gen.Point) rep.Point {
 }
 
 func mapFromTicks(ticks []*gen.Replay_Tick) []rep.Tick {
-	result := make([]rep.Tick, 0)
-	for _, t := range ticks {
-		result = append(result, rep.Tick{
+	if ticks == nil {
+		return nil
+	}
+
+	result := make([]rep.Tick, len(ticks))
+	for i, t := range ticks {
+		result[i] = rep.Tick{
 			Nr:     int(t.Nr),
 			Events: mapFromEvents(t.Events),
-		})
+		}
 	}
+
 	return result
 }
 
 func mapFromEvents(events []*gen.Replay_Tick_Event) []rep.Event {
-	result := make([]rep.Event, 0)
-	for _, e := range events {
+	if events == nil {
+		return nil
+	}
+
+	result := make([]rep.Event, len(events))
+	for i, e := range events {
 		// Custom events
 		var name string
 		if e.Kind == gen.Replay_Tick_Event_CUSTOM {
@@ -136,11 +165,12 @@ func mapFromEvents(events []*gen.Replay_Tick_Event) []rep.Event {
 		} else {
 			name = mapFromEventKind(e.Kind)
 		}
-		result = append(result, rep.Event{
+		result[i] = rep.Event{
 			Name:       name,
 			Attributes: mapFromAttributes(e.Attributes),
-		})
+		}
 	}
+
 	return result
 }
 
@@ -148,7 +178,8 @@ func mapFromAttributes(attrs []*gen.Replay_Tick_Event_Attribute) []rep.EventAttr
 	if attrs == nil {
 		return nil
 	}
-	result := make([]rep.EventAttribute, 0)
+
+	result := make([]rep.EventAttribute, 0, len(attrs))
 	for _, a := range attrs {
 		// Skip the internal 'event name' attributes
 		if a.Kind != gen.Replay_Tick_Event_Attribute_EVENT_NAME {
@@ -166,13 +197,14 @@ func mapFromAttributes(attrs []*gen.Replay_Tick_Event_Attribute) []rep.EventAttr
 			})
 		}
 	}
+
 	return result
 }
 
 func mapFromAttributeKind(key gen.Replay_Tick_Event_Attribute_Kind) string {
 	kind, ok := attributeKindMap.GetInverse(key)
 	if !ok {
-		panic(fmt.Errorf("Unknown attribute kind %q", key))
+		panic(fmt.Errorf("unknown attribute kind %q", key))
 	}
 	return kind.(string)
 }
@@ -180,7 +212,7 @@ func mapFromAttributeKind(key gen.Replay_Tick_Event_Attribute_Kind) string {
 func mapFromEventKind(name gen.Replay_Tick_Event_Kind) string {
 	kind, ok := eventKindMap.GetInverse(name)
 	if !ok {
-		panic(fmt.Errorf("Unknown event kind %q", name))
+		panic(fmt.Errorf("unknown event kind %q", name))
 	}
 	return kind.(string)
 }

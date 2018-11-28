@@ -5,11 +5,10 @@ import (
 	"encoding/json"
 	"io"
 	"os"
-	"reflect"
 	"testing"
 
-	diff "github.com/d4l3k/messagediff"
 	events "github.com/markus-wa/demoinfocs-golang/events"
+	assert "github.com/stretchr/testify/assert"
 	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 
 	min "github.com/markus-wa/cs-demo-minifier"
@@ -66,19 +65,19 @@ func TestProtobufDemo(t *testing.T) {
 // Test data preservation of Protobuf marshalling & unmarshalling with a custom events & attributes.
 func TestProtobufCustomEvents(t *testing.T) {
 	f, err := os.Open(demPath)
-	defer f.Close()
 	if err != nil {
 		panic(err.Error())
 	}
+	defer f.Close()
 
 	ec := new(min.EventCollector)
 	ec.AddHandler(func(events.BombPlantedEvent) {
 		// Test access to parser
-		ec.Parser().IngameTick()
+		ec.Parser().GameState().IngameTick()
 
 		ec.AddEvent(rep.Event{
 			Name:       "custom_plant_event",
-			Attributes: []rep.EventAttribute{rep.EventAttribute{Key: "custom_attribute", StrVal: "test"}},
+			Attributes: []rep.EventAttribute{{Key: "custom_attribute", StrVal: "test"}},
 		})
 	})
 
@@ -104,13 +103,5 @@ func testDataPreservation(replay rep.Replay, marshal min.ReplayMarshaller, unmar
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(replay, r) {
-		t.Error("Original replay and unmarshalled replay aren't equal")
-		diff, eq := diff.PrettyDiff(replay, r)
-		if !eq {
-			t.Logf("Diff:\n%s", diff)
-		} else {
-			t.Log("DeepEqual reported inequality but couldn't find differences in the structs")
-		}
-	}
+	assert.Equal(t, replay, r)
 }
