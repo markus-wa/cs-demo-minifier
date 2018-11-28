@@ -2,7 +2,7 @@ language: go
 sudo: required
 
 go:
-  - 1.10.x
+  - 1.11.x
   - stable
   - master
 
@@ -10,6 +10,13 @@ matrix:
   # Failing on the development version of Go isn't too bad.
   allow_failures:
     - go: master
+
+env:
+  - GO111MODULE=on
+
+# Override Travis's default 'go get' step, since we use Go modules
+install:
+  - go mod download
 
 before_script:
   # Don't record coverage for protobuf/gen & replay/nondefault
