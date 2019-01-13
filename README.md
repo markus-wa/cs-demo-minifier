@@ -9,6 +9,7 @@ It is still under development and the data formats may change in backwards-incom
 [![codecov](https://codecov.io/gh/markus-wa/cs-demo-minifier/branch/master/graph/badge.svg)](https://codecov.io/gh/markus-wa/cs-demo-minifier)
 [![Go Report](https://goreportcard.com/badge/github.com/markus-wa/cs-demo-minifier)](https://goreportcard.com/report/github.com/markus-wa/cs-demo-minifier)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE.md)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier?ref=badge_shield)
 
 ## Discussions / Chat
 
@@ -120,3 +121,7 @@ Should you need to re-generate the protobuf generated code in the `protobuf` pac
 Make sure both are inside your `PATH` variable.
 
 After installing these use `go generate ./protobuf` to generate the protobuf code.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier?ref=badge_large)
