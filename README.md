@@ -124,4 +124,7 @@ After installing these use `go generate ./protobuf` to generate the protobuf cod
 
 
 ## License
+
+This project is licensed under the [MIT license](LICENSE.md).
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier?ref=badge_large)
