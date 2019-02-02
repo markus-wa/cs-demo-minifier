@@ -11,6 +11,7 @@ It is still under development and the data formats may change in backwards-incom
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE.md)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier?ref=badge_shield)
 
+
 ## Discussions / Chat
 
 Use gitter to ask questions and discuss ideas about this project.<br>
@@ -18,13 +19,21 @@ There are also [some other rooms](https://gitter.im/csgodemos) available around 
 
 [![Gitter chat](https://badges.gitter.im/csgodemos/demo-minifier.png)](https://gitter.im/csgodemos/demo-minifier)
 
-## Go Get
+
+## Download
+
+### Binaries
+
+See the [releases](https://github.com/markus-wa/cs-demo-minifier/releases) page for pre-compiled executables for Linux, MacOS & Windows.
+
+### Go Get
 
 	# Library
 	go get -u github.com/markus-wa/cs-demo-minifier
 
 	# Command line tool
 	go get -u github.com/markus-wa/cs-demo-minifier/cmd/csminify
+
 
 ## Usage
 
@@ -83,6 +92,7 @@ func marshalJSON(r rep.Replay, w io.Writer) error {
 MessagePack marshalling works pretty much the same way as JSON.<br>
 For Protobuf use `protobuf.Unmarshal()` (in the sub-package).
 
+
 ## Supported Formats
 
 Format | Command Line (`-format` Flag)
@@ -94,6 +104,7 @@ Protocol Buffers | `protobuf`, `proto`, `pb`
 More formats can be added programmatically by implementing the `ReplayMarshaller` interface.
 
 If you would like to see additional formats supported please open a feature request (issue) or a pull request if you already have an implementation ready.
+
 
 ## Development
 
@@ -107,6 +118,7 @@ git submodule update
 pushd test/cs-demos && git lfs pull && popd
 go test ./...
 ```
+
 
 ### Generating Protobuf Code
 
