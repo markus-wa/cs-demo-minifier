@@ -20,7 +20,7 @@ install:
 
 before_script:
   # Download test data
-  - pushd cs-demos && git lfs pull -I '*' && popd
+  - pushd test/cs-demos && git lfs pull -I '*' && popd
 
   # Don't record coverage for protobuf/gen & replay/nondefault
   - cover_packages=$(go list ./... | grep -v "protobuf/gen\|replay/nondefault" | awk -vORS=',' '{ print $1 }' | sed 's/,$/\n/')

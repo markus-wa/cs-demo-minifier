@@ -12,7 +12,7 @@ import (
 
 var (
 	demPath      = "test/cs-demos/default.dem"
-	chatDemoPath = "test/cs-demos/2017-05-17-ECSSeason3NA-liquid-vs-renegades-cobblestone.dem"
+	chatDemoPath = "test/cs-demos/set/2017-05-17-ECSSeason3NA-liquid-vs-renegades-cobblestone.dem"
 )
 
 var nonDefaultReplay, parsedReplay rep.Replay
