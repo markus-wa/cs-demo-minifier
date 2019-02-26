@@ -100,6 +100,10 @@ func (defaultEventHandlers) RegisterPlayerFlashed(ec *EventCollector) {
 
 func (defaultEventHandlers) RegisterPlayerJump(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerJump) {
+		if e.Player == nil {
+			return
+		}
+
 		ec.AddEvent(createEntityEvent(rep.EventJump, e.Player.EntityID))
 	})
 }
