@@ -139,6 +139,7 @@ func (Replay_Tick_Event_Attribute_Kind) EnumDescriptor() ([]byte, []int) {
 type Point struct {
 	X int32 `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
 	Y int32 `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
+	Z int32 `protobuf:"varint,3,opt,name=z,proto3" json:"z,omitempty"`
 }
 
 func (m *Point) Reset()         { *m = Point{} }
@@ -184,6 +185,13 @@ func (m *Point) GetX() int32 {
 func (m *Point) GetY() int32 {
 	if m != nil {
 		return m.Y
+	}
+	return 0
+}
+
+func (m *Point) GetZ() int32 {
+	if m != nil {
+		return m.Z
 	}
 	return 0
 }
@@ -744,6 +752,11 @@ func (m *Point) MarshalTo(dAtA []byte) (int, error) {
 	}
 	if m.Y != 0 {
 		dAtA[i] = 0x10
+		i++
+		i = encodeVarintReplay(dAtA, i, uint64(m.Y))
+	}
+	if m.Z != 0 {
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintReplay(dAtA, i, uint64(m.Y))
 	}
@@ -1395,6 +1408,25 @@ func (m *Point) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.Y |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Z", wireType)
+			}
+			m.Z = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowReplay
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Z |= (int32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
