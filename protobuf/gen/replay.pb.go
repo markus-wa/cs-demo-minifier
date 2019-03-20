@@ -758,7 +758,7 @@ func (m *Point) MarshalTo(dAtA []byte) (int, error) {
 	if m.Z != 0 {
 		dAtA[i] = 0x12
 		i++
-		i = encodeVarintReplay(dAtA, i, uint64(m.Y))
+		i = encodeVarintReplay(dAtA, i, uint64(m.Z))
 	}
 	return i, nil
 }
