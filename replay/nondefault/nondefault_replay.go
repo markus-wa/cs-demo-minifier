@@ -31,6 +31,7 @@ func init() {
 	pos = append(pos, rep.Point{
 		X: 1124,
 		Y: -321,
+		Z: 24,
 	})
 
 	var entUpd []rep.EntityUpdate
