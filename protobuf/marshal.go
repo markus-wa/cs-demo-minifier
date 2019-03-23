@@ -98,6 +98,7 @@ func mapToPosition(p rep.Point) *gen.Point {
 	return &gen.Point{
 		X: int32(p.X),
 		Y: int32(p.Y),
+		Z: int32(p.Z),
 	}
 }
 

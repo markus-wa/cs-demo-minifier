@@ -128,6 +128,7 @@ func mapFromPosition(p *gen.Point) rep.Point {
 	return rep.Point{
 		X: int(p.X),
 		Y: int(p.Y),
+		Z: int(p.Z),
 	}
 }
 

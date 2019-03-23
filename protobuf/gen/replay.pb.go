@@ -3,13 +3,13 @@
 
 package gen
 
-import proto "github.com/gogo/protobuf/proto"
-import fmt "fmt"
-import math "math"
-
-import encoding_binary "encoding/binary"
-
-import io "io"
+import (
+	encoding_binary "encoding/binary"
+	fmt "fmt"
+	proto "github.com/gogo/protobuf/proto"
+	io "io"
+	math "math"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -37,6 +37,7 @@ var Team_name = map[int32]string{
 	2: "COUNTER_TERRORIST",
 	3: "SPECTATOR",
 }
+
 var Team_value = map[string]int32{
 	"UNASSIGNED":        0,
 	"TERRORIST":         1,
@@ -47,8 +48,9 @@ var Team_value = map[string]int32{
 func (x Team) String() string {
 	return proto.EnumName(Team_name, int32(x))
 }
+
 func (Team) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{0}
+	return fileDescriptor_eed9461330ccfc03, []int{0}
 }
 
 type Replay_Tick_Event_Kind int32
@@ -78,6 +80,7 @@ var Replay_Tick_Event_Kind_name = map[int32]string{
 	8: "CHAT_MESSAGE",
 	9: "CUSTOM",
 }
+
 var Replay_Tick_Event_Kind_value = map[string]int32{
 	"JUMP":          0,
 	"FIRE":          1,
@@ -94,8 +97,9 @@ var Replay_Tick_Event_Kind_value = map[string]int32{
 func (x Replay_Tick_Event_Kind) String() string {
 	return proto.EnumName(Replay_Tick_Event_Kind_name, int32(x))
 }
+
 func (Replay_Tick_Event_Kind) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 3, 0, 0}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 3, 0, 0}
 }
 
 type Replay_Tick_Event_Attribute_Kind int32
@@ -119,6 +123,7 @@ var Replay_Tick_Event_Attribute_Kind_name = map[int32]string{
 	5: "EVENT_NAME",
 	6: "CUSTOM",
 }
+
 var Replay_Tick_Event_Attribute_Kind_value = map[string]int32{
 	"ENTITY_ID":  0,
 	"VICTIM":     1,
@@ -132,20 +137,22 @@ var Replay_Tick_Event_Attribute_Kind_value = map[string]int32{
 func (x Replay_Tick_Event_Attribute_Kind) String() string {
 	return proto.EnumName(Replay_Tick_Event_Attribute_Kind_name, int32(x))
 }
+
 func (Replay_Tick_Event_Attribute_Kind) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 3, 0, 0, 0}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 3, 0, 0, 0}
 }
 
 type Point struct {
 	X int32 `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
 	Y int32 `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
+	Z int32 `protobuf:"varint,3,opt,name=z,proto3" json:"z,omitempty"`
 }
 
 func (m *Point) Reset()         { *m = Point{} }
 func (m *Point) String() string { return proto.CompactTextString(m) }
 func (*Point) ProtoMessage()    {}
 func (*Point) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{0}
+	return fileDescriptor_eed9461330ccfc03, []int{0}
 }
 func (m *Point) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -162,8 +169,8 @@ func (m *Point) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (dst *Point) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Point.Merge(dst, src)
+func (m *Point) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Point.Merge(m, src)
 }
 func (m *Point) XXX_Size() int {
 	return m.Size()
@@ -188,18 +195,25 @@ func (m *Point) GetY() int32 {
 	return 0
 }
 
+func (m *Point) GetZ() int32 {
+	if m != nil {
+		return m.Z
+	}
+	return 0
+}
+
 type Replay struct {
-	Header    *Replay_Header     `protobuf:"bytes,1,opt,name=header" json:"header,omitempty"`
-	Entities  []*Replay_Entity   `protobuf:"bytes,2,rep,name=entities" json:"entities,omitempty"`
-	Snapshots []*Replay_Snapshot `protobuf:"bytes,3,rep,name=snapshots" json:"snapshots,omitempty"`
-	Ticks     []*Replay_Tick     `protobuf:"bytes,4,rep,name=ticks" json:"ticks,omitempty"`
+	Header    *Replay_Header     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Entities  []*Replay_Entity   `protobuf:"bytes,2,rep,name=entities,proto3" json:"entities,omitempty"`
+	Snapshots []*Replay_Snapshot `protobuf:"bytes,3,rep,name=snapshots,proto3" json:"snapshots,omitempty"`
+	Ticks     []*Replay_Tick     `protobuf:"bytes,4,rep,name=ticks,proto3" json:"ticks,omitempty"`
 }
 
 func (m *Replay) Reset()         { *m = Replay{} }
 func (m *Replay) String() string { return proto.CompactTextString(m) }
 func (*Replay) ProtoMessage()    {}
 func (*Replay) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1}
+	return fileDescriptor_eed9461330ccfc03, []int{1}
 }
 func (m *Replay) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -216,8 +230,8 @@ func (m *Replay) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (dst *Replay) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay.Merge(dst, src)
+func (m *Replay) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay.Merge(m, src)
 }
 func (m *Replay) XXX_Size() int {
 	return m.Size()
@@ -266,7 +280,7 @@ func (m *Replay_Header) Reset()         { *m = Replay_Header{} }
 func (m *Replay_Header) String() string { return proto.CompactTextString(m) }
 func (*Replay_Header) ProtoMessage()    {}
 func (*Replay_Header) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 0}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 0}
 }
 func (m *Replay_Header) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -283,8 +297,8 @@ func (m *Replay_Header) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
-func (dst *Replay_Header) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay_Header.Merge(dst, src)
+func (m *Replay_Header) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay_Header.Merge(m, src)
 }
 func (m *Replay_Header) XXX_Size() int {
 	return m.Size()
@@ -327,7 +341,7 @@ func (m *Replay_Entity) Reset()         { *m = Replay_Entity{} }
 func (m *Replay_Entity) String() string { return proto.CompactTextString(m) }
 func (*Replay_Entity) ProtoMessage()    {}
 func (*Replay_Entity) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 1}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 1}
 }
 func (m *Replay_Entity) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -344,8 +358,8 @@ func (m *Replay_Entity) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
-func (dst *Replay_Entity) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay_Entity.Merge(dst, src)
+func (m *Replay_Entity) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay_Entity.Merge(m, src)
 }
 func (m *Replay_Entity) XXX_Size() int {
 	return m.Size()
@@ -386,14 +400,14 @@ func (m *Replay_Entity) GetIsNpc() bool {
 
 type Replay_Snapshot struct {
 	Tick          int32                           `protobuf:"varint,1,opt,name=tick,proto3" json:"tick,omitempty"`
-	EntityUpdates []*Replay_Snapshot_EntityUpdate `protobuf:"bytes,2,rep,name=entityUpdates" json:"entityUpdates,omitempty"`
+	EntityUpdates []*Replay_Snapshot_EntityUpdate `protobuf:"bytes,2,rep,name=entityUpdates,proto3" json:"entityUpdates,omitempty"`
 }
 
 func (m *Replay_Snapshot) Reset()         { *m = Replay_Snapshot{} }
 func (m *Replay_Snapshot) String() string { return proto.CompactTextString(m) }
 func (*Replay_Snapshot) ProtoMessage()    {}
 func (*Replay_Snapshot) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 2}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 2}
 }
 func (m *Replay_Snapshot) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -410,8 +424,8 @@ func (m *Replay_Snapshot) XXX_Marshal(b []byte, deterministic bool) ([]byte, err
 		return b[:n], nil
 	}
 }
-func (dst *Replay_Snapshot) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay_Snapshot.Merge(dst, src)
+func (m *Replay_Snapshot) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay_Snapshot.Merge(m, src)
 }
 func (m *Replay_Snapshot) XXX_Size() int {
 	return m.Size()
@@ -438,7 +452,7 @@ func (m *Replay_Snapshot) GetEntityUpdates() []*Replay_Snapshot_EntityUpdate {
 
 type Replay_Snapshot_EntityUpdate struct {
 	EntityId      int32    `protobuf:"varint,1,opt,name=entityId,proto3" json:"entityId,omitempty"`
-	Positions     []*Point `protobuf:"bytes,2,rep,name=positions" json:"positions,omitempty"`
+	Positions     []*Point `protobuf:"bytes,2,rep,name=positions,proto3" json:"positions,omitempty"`
 	Angle         int32    `protobuf:"varint,3,opt,name=angle,proto3" json:"angle,omitempty"`
 	Hp            int32    `protobuf:"varint,4,opt,name=hp,proto3" json:"hp,omitempty"`
 	Armor         int32    `protobuf:"varint,5,opt,name=armor,proto3" json:"armor,omitempty"`
@@ -451,7 +465,7 @@ func (m *Replay_Snapshot_EntityUpdate) Reset()         { *m = Replay_Snapshot_En
 func (m *Replay_Snapshot_EntityUpdate) String() string { return proto.CompactTextString(m) }
 func (*Replay_Snapshot_EntityUpdate) ProtoMessage()    {}
 func (*Replay_Snapshot_EntityUpdate) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 2, 0}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 2, 0}
 }
 func (m *Replay_Snapshot_EntityUpdate) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -468,8 +482,8 @@ func (m *Replay_Snapshot_EntityUpdate) XXX_Marshal(b []byte, deterministic bool)
 		return b[:n], nil
 	}
 }
-func (dst *Replay_Snapshot_EntityUpdate) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay_Snapshot_EntityUpdate.Merge(dst, src)
+func (m *Replay_Snapshot_EntityUpdate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay_Snapshot_EntityUpdate.Merge(m, src)
 }
 func (m *Replay_Snapshot_EntityUpdate) XXX_Size() int {
 	return m.Size()
@@ -538,14 +552,14 @@ func (m *Replay_Snapshot_EntityUpdate) GetIsNpc() bool {
 
 type Replay_Tick struct {
 	Nr     int32                `protobuf:"varint,1,opt,name=nr,proto3" json:"nr,omitempty"`
-	Events []*Replay_Tick_Event `protobuf:"bytes,2,rep,name=events" json:"events,omitempty"`
+	Events []*Replay_Tick_Event `protobuf:"bytes,2,rep,name=events,proto3" json:"events,omitempty"`
 }
 
 func (m *Replay_Tick) Reset()         { *m = Replay_Tick{} }
 func (m *Replay_Tick) String() string { return proto.CompactTextString(m) }
 func (*Replay_Tick) ProtoMessage()    {}
 func (*Replay_Tick) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 3}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 3}
 }
 func (m *Replay_Tick) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -562,8 +576,8 @@ func (m *Replay_Tick) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) 
 		return b[:n], nil
 	}
 }
-func (dst *Replay_Tick) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay_Tick.Merge(dst, src)
+func (m *Replay_Tick) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay_Tick.Merge(m, src)
 }
 func (m *Replay_Tick) XXX_Size() int {
 	return m.Size()
@@ -590,14 +604,14 @@ func (m *Replay_Tick) GetEvents() []*Replay_Tick_Event {
 
 type Replay_Tick_Event struct {
 	Kind       Replay_Tick_Event_Kind         `protobuf:"varint,1,opt,name=kind,proto3,enum=gen.Replay_Tick_Event_Kind" json:"kind,omitempty"`
-	Attributes []*Replay_Tick_Event_Attribute `protobuf:"bytes,2,rep,name=attributes" json:"attributes,omitempty"`
+	Attributes []*Replay_Tick_Event_Attribute `protobuf:"bytes,2,rep,name=attributes,proto3" json:"attributes,omitempty"`
 }
 
 func (m *Replay_Tick_Event) Reset()         { *m = Replay_Tick_Event{} }
 func (m *Replay_Tick_Event) String() string { return proto.CompactTextString(m) }
 func (*Replay_Tick_Event) ProtoMessage()    {}
 func (*Replay_Tick_Event) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 3, 0}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 3, 0}
 }
 func (m *Replay_Tick_Event) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -614,8 +628,8 @@ func (m *Replay_Tick_Event) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
-func (dst *Replay_Tick_Event) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay_Tick_Event.Merge(dst, src)
+func (m *Replay_Tick_Event) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay_Tick_Event.Merge(m, src)
 }
 func (m *Replay_Tick_Event) XXX_Size() int {
 	return m.Size()
@@ -651,7 +665,7 @@ func (m *Replay_Tick_Event_Attribute) Reset()         { *m = Replay_Tick_Event_A
 func (m *Replay_Tick_Event_Attribute) String() string { return proto.CompactTextString(m) }
 func (*Replay_Tick_Event_Attribute) ProtoMessage()    {}
 func (*Replay_Tick_Event_Attribute) Descriptor() ([]byte, []int) {
-	return fileDescriptor_replay_1ae4eb0f1325df1c, []int{1, 3, 0, 0}
+	return fileDescriptor_eed9461330ccfc03, []int{1, 3, 0, 0}
 }
 func (m *Replay_Tick_Event_Attribute) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -668,8 +682,8 @@ func (m *Replay_Tick_Event_Attribute) XXX_Marshal(b []byte, deterministic bool) 
 		return b[:n], nil
 	}
 }
-func (dst *Replay_Tick_Event_Attribute) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Replay_Tick_Event_Attribute.Merge(dst, src)
+func (m *Replay_Tick_Event_Attribute) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Replay_Tick_Event_Attribute.Merge(m, src)
 }
 func (m *Replay_Tick_Event_Attribute) XXX_Size() int {
 	return m.Size()
@@ -709,6 +723,9 @@ func (m *Replay_Tick_Event_Attribute) GetCustomName() string {
 }
 
 func init() {
+	proto.RegisterEnum("gen.Team", Team_name, Team_value)
+	proto.RegisterEnum("gen.Replay_Tick_Event_Kind", Replay_Tick_Event_Kind_name, Replay_Tick_Event_Kind_value)
+	proto.RegisterEnum("gen.Replay_Tick_Event_Attribute_Kind", Replay_Tick_Event_Attribute_Kind_name, Replay_Tick_Event_Attribute_Kind_value)
 	proto.RegisterType((*Point)(nil), "gen.Point")
 	proto.RegisterType((*Replay)(nil), "gen.Replay")
 	proto.RegisterType((*Replay_Header)(nil), "gen.Replay.Header")
@@ -718,10 +735,66 @@ func init() {
 	proto.RegisterType((*Replay_Tick)(nil), "gen.Replay.Tick")
 	proto.RegisterType((*Replay_Tick_Event)(nil), "gen.Replay.Tick.Event")
 	proto.RegisterType((*Replay_Tick_Event_Attribute)(nil), "gen.Replay.Tick.Event.Attribute")
-	proto.RegisterEnum("gen.Team", Team_name, Team_value)
-	proto.RegisterEnum("gen.Replay_Tick_Event_Kind", Replay_Tick_Event_Kind_name, Replay_Tick_Event_Kind_value)
-	proto.RegisterEnum("gen.Replay_Tick_Event_Attribute_Kind", Replay_Tick_Event_Attribute_Kind_name, Replay_Tick_Event_Attribute_Kind_value)
 }
+
+func init() { proto.RegisterFile("replay.proto", fileDescriptor_eed9461330ccfc03) }
+
+var fileDescriptor_eed9461330ccfc03 = []byte{
+	// 819 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x54, 0xcd, 0x6e, 0xe3, 0x54,
+	0x14, 0x8e, 0x7f, 0x6b, 0x9f, 0x26, 0xd5, 0x9d, 0xab, 0x01, 0x59, 0x41, 0x44, 0x21, 0x02, 0x54,
+	0xcd, 0x22, 0x88, 0xb2, 0x62, 0x87, 0x49, 0xee, 0xb4, 0xa6, 0x8d, 0x53, 0x5d, 0xdf, 0x94, 0x9f,
+	0x4d, 0x74, 0xdb, 0x98, 0xc6, 0x6a, 0x63, 0x5b, 0xb6, 0x83, 0x26, 0xf3, 0x0a, 0x08, 0x89, 0x25,
+	0xef, 0xc2, 0x0b, 0xb0, 0x9c, 0x0d, 0x12, 0x4b, 0x68, 0x97, 0xbc, 0x04, 0xba, 0xd7, 0x76, 0xe2,
+	0x8c, 0x06, 0x75, 0x77, 0xce, 0xf9, 0xbe, 0xf3, 0xf7, 0xdd, 0x63, 0x43, 0x3b, 0x0b, 0xd3, 0x7b,
+	0xbe, 0x19, 0xa6, 0x59, 0x52, 0x24, 0x58, 0xbb, 0x0d, 0xe3, 0xc1, 0xe7, 0x60, 0x5c, 0x26, 0x51,
+	0x5c, 0xe0, 0x36, 0x28, 0xaf, 0x1c, 0xa5, 0xaf, 0x1c, 0x1b, 0x54, 0x79, 0x25, 0xbc, 0x8d, 0xa3,
+	0x96, 0xde, 0x46, 0x78, 0xaf, 0x1d, 0xad, 0xf4, 0x5e, 0x0f, 0x7e, 0x07, 0x30, 0xa9, 0x2c, 0x84,
+	0x5f, 0x80, 0xb9, 0x0c, 0xf9, 0x22, 0xcc, 0x64, 0xe6, 0xe1, 0x09, 0x1e, 0xde, 0x86, 0xf1, 0xb0,
+	0x04, 0x87, 0x67, 0x12, 0xa1, 0x15, 0x03, 0x0f, 0xc1, 0x0a, 0xe3, 0x22, 0x2a, 0xa2, 0x30, 0x77,
+	0xd4, 0xbe, 0xf6, 0x36, 0x9b, 0x08, 0x6c, 0x43, 0xb7, 0x1c, 0x7c, 0x02, 0x76, 0x1e, 0xf3, 0x34,
+	0x5f, 0x26, 0x45, 0xee, 0x68, 0x32, 0xe1, 0x79, 0x33, 0x21, 0xa8, 0x40, 0xba, 0xa3, 0xe1, 0x4f,
+	0xc1, 0x28, 0xa2, 0x9b, 0xbb, 0xdc, 0xd1, 0x25, 0x1f, 0x35, 0xf9, 0x2c, 0xba, 0xb9, 0xa3, 0x25,
+	0xdc, 0xfd, 0x01, 0xcc, 0x72, 0x3a, 0x8c, 0x40, 0x5b, 0xf1, 0x54, 0x8e, 0x6f, 0x53, 0x61, 0xe2,
+	0x2e, 0x58, 0x82, 0x44, 0x79, 0x11, 0x4a, 0x05, 0x14, 0xba, 0xf5, 0xf1, 0x00, 0xda, 0x75, 0x33,
+	0x89, 0x97, 0x9a, 0xec, 0xc5, 0xba, 0x1c, 0xcc, 0x72, 0x17, 0x7c, 0x04, 0x6a, 0xb4, 0xa8, 0x34,
+	0x55, 0xa3, 0x05, 0xc6, 0xa0, 0xc7, 0x7c, 0x55, 0x56, 0xb5, 0xa9, 0xb4, 0xf1, 0x87, 0xa0, 0x17,
+	0x21, 0x5f, 0xc9, 0x4a, 0x47, 0x27, 0xb6, 0x1c, 0x98, 0x85, 0x7c, 0x45, 0x65, 0x18, 0x3f, 0x07,
+	0x23, 0xca, 0xfd, 0xf4, 0xc6, 0xd1, 0xfb, 0xca, 0xb1, 0x45, 0x4b, 0xa7, 0xfb, 0xa7, 0x0a, 0x56,
+	0xbd, 0xbe, 0xa8, 0x2a, 0xe6, 0xab, 0xfa, 0x48, 0x1b, 0x9f, 0x42, 0x47, 0xea, 0xb8, 0x99, 0xa5,
+	0x0b, 0x5e, 0x6c, 0x05, 0xff, 0xe8, 0x5d, 0xfa, 0x55, 0xca, 0x97, 0x4c, 0xba, 0x9f, 0xd7, 0xfd,
+	0x57, 0x81, 0x76, 0x13, 0x17, 0xea, 0x94, 0x0c, 0xaf, 0xde, 0x6c, 0xeb, 0xe3, 0x63, 0xb0, 0xd3,
+	0x24, 0x8f, 0x8a, 0x28, 0x89, 0xeb, 0x8e, 0x20, 0x3b, 0xca, 0x0b, 0xa3, 0x3b, 0x50, 0xac, 0xc5,
+	0xe3, 0xdb, 0xfb, 0x5a, 0xc0, 0xd2, 0x11, 0x7a, 0x2d, 0x53, 0xb9, 0xa9, 0x41, 0xd5, 0x65, 0x2a,
+	0x59, 0xd9, 0x2a, 0xc9, 0x1c, 0xa3, 0x62, 0x09, 0x07, 0x7f, 0x0c, 0x9d, 0x1f, 0xef, 0x79, 0xbe,
+	0x1c, 0xaf, 0x33, 0x2e, 0xaa, 0x39, 0x66, 0x5f, 0x39, 0x56, 0xe9, 0x7e, 0x70, 0xab, 0xeb, 0xc1,
+	0x13, 0xba, 0x5a, 0x4d, 0x5d, 0xff, 0xd1, 0x41, 0x17, 0x67, 0x22, 0x26, 0x89, 0xb3, 0xfa, 0xe5,
+	0x62, 0x71, 0xbb, 0x66, 0xf8, 0x53, 0x18, 0x17, 0xf5, 0x5a, 0xef, 0xbf, 0x7d, 0x58, 0x43, 0x22,
+	0x60, 0x5a, 0xb1, 0xba, 0xbf, 0xe9, 0x60, 0xc8, 0x08, 0xfe, 0x0c, 0xf4, 0xbb, 0x28, 0x2e, 0xb5,
+	0x3a, 0x3a, 0xf9, 0xe0, 0xdd, 0x79, 0xc3, 0xf3, 0x28, 0x5e, 0x50, 0x49, 0xc4, 0x5f, 0x01, 0xf0,
+	0xa2, 0xc8, 0xa2, 0xeb, 0xf5, 0xee, 0xdd, 0xfa, 0xff, 0x93, 0xe6, 0xd6, 0x44, 0xda, 0xc8, 0xe9,
+	0xfe, 0xa2, 0x82, 0xbd, 0x45, 0xf0, 0x97, 0x7b, 0x03, 0x7c, 0xf2, 0x54, 0xa5, 0xe6, 0x28, 0x7d,
+	0x38, 0xcc, 0x8b, 0x2c, 0x8a, 0x6f, 0xaf, 0xf8, 0xfd, 0xba, 0x3e, 0xdb, 0x66, 0x48, 0x30, 0xe2,
+	0xf5, 0xea, 0x3a, 0xcc, 0x4a, 0x86, 0x26, 0x3f, 0x97, 0x66, 0x08, 0xf7, 0x00, 0x6e, 0xd6, 0x79,
+	0x91, 0xac, 0x7c, 0x71, 0xf9, 0xba, 0x2c, 0xd1, 0x88, 0x0c, 0x38, 0xe8, 0xa2, 0x23, 0xee, 0x80,
+	0x4d, 0x7c, 0xe6, 0xb1, 0xef, 0xe7, 0xde, 0x18, 0xb5, 0x30, 0x80, 0x79, 0xe5, 0x8d, 0x98, 0x37,
+	0x41, 0x8a, 0xb0, 0xcf, 0xbd, 0x8b, 0x0b, 0x42, 0x91, 0x8a, 0xdb, 0x60, 0xb9, 0x41, 0xe0, 0x05,
+	0x8c, 0x50, 0xa4, 0x61, 0x0b, 0x74, 0x46, 0xbe, 0x63, 0x48, 0xc7, 0x47, 0x00, 0xe4, 0x8a, 0xf8,
+	0x6c, 0xee, 0xbb, 0x13, 0x82, 0x0c, 0x91, 0x33, 0x9a, 0x05, 0x6c, 0x3a, 0x41, 0xe6, 0xe0, 0x67,
+	0xa5, 0xea, 0x61, 0x81, 0xfe, 0xcd, 0x6c, 0x72, 0x89, 0x5a, 0xc2, 0x7a, 0xe9, 0x51, 0x82, 0x14,
+	0x61, 0x9d, 0xcd, 0x28, 0x43, 0x2a, 0x3e, 0x84, 0x83, 0x97, 0x17, 0x6e, 0x70, 0x46, 0xc6, 0x65,
+	0x65, 0xd1, 0x13, 0xe9, 0xf8, 0x19, 0x74, 0xe8, 0x74, 0xe6, 0x8f, 0xe7, 0x01, 0x73, 0x29, 0x23,
+	0x63, 0x64, 0x88, 0x59, 0x83, 0x6f, 0xdd, 0xcb, 0x39, 0x23, 0xee, 0x04, 0x99, 0xa2, 0xf7, 0xd8,
+	0x0b, 0x46, 0x53, 0xdf, 0x27, 0x23, 0x86, 0x0e, 0x30, 0x82, 0xf6, 0xe8, 0xcc, 0x65, 0xf3, 0x09,
+	0x09, 0x02, 0xf7, 0x94, 0x20, 0xab, 0x31, 0x8d, 0xfd, 0xe2, 0x1c, 0x74, 0x71, 0x87, 0x22, 0x6b,
+	0xe6, 0x8b, 0x5d, 0x4e, 0x7d, 0x22, 0x36, 0xee, 0x80, 0xcd, 0x08, 0xa5, 0x53, 0xea, 0x05, 0x0c,
+	0x29, 0xf8, 0x3d, 0x78, 0x36, 0x9a, 0xce, 0x7c, 0x46, 0xe8, 0x7c, 0x17, 0x56, 0x65, 0xeb, 0x4b,
+	0x32, 0x62, 0x2e, 0x9b, 0x52, 0xa4, 0x7d, 0xed, 0xfc, 0xf1, 0xd0, 0x53, 0xde, 0x3c, 0xf4, 0x94,
+	0xbf, 0x1f, 0x7a, 0xca, 0xaf, 0x8f, 0xbd, 0xd6, 0x9b, 0xc7, 0x5e, 0xeb, 0xaf, 0xc7, 0x5e, 0xeb,
+	0xda, 0x94, 0xff, 0xf8, 0x2f, 0xfe, 0x0b, 0x00, 0x00, 0xff, 0xff, 0x9f, 0xda, 0x90, 0x1f, 0xf3,
+	0x05, 0x00, 0x00,
+}
+
 func (m *Point) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -746,6 +819,11 @@ func (m *Point) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x10
 		i++
 		i = encodeVarintReplay(dAtA, i, uint64(m.Y))
+	}
+	if m.Z != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintReplay(dAtA, i, uint64(m.Z))
 	}
 	return i, nil
 }
@@ -1131,6 +1209,9 @@ func (m *Point) Size() (n int) {
 	if m.Y != 0 {
 		n += 1 + sovReplay(uint64(m.Y))
 	}
+	if m.Z != 0 {
+		n += 1 + sovReplay(uint64(m.Z))
+	}
 	return n
 }
 
@@ -1347,7 +1428,7 @@ func (m *Point) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -1375,7 +1456,7 @@ func (m *Point) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.X |= (int32(b) & 0x7F) << shift
+				m.X |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1394,7 +1475,26 @@ func (m *Point) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Y |= (int32(b) & 0x7F) << shift
+				m.Y |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Z", wireType)
+			}
+			m.Z = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowReplay
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Z |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1406,6 +1506,9 @@ func (m *Point) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -1435,7 +1538,7 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -1463,7 +1566,7 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1472,6 +1575,9 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1496,7 +1602,7 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1505,6 +1611,9 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1527,7 +1636,7 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1536,6 +1645,9 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1558,7 +1670,7 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1567,6 +1679,9 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1582,6 +1697,9 @@ func (m *Replay) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -1611,7 +1729,7 @@ func (m *Replay_Header) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -1639,7 +1757,7 @@ func (m *Replay_Header) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1649,6 +1767,9 @@ func (m *Replay_Header) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1679,7 +1800,7 @@ func (m *Replay_Header) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.SnapshotRate |= (int32(b) & 0x7F) << shift
+				m.SnapshotRate |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1691,6 +1812,9 @@ func (m *Replay_Header) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -1720,7 +1844,7 @@ func (m *Replay_Entity) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -1748,7 +1872,7 @@ func (m *Replay_Entity) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Id |= (int32(b) & 0x7F) << shift
+				m.Id |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1767,7 +1891,7 @@ func (m *Replay_Entity) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1777,6 +1901,9 @@ func (m *Replay_Entity) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1796,7 +1923,7 @@ func (m *Replay_Entity) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Team |= (Team(b) & 0x7F) << shift
+				m.Team |= Team(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1815,7 +1942,7 @@ func (m *Replay_Entity) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				v |= (int(b) & 0x7F) << shift
+				v |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1828,6 +1955,9 @@ func (m *Replay_Entity) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -1857,7 +1987,7 @@ func (m *Replay_Snapshot) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -1885,7 +2015,7 @@ func (m *Replay_Snapshot) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Tick |= (int32(b) & 0x7F) << shift
+				m.Tick |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1904,7 +2034,7 @@ func (m *Replay_Snapshot) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1913,6 +2043,9 @@ func (m *Replay_Snapshot) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -1928,6 +2061,9 @@ func (m *Replay_Snapshot) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -1957,7 +2093,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -1985,7 +2121,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.EntityId |= (int32(b) & 0x7F) << shift
+				m.EntityId |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2004,7 +2140,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2013,6 +2149,9 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -2035,7 +2174,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Angle |= (int32(b) & 0x7F) << shift
+				m.Angle |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2054,7 +2193,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Hp |= (int32(b) & 0x7F) << shift
+				m.Hp |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2073,7 +2212,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Armor |= (int32(b) & 0x7F) << shift
+				m.Armor |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2103,7 +2242,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Team |= (Team(b) & 0x7F) << shift
+				m.Team |= Team(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2122,7 +2261,7 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				v |= (int(b) & 0x7F) << shift
+				v |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2135,6 +2274,9 @@ func (m *Replay_Snapshot_EntityUpdate) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -2164,7 +2306,7 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -2192,7 +2334,7 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Nr |= (int32(b) & 0x7F) << shift
+				m.Nr |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2211,7 +2353,7 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2220,6 +2362,9 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -2235,6 +2380,9 @@ func (m *Replay_Tick) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -2264,7 +2412,7 @@ func (m *Replay_Tick_Event) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -2292,7 +2440,7 @@ func (m *Replay_Tick_Event) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Kind |= (Replay_Tick_Event_Kind(b) & 0x7F) << shift
+				m.Kind |= Replay_Tick_Event_Kind(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2311,7 +2459,7 @@ func (m *Replay_Tick_Event) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2320,6 +2468,9 @@ func (m *Replay_Tick_Event) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -2335,6 +2486,9 @@ func (m *Replay_Tick_Event) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -2364,7 +2518,7 @@ func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
 			}
 			b := dAtA[iNdEx]
 			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
+			wire |= uint64(b&0x7F) << shift
 			if b < 0x80 {
 				break
 			}
@@ -2392,7 +2546,7 @@ func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Kind |= (Replay_Tick_Event_Attribute_Kind(b) & 0x7F) << shift
+				m.Kind |= Replay_Tick_Event_Attribute_Kind(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2411,7 +2565,7 @@ func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2421,6 +2575,9 @@ func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -2451,7 +2608,7 @@ func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2461,6 +2618,9 @@ func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
 				return ErrInvalidLengthReplay
 			}
 			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthReplay
+			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
@@ -2473,6 +2633,9 @@ func (m *Replay_Tick_Event_Attribute) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			if skippy < 0 {
+				return ErrInvalidLengthReplay
+			}
+			if (iNdEx + skippy) < 0 {
 				return ErrInvalidLengthReplay
 			}
 			if (iNdEx + skippy) > l {
@@ -2541,8 +2704,11 @@ func skipReplay(dAtA []byte) (n int, err error) {
 					break
 				}
 			}
-			iNdEx += length
 			if length < 0 {
+				return 0, ErrInvalidLengthReplay
+			}
+			iNdEx += length
+			if iNdEx < 0 {
 				return 0, ErrInvalidLengthReplay
 			}
 			return iNdEx, nil
@@ -2573,6 +2739,9 @@ func skipReplay(dAtA []byte) (n int, err error) {
 					return 0, err
 				}
 				iNdEx = start + next
+				if iNdEx < 0 {
+					return 0, ErrInvalidLengthReplay
+				}
 			}
 			return iNdEx, nil
 		case 4:
@@ -2591,60 +2760,3 @@ var (
 	ErrInvalidLengthReplay = fmt.Errorf("proto: negative length found during unmarshaling")
 	ErrIntOverflowReplay   = fmt.Errorf("proto: integer overflow")
 )
-
-func init() { proto.RegisterFile("replay.proto", fileDescriptor_replay_1ae4eb0f1325df1c) }
-
-var fileDescriptor_replay_1ae4eb0f1325df1c = []byte{
-	// 813 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x54, 0xcd, 0x6e, 0xe3, 0x54,
-	0x14, 0x8e, 0x7f, 0x6b, 0x9f, 0x26, 0xd5, 0x9d, 0xab, 0x01, 0x59, 0x41, 0x44, 0x21, 0xfc, 0xa8,
-	0x9a, 0x45, 0x90, 0xca, 0x8a, 0x1d, 0x26, 0xb9, 0xd3, 0x9a, 0x36, 0x4e, 0x75, 0x7d, 0x53, 0x7e,
-	0x36, 0xd1, 0x6d, 0x63, 0x1a, 0xab, 0x89, 0x6d, 0xd9, 0x0e, 0x9a, 0x3c, 0x03, 0x42, 0x62, 0xc9,
-	0xbb, 0xf0, 0x02, 0x2c, 0x67, 0x83, 0xc4, 0x12, 0xda, 0x25, 0x2f, 0x81, 0xee, 0xb5, 0x9d, 0x38,
-	0xa3, 0x41, 0xb3, 0x3b, 0xe7, 0x7c, 0xdf, 0xf9, 0xfb, 0xee, 0xb1, 0xa1, 0x9d, 0x85, 0xe9, 0x8a,
-	0x6f, 0x87, 0x69, 0x96, 0x14, 0x09, 0xd6, 0xee, 0xc3, 0x78, 0xf0, 0x31, 0x18, 0xd7, 0x49, 0x14,
-	0x17, 0xb8, 0x0d, 0xca, 0x2b, 0x47, 0xe9, 0x2b, 0xa7, 0x06, 0x55, 0x5e, 0x09, 0x6f, 0xeb, 0xa8,
-	0xa5, 0xb7, 0x1d, 0xfc, 0x0e, 0x60, 0x52, 0x99, 0x8a, 0x5f, 0x80, 0xb9, 0x0c, 0xf9, 0x22, 0xcc,
-	0x24, 0xf7, 0xf8, 0x0c, 0x0f, 0xef, 0xc3, 0x78, 0x58, 0x82, 0xc3, 0x0b, 0x89, 0xd0, 0x8a, 0x81,
-	0x87, 0x60, 0x85, 0x71, 0x11, 0x15, 0x51, 0x98, 0x3b, 0x6a, 0x5f, 0x7b, 0x93, 0x4d, 0x04, 0xb6,
-	0xa5, 0x3b, 0x0e, 0x3e, 0x03, 0x3b, 0x8f, 0x79, 0x9a, 0x2f, 0x93, 0x22, 0x77, 0x34, 0x99, 0xf0,
-	0xbc, 0x99, 0x10, 0x54, 0x20, 0xdd, 0xd3, 0xf0, 0x67, 0x60, 0x14, 0xd1, 0xdd, 0x43, 0xee, 0xe8,
-	0x92, 0x8f, 0x9a, 0x7c, 0x16, 0xdd, 0x3d, 0xd0, 0x12, 0xee, 0xfe, 0x00, 0x66, 0x39, 0x1d, 0x46,
-	0xa0, 0xad, 0x79, 0x2a, 0xc7, 0xb7, 0xa9, 0x30, 0x71, 0x17, 0x2c, 0x41, 0xa2, 0xbc, 0x08, 0xe5,
-	0xce, 0x0a, 0xdd, 0xf9, 0x78, 0x00, 0xed, 0xba, 0x99, 0xc4, 0x35, 0xa9, 0xc9, 0x41, 0xac, 0xcb,
-	0xc1, 0x2c, 0x77, 0xc1, 0x27, 0xa0, 0x46, 0x8b, 0x4a, 0x45, 0x35, 0x5a, 0x60, 0x0c, 0x7a, 0xcc,
-	0xd7, 0x65, 0x55, 0x9b, 0x4a, 0x1b, 0x7f, 0x08, 0x7a, 0x11, 0xf2, 0xb5, 0xac, 0x74, 0x72, 0x66,
-	0xcb, 0x81, 0x59, 0xc8, 0xd7, 0x54, 0x86, 0xf1, 0x73, 0x30, 0xa2, 0xdc, 0x4f, 0xef, 0x1c, 0xbd,
-	0xaf, 0x9c, 0x5a, 0xb4, 0x74, 0xba, 0x7f, 0xaa, 0x60, 0xd5, 0xeb, 0x8b, 0xaa, 0x62, 0xbe, 0xaa,
-	0x8f, 0xb4, 0xf1, 0x39, 0x74, 0xa4, 0x8e, 0xdb, 0x59, 0xba, 0xe0, 0xc5, 0x4e, 0xf0, 0x8f, 0xde,
-	0xa6, 0x5f, 0xa5, 0x7c, 0xc9, 0xa4, 0x87, 0x79, 0xdd, 0x7f, 0x15, 0x68, 0x37, 0x71, 0xa1, 0x4e,
-	0xc9, 0xf0, 0xea, 0xcd, 0x76, 0x3e, 0x3e, 0x05, 0x3b, 0x4d, 0xf2, 0xa8, 0x88, 0x92, 0xb8, 0xee,
-	0x08, 0xb2, 0xa3, 0xbc, 0x29, 0xba, 0x07, 0xc5, 0x5a, 0x3c, 0xbe, 0x5f, 0xd5, 0x02, 0x96, 0x8e,
-	0xd0, 0x6b, 0x99, 0xca, 0x4d, 0x0d, 0xaa, 0x2e, 0x53, 0xc9, 0xca, 0xd6, 0x49, 0xe6, 0x18, 0x15,
-	0x4b, 0x38, 0xf8, 0x13, 0xe8, 0xfc, 0xb8, 0xe2, 0xf9, 0x72, 0xbc, 0xc9, 0xb8, 0xa8, 0xe6, 0x98,
-	0x7d, 0xe5, 0x54, 0xa5, 0x87, 0xc1, 0x9d, 0xae, 0x47, 0xef, 0xd0, 0xd5, 0x6a, 0xea, 0xfa, 0x8f,
-	0x0e, 0xba, 0x38, 0x13, 0x31, 0x49, 0x9c, 0xd5, 0x2f, 0x17, 0x8b, 0xdb, 0x35, 0xc3, 0x9f, 0xc2,
-	0xb8, 0xa8, 0xd7, 0x7a, 0xff, 0xcd, 0xc3, 0x1a, 0x12, 0x01, 0xd3, 0x8a, 0xd5, 0xfd, 0x4d, 0x07,
-	0x43, 0x46, 0xf0, 0xe7, 0xa0, 0x3f, 0x44, 0x71, 0xa9, 0xd5, 0xc9, 0xd9, 0x07, 0x6f, 0xcf, 0x1b,
-	0x5e, 0x46, 0xf1, 0x82, 0x4a, 0x22, 0xfe, 0x0a, 0x80, 0x17, 0x45, 0x16, 0xdd, 0x6e, 0xf6, 0xef,
-	0xd6, 0xff, 0x9f, 0x34, 0xb7, 0x26, 0xd2, 0x46, 0x4e, 0xf7, 0x17, 0x15, 0xec, 0x1d, 0x82, 0xbf,
-	0x3c, 0x18, 0xe0, 0xd3, 0x77, 0x55, 0x6a, 0x8e, 0xd2, 0x87, 0xe3, 0xbc, 0xc8, 0xa2, 0xf8, 0xfe,
-	0x86, 0xaf, 0x36, 0xf5, 0xd9, 0x36, 0x43, 0x82, 0x11, 0x6f, 0xd6, 0xb7, 0x61, 0x56, 0x32, 0x34,
-	0xf9, 0xb9, 0x34, 0x43, 0xb8, 0x07, 0x70, 0xb7, 0xc9, 0x8b, 0x64, 0xed, 0x8b, 0xcb, 0xd7, 0x65,
-	0x89, 0x46, 0x64, 0xc0, 0x41, 0x17, 0x1d, 0x71, 0x07, 0x6c, 0xe2, 0x33, 0x8f, 0x7d, 0x3f, 0xf7,
-	0xc6, 0xa8, 0x85, 0x01, 0xcc, 0x1b, 0x6f, 0xc4, 0xbc, 0x09, 0x52, 0x84, 0x7d, 0xe9, 0x5d, 0x5d,
-	0x11, 0x8a, 0x54, 0xdc, 0x06, 0xcb, 0x0d, 0x02, 0x2f, 0x60, 0x84, 0x22, 0x0d, 0x5b, 0xa0, 0x33,
-	0xf2, 0x1d, 0x43, 0x3a, 0x3e, 0x01, 0x20, 0x37, 0xc4, 0x67, 0x73, 0xdf, 0x9d, 0x10, 0x64, 0x88,
-	0x9c, 0xd1, 0x2c, 0x60, 0xd3, 0x09, 0x32, 0x07, 0x3f, 0x2b, 0x55, 0x0f, 0x0b, 0xf4, 0x6f, 0x66,
-	0x93, 0x6b, 0xd4, 0x12, 0xd6, 0x4b, 0x8f, 0x12, 0xa4, 0x08, 0xeb, 0x62, 0x46, 0x19, 0x52, 0xf1,
-	0x31, 0x1c, 0xbd, 0xbc, 0x72, 0x83, 0x0b, 0x32, 0x2e, 0x2b, 0x8b, 0x9e, 0x48, 0xc7, 0xcf, 0xa0,
-	0x43, 0xa7, 0x33, 0x7f, 0x3c, 0x0f, 0x98, 0x4b, 0x19, 0x19, 0x23, 0x43, 0xcc, 0x1a, 0x7c, 0xeb,
-	0x5e, 0xcf, 0x19, 0x71, 0x27, 0xc8, 0x14, 0xbd, 0xc7, 0x5e, 0x30, 0x9a, 0xfa, 0x3e, 0x19, 0x31,
-	0x74, 0x84, 0x11, 0xb4, 0x47, 0x17, 0x2e, 0x9b, 0x4f, 0x48, 0x10, 0xb8, 0xe7, 0x04, 0x59, 0x8d,
-	0x69, 0xec, 0x17, 0x97, 0xa0, 0x8b, 0x3b, 0x14, 0x59, 0x33, 0x5f, 0xec, 0x72, 0xee, 0x13, 0xb1,
-	0x71, 0x07, 0x6c, 0x46, 0x28, 0x9d, 0x52, 0x2f, 0x60, 0x48, 0xc1, 0xef, 0xc1, 0xb3, 0xd1, 0x74,
-	0xe6, 0x33, 0x42, 0xe7, 0xfb, 0xb0, 0x2a, 0x5b, 0x5f, 0x93, 0x11, 0x73, 0xd9, 0x94, 0x22, 0xed,
-	0x6b, 0xe7, 0x8f, 0xc7, 0x9e, 0xf2, 0xfa, 0xb1, 0xa7, 0xfc, 0xfd, 0xd8, 0x53, 0x7e, 0x7d, 0xea,
-	0xb5, 0x5e, 0x3f, 0xf5, 0x5a, 0x7f, 0x3d, 0xf5, 0x5a, 0xb7, 0xa6, 0xfc, 0xab, 0x7f, 0xf1, 0x5f,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0x83, 0x37, 0x86, 0xbe, 0xe5, 0x05, 0x00, 0x00,
-}

@@ -164,7 +164,7 @@ func (m *minifier) tickDone(e events.TickDone) {
 }
 
 func r3VectorToPoint(v r3.Vector) rep.Point {
-	return rep.Point{X: int(v.X), Y: int(v.Y)}
+	return rep.Point{X: int(v.X), Y: int(v.Y), Z: int(v.Z)}
 }
 
 // roundTo wraps math.Round and allows specifying the rounding precision.

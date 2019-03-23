@@ -70,6 +70,7 @@ type EntityUpdate struct {
 type Point struct {
 	X int `json:"x" msgpack:"x"`
 	Y int `json:"y" msgpack:"y"`
+	Z int `json:"z" msgpack:"z"`
 }
 
 // Tick contains all events occurring at a specific tick
