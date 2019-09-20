@@ -2,7 +2,9 @@ package csminify_test
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
+	"strings"
 	"testing"
 
 	csminify "github.com/markus-wa/cs-demo-minifier"
@@ -119,5 +121,43 @@ func TestExtraHandlers(t *testing.T) {
 	}
 	if !ok {
 		t.Fatal("No footstep events recorded when there should have been some")
+	}
+}
+
+func TestDemoSet(t *testing.T) {
+	demSetPath := "test/cs-demos/set"
+	dems, err := ioutil.ReadDir(demSetPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, d := range dems {
+		name := d.Name()
+		if strings.HasSuffix(name, ".dem") {
+			fmt.Printf("Parsing '%s/%s'\n", demSetPath, name)
+			func() {
+				var f *os.File
+				f, err = os.Open(demSetPath + "/" + name)
+				if err != nil {
+					t.Error(err)
+				}
+				defer f.Close()
+
+				defer func() {
+					pErr := recover()
+					if pErr != nil {
+						t.Errorf("Parsing of '%s/%s' paniced: %s\n", demSetPath, name, pErr)
+					}
+				}()
+
+				b, err := csminify.Minify(f, 0.2, marshalJSON)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if len(b) == 0 {
+					t.Fatal("Resulting []byte of minification is empty")
+				}
+			}()
+		}
 	}
 }
