@@ -1,6 +1,7 @@
 module github.com/markus-wa/cs-demo-minifier
 
 require (
+	github.com/alecthomas/jsonschema v0.0.0-20191017121752-4bb6e3fae4f2
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/geo v0.0.0-20190916061304-5b978397cfec
 	github.com/golang/protobuf v1.3.2 // indirect

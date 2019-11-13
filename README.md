@@ -43,6 +43,19 @@ The following command takes one snapshot of a demo every two seconds (`-freq 0.5
 
 	csminify -demo /path/to/demo.dem -format msgpack -freq 0.5 -out demo.mp
 
+#### Supported Formats
+
+Format | Command Line (`-format` Flag) | Structure
+--- | --- | ---
+JSON | `json` | [schema.json](schema.json)
+MessagePack | `msgpack`, `mp` | [schema.json](schema.json)
+Protocol Buffers | `protobuf`, `proto`, `pb` | [replay.proto](protobuf/gen/proto/replay.proto)
+
+More formats can be added programmatically by implementing the `ReplayMarshaller` interface.
+
+If you would like to see additional formats supported please open a feature request (issue) or a pull request if you already have an implementation ready.
+
+
 ### Library
 
 This is an example on how to minify a demo to JSON and decode it to a `replay.Replay` again.
@@ -91,19 +104,6 @@ func marshalJSON(r rep.Replay, w io.Writer) error {
 
 MessagePack marshalling works pretty much the same way as JSON.<br>
 For Protobuf use `protobuf.Unmarshal()` (in the sub-package).
-
-
-## Supported Formats
-
-Format | Command Line (`-format` Flag)
---- | ---
-JSON | `json`
-MessagePack | `msgpack`, `mp`
-Protocol Buffers | `protobuf`, `proto`, `pb`
-
-More formats can be added programmatically by implementing the `ReplayMarshaller` interface.
-
-If you would like to see additional formats supported please open a feature request (issue) or a pull request if you already have an implementation ready.
 
 
 ## Development

@@ -1,0 +1,220 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"$ref": "#/definitions/Replay",
+	"definitions": {
+		"Entity": {
+			"required": [
+				"id",
+				"name",
+				"team"
+			],
+			"properties": {
+				"id": {
+					"type": "integer"
+				},
+				"isNpc": {
+					"type": "boolean"
+				},
+				"name": {
+					"type": "string"
+				},
+				"team": {
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"EntityUpdate": {
+			"required": [
+				"entityId"
+			],
+			"properties": {
+				"angle": {
+					"type": "integer"
+				},
+				"armor": {
+					"type": "integer"
+				},
+				"entityId": {
+					"type": "integer"
+				},
+				"flashDuration": {
+					"type": "number"
+				},
+				"hp": {
+					"type": "integer"
+				},
+				"isNpc": {
+					"type": "boolean"
+				},
+				"positions": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/Point"
+					},
+					"type": "array"
+				},
+				"team": {
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"Event": {
+			"required": [
+				"name"
+			],
+			"properties": {
+				"attrs": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/EventAttribute"
+					},
+					"type": "array"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"EventAttribute": {
+			"required": [
+				"key"
+			],
+			"properties": {
+				"key": {
+					"type": "string"
+				},
+				"numVal": {
+					"type": "number"
+				},
+				"strVal": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"Header": {
+			"required": [
+				"map",
+				"tickRate",
+				"snapshotRate"
+			],
+			"properties": {
+				"map": {
+					"type": "string"
+				},
+				"snapshotRate": {
+					"type": "integer"
+				},
+				"tickRate": {
+					"type": "number"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"Point": {
+			"required": [
+				"x",
+				"y",
+				"z"
+			],
+			"properties": {
+				"x": {
+					"type": "integer"
+				},
+				"y": {
+					"type": "integer"
+				},
+				"z": {
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"Replay": {
+			"required": [
+				"header",
+				"entities",
+				"snapshots",
+				"ticks"
+			],
+			"properties": {
+				"entities": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/Entity"
+					},
+					"type": "array"
+				},
+				"header": {
+					"$schema": "http://json-schema.org/draft-04/schema#",
+					"$ref": "#/definitions/Header"
+				},
+				"snapshots": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/Snapshot"
+					},
+					"type": "array"
+				},
+				"ticks": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/Tick"
+					},
+					"type": "array"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"Snapshot": {
+			"required": [
+				"tick",
+				"entityUpdates"
+			],
+			"properties": {
+				"entityUpdates": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/EntityUpdate"
+					},
+					"type": "array"
+				},
+				"tick": {
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
+		"Tick": {
+			"required": [
+				"nr",
+				"events"
+			],
+			"properties": {
+				"events": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/Event"
+					},
+					"type": "array"
+				},
+				"nr": {
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		}
+	}
+}

@@ -1,7 +1,11 @@
 package csminify_test
 
 import (
+	"encoding/json"
+	"flag"
 	"fmt"
+	"github.com/alecthomas/jsonschema"
+	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -125,6 +129,10 @@ func TestExtraHandlers(t *testing.T) {
 }
 
 func TestDemoSet(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test due to -short flag")
+	}
+
 	demSetPath := "test/cs-demos/set"
 	dems, err := ioutil.ReadDir(demSetPath)
 	if err != nil {
@@ -159,5 +167,30 @@ func TestDemoSet(t *testing.T) {
 				}
 			}()
 		}
+	}
+}
+
+var update = flag.Bool("updateDocs", false, "update schema documentation")
+
+const jsonSchemaFile = "schema.json"
+
+func TestDoc(t *testing.T) {
+	schema, err := json.MarshalIndent(jsonschema.Reflect(&rep.Replay{}), "", "\t")
+	assert.NoError(t, err)
+
+	if *update {
+		f, err := os.OpenFile(jsonSchemaFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+		assert.NoError(t, err)
+
+		_, err = f.Write(schema)
+		assert.NoError(t, err)
+	} else {
+		f, err := os.Open(jsonSchemaFile)
+		assert.NoError(t, err)
+
+		b, err := ioutil.ReadAll(f)
+		assert.NoError(t, err)
+
+		assert.Equal(t, b, schema)
 	}
 }
