@@ -60,11 +60,13 @@ Usage of csminify:
 
 #### Supported Formats
 
-Format | Command Line (`-format` Flag) | Structure
---- | --- | ---
-JSON | `json` | [schema.json](schema.json)
-MessagePack | `msgpack`, `mp` | [schema.json](schema.json)
-Protocol Buffers | `protobuf`, `proto`, `pb` | [replay.proto](protobuf/gen/proto/replay.proto)
+| Format | Command Line (`-format` Flag) | Structure |
+| --- | --- | --- |
+| JSON | `json` | [schema.json](schema.json) |
+| MessagePack | `msgpack`, `mp` | [schema.json](schema.json) |
+| Protocol Buffers | `protobuf`, `proto`, `pb` | [replay.proto](protobuf/gen/proto/replay.proto) |
+
+Events and attributes are documented in [events.md](events.md).
 
 More formats can be added programmatically by implementing the `ReplayMarshaller` interface.
 
@@ -76,6 +78,8 @@ If you would like to see additional formats supported please open a feature requ
 This is an example on how to minify a demo to JSON and decode it to a `replay.Replay` again.
 
 ```go
+package main
+
 import (
 	"bytes"
 	"encoding/json"
