@@ -9,6 +9,7 @@ const (
 	AttrKindAssister = "assister"
 	AttrKindText     = "text"
 	AttrKindSender   = "sender"
+	AttrKindWeapon   = "weapon"
 )
 
 // Possible event types
@@ -19,6 +20,7 @@ const (
 	EventKill         = "kill"
 	EventFlashed      = "flashed"
 	EventRoundStarted = "round_started"
+	EventRoundEnded   = "round_ended"
 	EventSwapTeam     = "swap_team"
 	EventDisconnect   = "disconnect"
 	EventChatMessage  = "chat_message"

@@ -54,6 +54,7 @@ type defaultEventHandlers struct{}
 
 func (defaultEventHandlers) RegisterAll(ec *EventCollector) {
 	EventHandlers.Default.RegisterRoundStarted(ec)
+	EventHandlers.Default.RegisterRoundEnded(ec)
 	EventHandlers.Default.RegisterPlayerKilled(ec)
 	EventHandlers.Default.RegisterPlayerHurt(ec)
 	EventHandlers.Default.RegisterPlayerFlashed(ec)
@@ -67,6 +68,15 @@ func (defaultEventHandlers) RegisterAll(ec *EventCollector) {
 func (defaultEventHandlers) RegisterRoundStarted(ec *EventCollector) {
 	ec.AddHandler(func(e events.RoundStart) {
 		ec.AddEvent(createEvent(rep.EventRoundStarted))
+	})
+}
+
+func (defaultEventHandlers) RegisterRoundEnded(ec *EventCollector) {
+	ec.AddHandler(func(e events.RoundEnd) {
+		eb := buildEvent(rep.EventRoundEnded)
+		eb.intAttr("winner", int(e.Winner))
+		eb.intAttr("reason", int(e.Reason))
+		ec.AddEvent(eb.build())
 	})
 }
 
