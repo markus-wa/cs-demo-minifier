@@ -133,13 +133,13 @@ func (defaultEventHandlers) RegisterWeaponFired(ec *EventCollector) {
 func (defaultEventHandlers) RegisterChatMessage(ec *EventCollector) {
 	ec.AddHandler(func(e events.ChatMessage) {
 		eb := buildEvent(rep.EventChatMessage)
-		eb = eb.stringAttr(rep.AttrKindText, e.Text)
+		eb.stringAttr(rep.AttrKindText, e.Text)
 
 		// Skip for now, probably always true anyway
-		//eb = eb.boolAttr("isChatAll", e.IsChatAll)
+		//eb.boolAttr("isChatAll", e.IsChatAll)
 
 		if e.Sender != nil {
-			eb = eb.intAttr(rep.AttrKindSender, e.Sender.EntityID)
+			eb.intAttr(rep.AttrKindSender, e.Sender.EntityID)
 		}
 
 		ec.AddEvent(eb.build())
@@ -162,7 +162,7 @@ type eventBuilder struct {
 	event rep.Event
 }
 
-func (b eventBuilder) stringAttr(key string, value string) eventBuilder {
+func (b *eventBuilder) stringAttr(key string, value string) *eventBuilder {
 	b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
 		Key:    key,
 		StrVal: value,
@@ -170,7 +170,7 @@ func (b eventBuilder) stringAttr(key string, value string) eventBuilder {
 	return b
 }
 
-func (b eventBuilder) intAttr(key string, value int) eventBuilder {
+func (b *eventBuilder) intAttr(key string, value int) *eventBuilder {
 	b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
 		Key:    key,
 		NumVal: float64(value),
@@ -182,8 +182,8 @@ func (b eventBuilder) build() rep.Event {
 	return b.event
 }
 
-func buildEvent(eventName string) eventBuilder {
-	return eventBuilder{
+func buildEvent(eventName string) *eventBuilder {
+	return &eventBuilder{
 		event: createEvent(eventName),
 	}
 }
