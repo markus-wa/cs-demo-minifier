@@ -43,6 +43,21 @@ The following command takes one snapshot of a demo every two seconds (`-freq 0.5
 
 	csminify -demo /path/to/demo.dem -format msgpack -freq 0.5 -out demo.mp
 
+#### Usage
+
+```
+$ go run cmd/csminify/main.go -help
+Usage of csminify:
+  -demo path
+        Demo file path (default stdin)
+  -format string
+        Format into which the demo should me minified (default "json")
+  -freq float
+        Snapshot frequency - per second (default 0.5)
+  -out path
+        Output file path (default stdout)
+```
+
 #### Supported Formats
 
 Format | Command Line (`-format` Flag) | Structure
