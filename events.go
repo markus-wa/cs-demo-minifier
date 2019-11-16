@@ -72,7 +72,9 @@ func (defaultEventHandlers) RegisterRoundStarted(ec *EventCollector) {
 
 func (defaultEventHandlers) RegisterPlayerKilled(ec *EventCollector) {
 	ec.AddHandler(func(e events.Kill) {
-		eb := buildEvent(rep.EventKill).intAttr(rep.AttrKindVictim, e.Victim.EntityID)
+		eb := buildEvent(rep.EventKill)
+		eb.intAttr(rep.AttrKindVictim, e.Victim.EntityID)
+		eb.intAttr(rep.AttrKindWeapon, int(e.Weapon.Weapon))
 
 		if e.Killer != nil {
 			eb.intAttr(rep.AttrKindKiller, e.Killer.EntityID)
