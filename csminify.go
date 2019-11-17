@@ -85,7 +85,7 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 	// Make the parser accessible for the custom event handlers
 	cfg.EventCollector.parser = p
 
-	m := minifier{parser: p, eventCollector: cfg.EventCollector}
+	m := newMinifier(p, cfg.EventCollector)
 
 	m.replay.Header.MapName = header.MapName
 	m.replay.Header.TickRate = header.FrameRate()
@@ -96,23 +96,11 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 		m.parser.RegisterEventHandler(h)
 	}
 
-	m.parser.RegisterEventHandler(m.tickDone)
+	m.parser.RegisterEventHandler(m.frameDone)
 
 	err = p.ParseToEnd()
 	if err != nil {
 		return rep.Replay{}, err
-	}
-
-	// TODO: There's probably a better place for this
-	for _, pl := range m.parser.GameState().Participants().All() {
-		ent := rep.Entity{
-			ID:    pl.EntityID,
-			Team:  int(pl.Team),
-			Name:  pl.Name,
-			IsNpc: pl.IsBot,
-		}
-
-		m.replay.Entities = append(m.replay.Entities, ent)
 	}
 
 	return m.replay, nil
@@ -122,35 +110,30 @@ type minifier struct {
 	parser         *dem.Parser
 	replay         rep.Replay
 	eventCollector *EventCollector
+
+	knownPlayerEntityIDs map[int]struct{}
 }
 
-func (m *minifier) tickDone(e events.TickDone) {
+func newMinifier(parser *dem.Parser, eventCollector *EventCollector) minifier {
+	return minifier{
+		parser:               parser,
+		eventCollector:       eventCollector,
+		knownPlayerEntityIDs: make(map[int]struct{}),
+	}
+}
+
+func (m *minifier) frameDone(e events.FrameDone) {
 	tick := m.parser.CurrentFrame()
 	// Is it snapshot o'clock?
 	if tick%m.replay.Header.SnapshotRate == 0 {
-		snap := rep.Snapshot{
-			Tick: tick,
-		}
+		// TODO: There might be a better way to do this than having updateKnownPlayers() here
+		m.updateKnownPlayers()
 
-		for _, pl := range m.parser.GameState().Participants().Playing() {
-			if pl.IsAlive() {
-				e := rep.EntityUpdate{
-					EntityID:      pl.EntityID,
-					Hp:            pl.Hp,
-					Armor:         pl.Armor,
-					FlashDuration: float32(roundTo(float64(pl.FlashDuration), 0.1)), // Round to nearest 0.1 sec - saves space in JSON
-					Positions:     []rep.Point{r3VectorToPoint(pl.Position)},
-					Angle:         int(pl.ViewDirectionX),
-				}
-				// FIXME: Smoothify
-				snap.EntityUpdates = append(snap.EntityUpdates, e)
-			}
-		}
-
+		snap := m.snapshot()
 		m.replay.Snapshots = append(m.replay.Snapshots, snap)
 	}
 
-	// Did we collect any events in this tick?
+	// Did we collect any events in this frame?
 	if len(m.eventCollector.events) > 0 {
 		tickEvents := make([]rep.Event, len(m.eventCollector.events))
 		copy(tickEvents, m.eventCollector.events)
@@ -158,8 +141,52 @@ func (m *minifier) tickDone(e events.TickDone) {
 			Nr:     tick,
 			Events: tickEvents,
 		})
-		// Clear events for next tick
+		// Clear events for next frame
 		m.eventCollector.events = m.eventCollector.events[:0]
+	}
+}
+
+func (m *minifier) snapshot() rep.Snapshot {
+	snap := rep.Snapshot{
+		Tick: m.parser.CurrentFrame(),
+	}
+
+	for _, pl := range m.parser.GameState().Participants().Playing() {
+		if pl.IsAlive() {
+			e := rep.EntityUpdate{
+				EntityID:      pl.EntityID,
+				Hp:            pl.Hp,
+				Armor:         pl.Armor,
+				FlashDuration: float32(roundTo(float64(pl.FlashDuration), 0.1)), // Round to nearest 0.1 sec - saves space in JSON
+				Positions:     []rep.Point{r3VectorToPoint(pl.Position)},
+				Angle:         int(pl.ViewDirectionX),
+			}
+
+			// FIXME: Smoothify Positions
+
+			snap.EntityUpdates = append(snap.EntityUpdates, e)
+		}
+	}
+
+	return snap
+}
+
+func (m *minifier) updateKnownPlayers() {
+	for _, pl := range m.parser.GameState().Participants().All() {
+		if pl.EntityID != 0 {
+			if _, alreadyKnown := m.knownPlayerEntityIDs[pl.EntityID]; !alreadyKnown {
+				ent := rep.Entity{
+					ID:    pl.EntityID,
+					Team:  int(pl.Team),
+					Name:  pl.Name,
+					IsNpc: pl.IsBot,
+				}
+
+				m.replay.Entities = append(m.replay.Entities, ent)
+
+				m.knownPlayerEntityIDs[pl.EntityID] = struct{}{}
+			}
+		}
 	}
 }
 
