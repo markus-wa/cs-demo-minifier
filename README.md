@@ -80,6 +80,20 @@ As the CLI supports Unix pipes, you can combine it with other tools such as [`jq
 
 #### Examples
 
+Compress the demo after converting it to JSON:
+```
+$ du -sk demo.dem
+67696   demo.dem
+# original demo is 67 MB
+
+$ csminfy < demo.dem | gzip > demo.json.gz
+
+$ du -sk demo.json.gz
+160 demo.json.gz
+# gzipped JSON is 160 KB
+# -> reduced size by ~99.7%
+```
+
 Get the map name of a demo:
 ```
 $ csminfy < demo.dem | jq -r '.header.map'
