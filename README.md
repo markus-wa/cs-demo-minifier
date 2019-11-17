@@ -43,10 +43,10 @@ The following command takes one snapshot of a demo every two seconds (`-freq 0.5
 
 	csminify -demo /path/to/demo.dem -format msgpack -freq 0.5 -out demo.mp
 
-#### Usage
+#### Options
 
 ```
-$ go run cmd/csminify/main.go -help
+$ csminify -help
 Usage of csminify:
   -demo path
         Demo file path (default stdin)
@@ -57,6 +57,7 @@ Usage of csminify:
   -out path
         Output file path (default stdout)
 ```
+
 
 ### Supported Formats
 
@@ -72,6 +73,58 @@ Events and attributes are also are documented in [events.md](events.md).
 More formats can be added programmatically by implementing the `ReplayMarshaller` interface.
 
 If you would like to see additional formats supported please open a feature request (issue) or a pull request if you already have an implementation ready.
+
+### Unix pipes and `jq`
+
+As the CLI supports Unix pipes, you can combine it with other tools such as [`jq`](https://stedolan.github.io/jq/).
+
+#### Examples
+
+Get the map name of a demo:
+```
+$ csminfy < demo.dem | jq -r '.header.map'
+de_cache
+```
+
+Select the first three kills:
+```
+$ csminify < test/cs-demos/default.dem | jq -r '[ .ticks[] as $parent |
+  $parent.events[] | select(.name=="kill") as $kill |
+  $kill.attrs[] | select(.key=="victim") as $victim |
+  $kill.attrs[] | select(.key=="killer") as $killer |
+  $kill.attrs[] | select(.key=="weapon") as $weapon |
+  {
+    tick: $parent.nr,
+    kill: { victim: $victim.numVal, killer: $killer.numVal, weapon: $weapon.numVal }
+  }] | .[0:3]'
+
+[
+  {
+    "tick": 43,
+    "kill": {
+      "victim": 9,
+      "killer": 2,
+      "weapon": 303
+    }
+  },
+  {
+    "tick": 1029,
+    "kill": {
+      "victim": 7,
+      "killer": 4,
+      "weapon": 9
+    }
+  },
+  {
+    "tick": 1057,
+    "kill": {
+      "victim": 11,
+      "killer": 4,
+      "weapon": 9
+    }
+  }
+]
+```
 
 
 ### Library
