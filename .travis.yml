@@ -39,6 +39,16 @@ deploy:
     tags: true
     condition: $TRAVIS_GO_VERSION =~ ^1\.11
 
+- provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - test/results/example.json
+    - test/results/example.mp
+    - test/results/example.pb
+  skip_cleanup: true
+  on:
+    tags: true
+
 notifications:
   webhooks:
     urls:

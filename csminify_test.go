@@ -1,11 +1,14 @@
 package csminify_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/alecthomas/jsonschema"
+	"github.com/markus-wa/cs-demo-minifier/protobuf"
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/vmihailenco/msgpack.v2"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -21,7 +24,7 @@ var (
 	chatDemoPath = "test/cs-demos/set/2017-05-17-ECSSeason3NA-liquid-vs-renegades-cobblestone.dem"
 )
 
-var nonDefaultReplay, parsedReplay rep.Replay
+var nonDefaultReplay, parsedReplay, minimalExampleReplay rep.Replay
 
 func TestMain(m *testing.M) {
 	nonDefaultReplay = nondefaultrep.GetNonDefaultReplay()
@@ -45,6 +48,31 @@ func initParsedReplay() {
 	parsedReplay, err = csminify.ToReplay(f, 0.5)
 	if err != nil {
 		panic(err.Error())
+	}
+
+	minimalExampleReplay = exampleReplay()
+}
+
+func exampleReplay() rep.Replay {
+	var distinctEventTicks []rep.Tick
+
+	knownEvents := make(map[string]struct{})
+	for i := range parsedReplay.Ticks {
+		for j := range parsedReplay.Ticks[i].Events {
+			eventName := parsedReplay.Ticks[i].Events[j].Name
+			if _, alreadyKnown := knownEvents[eventName]; !alreadyKnown {
+				knownEvents[eventName] = struct{}{}
+				distinctEventTicks = append(distinctEventTicks, parsedReplay.Ticks[i])
+				break
+			}
+		}
+	}
+
+	return rep.Replay{
+		Header:    parsedReplay.Header,
+		Entities:  parsedReplay.Entities,
+		Snapshots: parsedReplay.Snapshots[0:2],
+		Ticks:     distinctEventTicks,
 	}
 }
 
@@ -170,7 +198,7 @@ func TestDemoSet(t *testing.T) {
 	}
 }
 
-var update = flag.Bool("updateDocs", false, "update schema documentation")
+var updateGolden = flag.Bool("updateGolden", false, "update schema documentation")
 
 const jsonSchemaFile = "schema.json"
 
@@ -178,19 +206,62 @@ func TestDoc(t *testing.T) {
 	schema, err := json.MarshalIndent(jsonschema.Reflect(&rep.Replay{}), "", "\t")
 	assert.NoError(t, err)
 
-	if *update {
-		f, err := os.OpenFile(jsonSchemaFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
-		assert.NoError(t, err)
-
-		_, err = f.Write(schema)
-		assert.NoError(t, err)
+	if *updateGolden {
+		updateGoldenFile(t, jsonSchemaFile, schema)
 	} else {
-		f, err := os.Open(jsonSchemaFile)
-		assert.NoError(t, err)
-
-		b, err := ioutil.ReadAll(f)
-		assert.NoError(t, err)
+		b := readFile(t, jsonSchemaFile)
 
 		assert.Equal(t, b, schema)
 	}
+}
+
+func TestExample_Json_Minimal(t *testing.T) {
+	data, err := json.MarshalIndent(&minimalExampleReplay, "", "\t")
+	assert.NoError(t, err)
+
+	testGoldenOrUpdate(t, "examples/minimal.json", data, unmarshalJSON)
+}
+
+func TestExample_MsgPack_Minimal(t *testing.T) {
+	data, err := msgpack.Marshal(&minimalExampleReplay)
+	assert.NoError(t, err)
+
+	testGoldenOrUpdate(t, "examples/minimal.mp", data, unmarshalMsgPack)
+}
+
+func TestExample_Protobuf_Minimal(t *testing.T) {
+	data := bytes.Buffer{}
+	err := protobuf.MarshalReplay(minimalExampleReplay, &data)
+	assert.NoError(t, err)
+
+	testGoldenOrUpdate(t, "examples/minimal.pb", data.Bytes(), protobuf.UnmarshalReplay)
+}
+
+func testGoldenOrUpdate(t *testing.T, fileName string, data []byte, unmarshaller replayUnmarshaller) {
+	if *updateGolden {
+		updateGoldenFile(t, fileName, data)
+	} else {
+		goldenBytes := readFile(t, fileName)
+
+		// just check if it's the same length as the order of the elements might be different
+		assert.Len(t, data, len(goldenBytes))
+	}
+}
+
+func readFile(t *testing.T, fileName string) []byte {
+	f, err := os.Open(fileName)
+	assert.NoError(t, err)
+
+	b, err := ioutil.ReadAll(f)
+	assert.NoError(t, err)
+
+	return b
+}
+
+func updateGoldenFile(t *testing.T, fileName string, bytes []byte) {
+	f, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+	assert.NoError(t, err)
+
+	_, err = f.Write(bytes)
+	assert.NoError(t, err)
 }

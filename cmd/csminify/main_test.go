@@ -9,7 +9,7 @@ import (
 var (
 	demPath = "../../test/cs-demos/default.dem"
 	outDir  = "../../test/results"
-	outPath = outDir + "/demo.min"
+	outPath = outDir + "/example"
 )
 
 func TestMain(m *testing.M) {

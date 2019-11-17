@@ -1,0 +1,875 @@
+{
+	"header": {
+		"map": "de_cache",
+		"tickRate": 25.595680094066637,
+		"snapshotRate": 51
+	},
+	"entities": [
+		{
+			"id": 8,
+			"name": "eswc.com | Samy",
+			"team": 1
+		},
+		{
+			"id": 12,
+			"name": "Ptikrazy",
+			"team": 1
+		},
+		{
+			"id": 13,
+			"name": "keev",
+			"team": 3
+		},
+		{
+			"id": 2,
+			"name": "xms*ASUS ♥ /F/",
+			"team": 2
+		},
+		{
+			"id": 3,
+			"name": "to1nou * Seagate",
+			"team": 2
+		},
+		{
+			"id": 4,
+			"name": "tiziaN",
+			"team": 3
+		},
+		{
+			"id": 5,
+			"name": "ALEX * Intel",
+			"team": 2
+		},
+		{
+			"id": 7,
+			"name": "Ex6TenZ-BALLISTIX",
+			"team": 2
+		},
+		{
+			"id": 1,
+			"name": "ESWC TV - By VeryGames.net",
+			"team": 0,
+			"isNpc": true
+		},
+		{
+			"id": 9,
+			"name": "crisby",
+			"team": 3
+		},
+		{
+			"id": 10,
+			"name": "syrsoNR",
+			"team": 3
+		},
+		{
+			"id": 11,
+			"name": "mistou * Cooler Master",
+			"team": 2
+		},
+		{
+			"id": 14,
+			"name": "kzy LJ∼",
+			"team": 3
+		},
+		{
+			"id": 6,
+			"name": "eswc.com | Samy",
+			"team": 0
+		}
+	],
+	"snapshots": [
+		{
+			"tick": 51,
+			"entityUpdates": [
+				{
+					"entityId": 7,
+					"positions": [
+						{
+							"x": 2973,
+							"y": 250,
+							"z": 1613
+						}
+					],
+					"angle": 182,
+					"hp": 100
+				},
+				{
+					"entityId": 13,
+					"positions": [
+						{
+							"x": -1572,
+							"y": 722,
+							"z": 1614
+						}
+					],
+					"angle": 270,
+					"hp": 100
+				},
+				{
+					"entityId": 3,
+					"positions": [
+						{
+							"x": 555,
+							"y": 186,
+							"z": 1613
+						}
+					],
+					"angle": 187,
+					"hp": 100,
+					"armor": 100
+				},
+				{
+					"entityId": 14,
+					"positions": [
+						{
+							"x": -825,
+							"y": 606,
+							"z": 1636
+						}
+					],
+					"angle": 86,
+					"hp": 8,
+					"armor": 86
+				},
+				{
+					"entityId": 4,
+					"positions": [
+						{
+							"x": -817,
+							"y": -451,
+							"z": 1614
+						}
+					],
+					"angle": 92,
+					"hp": 97
+				},
+				{
+					"entityId": 5,
+					"positions": [
+						{
+							"x": 418,
+							"y": 233,
+							"z": 1613
+						}
+					],
+					"angle": 195,
+					"hp": 11,
+					"armor": 86
+				},
+				{
+					"entityId": 2,
+					"positions": [
+						{
+							"x": 513,
+							"y": -85,
+							"z": 1744
+						}
+					],
+					"angle": 170,
+					"hp": 24,
+					"armor": 83
+				},
+				{
+					"entityId": 10,
+					"positions": [
+						{
+							"x": -1382,
+							"y": 815,
+							"z": 1614
+						}
+					],
+					"angle": 270,
+					"hp": 100
+				},
+				{
+					"entityId": 11,
+					"positions": [
+						{
+							"x": 529,
+							"y": -250,
+							"z": 1748
+						}
+					],
+					"angle": 195,
+					"hp": 16,
+					"armor": 98
+				}
+			]
+		},
+		{
+			"tick": 102,
+			"entityUpdates": [
+				{
+					"entityId": 3,
+					"positions": [
+						{
+							"x": 374,
+							"y": 167,
+							"z": 1613
+						}
+					],
+					"angle": 150,
+					"hp": 100,
+					"armor": 100
+				},
+				{
+					"entityId": 4,
+					"positions": [
+						{
+							"x": -840,
+							"y": 37,
+							"z": 1614
+						}
+					],
+					"angle": 87,
+					"hp": 97
+				},
+				{
+					"entityId": 5,
+					"positions": [
+						{
+							"x": -29,
+							"y": 368,
+							"z": 1613
+						}
+					],
+					"angle": 101,
+					"hp": 11,
+					"armor": 86
+				},
+				{
+					"entityId": 2,
+					"positions": [
+						{
+							"x": 336,
+							"y": -127,
+							"z": 1790
+						}
+					],
+					"angle": 163,
+					"hp": 24,
+					"armor": 83
+				},
+				{
+					"entityId": 9,
+					"positions": [
+						{
+							"x": -1394,
+							"y": 515,
+							"z": 1614
+						}
+					],
+					"angle": 281,
+					"hp": 100
+				},
+				{
+					"entityId": 10,
+					"positions": [
+						{
+							"x": -1382,
+							"y": 815,
+							"z": 1614
+						}
+					],
+					"angle": 270,
+					"hp": 100
+				},
+				{
+					"entityId": 11,
+					"positions": [
+						{
+							"x": 112,
+							"y": -366,
+							"z": 1614
+						}
+					],
+					"angle": 201,
+					"hp": 16,
+					"armor": 98
+				},
+				{
+					"entityId": 14,
+					"positions": [
+						{
+							"x": -825,
+							"y": 606,
+							"z": 1636
+						}
+					],
+					"angle": 86,
+					"hp": 8,
+					"armor": 86
+				},
+				{
+					"entityId": 13,
+					"positions": [
+						{
+							"x": -1572,
+							"y": 722,
+							"z": 1614
+						}
+					],
+					"angle": 270,
+					"hp": 100
+				},
+				{
+					"entityId": 7,
+					"positions": [
+						{
+							"x": 2973,
+							"y": 250,
+							"z": 1613
+						}
+					],
+					"angle": 182,
+					"hp": 100
+				}
+			]
+		}
+	],
+	"ticks": [
+		{
+			"nr": 8,
+			"events": [
+				{
+					"name": "fire",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 3
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 10,
+			"events": [
+				{
+					"name": "jump",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 13
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 22,
+			"events": [
+				{
+					"name": "fire",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 2
+						}
+					]
+				},
+				{
+					"name": "hurt",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 9
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 43,
+			"events": [
+				{
+					"name": "fire",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 2
+						}
+					]
+				},
+				{
+					"name": "hurt",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 9
+						}
+					]
+				},
+				{
+					"name": "kill",
+					"attrs": [
+						{
+							"key": "victim",
+							"numVal": 9
+						},
+						{
+							"key": "weapon",
+							"numVal": 303
+						},
+						{
+							"key": "killer",
+							"numVal": 2
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 163,
+			"events": [
+				{
+					"name": "chat_message",
+					"attrs": [
+						{
+							"key": "text",
+							"strVal": "hf"
+						},
+						{
+							"key": "sender",
+							"numVal": 3
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 210,
+			"events": [
+				{
+					"name": "chat_message",
+					"attrs": [
+						{
+							"key": "text",
+							"strVal": "hfhf"
+						},
+						{
+							"key": "sender",
+							"numVal": 10
+						}
+					]
+				},
+				{
+					"name": "round_started"
+				}
+			]
+		},
+		{
+			"nr": 2516,
+			"events": [
+				{
+					"name": "fire",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 13
+						}
+					]
+				},
+				{
+					"name": "hurt",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 2
+						}
+					]
+				},
+				{
+					"name": "kill",
+					"attrs": [
+						{
+							"key": "victim",
+							"numVal": 2
+						},
+						{
+							"key": "weapon",
+							"numVal": 9
+						},
+						{
+							"key": "killer",
+							"numVal": 13
+						}
+					]
+				},
+				{
+					"name": "round_ended",
+					"attrs": [
+						{
+							"key": "winner",
+							"numVal": 3
+						},
+						{
+							"key": "reason",
+							"numVal": 8
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 4565,
+			"events": [
+				{
+					"name": "flashed",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 3
+						}
+					]
+				},
+				{
+					"name": "flashed",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 9
+						}
+					]
+				},
+				{
+					"name": "flashed",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 10
+						}
+					]
+				},
+				{
+					"name": "flashed",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 14
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 35623,
+			"events": [
+				{
+					"name": "round_started"
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 2
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 3
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 4
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 5
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 7
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 9
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 10
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 11
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 13
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 14
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 58613,
+			"events": [
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 2
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 3
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 4
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 5
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 7
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 8
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 9
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 10
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 11
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 12
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 13
+						}
+					]
+				},
+				{
+					"name": "disconnect",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 14
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 2
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 3
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 4
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 5
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 7
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 8
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 9
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 10
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 11
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 12
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 13
+						}
+					]
+				},
+				{
+					"name": "swap_team",
+					"attrs": [
+						{
+							"key": "entityId",
+							"numVal": 14
+						}
+					]
+				}
+			]
+		}
+	]
+}
