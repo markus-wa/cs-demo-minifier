@@ -23,7 +23,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Direct bug reports and feature requests to https://github.com/markus-wa/cs-demo-minifier")
 	}
 
-	formatPtr := fl.String("format", "json", "Format into which the demo should me minified")
+	formatPtr := fl.String("format", "json", "Format into which the demo should me minified [json, msgpack, protobuf]")
 	freqPtr := fl.Float64("freq", 0.5, "Snapshot frequency - per second")
 	demPathPtr := fl.String("demo", "", "Demo file `path` (default stdin)")
 	outPathPtr := fl.String("out", "", "Output file `path` (default stdout)")

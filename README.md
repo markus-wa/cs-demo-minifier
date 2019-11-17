@@ -51,7 +51,7 @@ Usage of csminify:
   -demo path
         Demo file path (default stdin)
   -format string
-        Format into which the demo should me minified (default "json")
+        Format into which the demo should me minified [json, msgpack, protobuf] (default "json")
   -freq float
         Snapshot frequency - per second (default 0.5)
   -out path
