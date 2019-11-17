@@ -60,13 +60,14 @@ Usage of csminify:
 
 #### Supported Formats
 
-| Format | Command Line (`-format` Flag) | Structure |
-| --- | --- | --- |
-| JSON | `json` | [schema.json](schema.json) |
-| MessagePack | `msgpack`, `mp` | [schema.json](schema.json) |
-| Protocol Buffers | `protobuf`, `proto`, `pb` | [replay.proto](protobuf/gen/proto/replay.proto) |
+| Format | Command Line (`-format` Flag) | Structure | Minimal Example | Full Example |
+| --- | --- | --- | --- | --- |
+| JSON | `json` | [schema.json](schema.json) | [minimal.json](examples/minimal.json) | see [releases](https://github.com/markus-wa/cs-demo-minifier/releases) page |
+| MessagePack | `msgpack`, `mp` | [schema.json](schema.json) | [minimal.mp](examples/minimal.mp) | see [releases](https://github.com/markus-wa/cs-demo-minifier/releases) page |
+| Protocol Buffers | `protobuf`, `proto`, `pb` | [replay.proto](protobuf/gen/proto/replay.proto) | [minimal.pb](examples/minimal.pb) | see [releases](https://github.com/markus-wa/cs-demo-minifier/releases) page |
 
-Events and attributes are documented in [events.md](events.md).
+The examples contain an extract of a demo with each event being included at least once.
+Events and attributes are also are documented in [events.md](events.md).
 
 More formats can be added programmatically by implementing the `ReplayMarshaller` interface.
 
