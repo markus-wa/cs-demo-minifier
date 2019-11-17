@@ -1,6 +1,6 @@
 # cs-demo-minifier
 
-This tool and library aims to provide a way of converting CS:GO demos into a more easily digestible format while decreasing the data size and retaining all important information. It is based on the demo parser [demoinfocs-golang](https://github.com/markus-wa/demoinfocs-golang).
+This tool and library aims to provide a way of converting CS:GO demos into a more easily digestible format while decreasing the data size ([up to 99.7%](#compressing-the-converted-demo)) and retaining all important information. It is based on the demo parser [demoinfocs-golang](https://github.com/markus-wa/demoinfocs-golang).
 	
 The project is still under development and the data formats may change in backwards-incompatible ways without notice.
 
@@ -78,29 +78,17 @@ If you would like to see additional formats supported please open a feature requ
 
 As the CLI supports Unix pipes, you can combine it with other tools such as [`jq`](https://stedolan.github.io/jq/).
 
-#### Examples
+In this section you can find a few examples.
 
-Compress the demo after converting it to JSON:
-```
-$ du -sk demo.dem
-67696   demo.dem
-# original demo is 67 MB
+#### Retreiving the map name
 
-$ csminfy < demo.dem | gzip > demo.json.gz
-
-$ du -sk demo.json.gz
-160 demo.json.gz
-# gzipped JSON is 160 KB
-# -> reduced size by ~99.7%
-```
-
-Get the map name of a demo:
 ```
 $ csminfy < demo.dem | jq -r '.header.map'
 de_cache
 ```
 
-Select the first three kills:
+#### Selecting the first three kills
+
 ```
 $ csminify < test/cs-demos/default.dem | jq -r '[ .ticks[] as $parent |
   $parent.events[] | select(.name=="kill") as $kill |
@@ -138,6 +126,22 @@ $ csminify < test/cs-demos/default.dem | jq -r '[ .ticks[] as $parent |
     }
   }
 ]
+```
+
+
+#### Compressing the converted demo
+
+```
+$ du -sk demo.dem
+67696   demo.dem
+# original demo is 67 MB
+
+$ csminfy < demo.dem | gzip > demo.json.gz
+
+$ du -sk demo.json.gz
+160 demo.json.gz
+# gzipped JSON is 160 KB
+# -> reduced size by ~99.7%
 ```
 
 
