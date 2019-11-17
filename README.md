@@ -61,7 +61,7 @@ Usage of csminify:
 
 ### Supported Formats
 
-| Format | Command Line (`-format` Flag) | Structure | Minimal Example | Full Example |
+| Format | Command Line (`-format`) Flag | Structure | Minimal Example | Full Example |
 | --- | --- | --- | --- | --- |
 | JSON | `json` | [schema.json](schema.json) | [minimal.json](examples/minimal.json) | see [releases](https://github.com/markus-wa/cs-demo-minifier/releases) page |
 | MessagePack | `msgpack`, `mp` | [schema.json](schema.json) | [minimal.mp](examples/minimal.mp) | see [releases](https://github.com/markus-wa/cs-demo-minifier/releases) page |
