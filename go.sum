@@ -25,6 +25,8 @@ github.com/markus-wa/demoinfocs-golang v1.7.0 h1:rHgIg6KKKi1+akNNBPYmX7vgWQnyVAB
 github.com/markus-wa/demoinfocs-golang v1.7.0/go.mod h1:z4ZhJzjayrtPIMvpKyumA5lHz+IqDOvwcBzqw9m5N7g=
 github.com/markus-wa/demoinfocs-golang v1.7.1 h1:0H673vGrVERb/b96ptQanqV4kmzJ/iGafgsmw9aoqSg=
 github.com/markus-wa/demoinfocs-golang v1.7.1/go.mod h1:z4ZhJzjayrtPIMvpKyumA5lHz+IqDOvwcBzqw9m5N7g=
+github.com/markus-wa/demoinfocs-golang v1.7.3 h1:NgXUc6PkbUb4YNKpN9uqQaMWZ3oMcHjsZWH/2u4URAg=
+github.com/markus-wa/demoinfocs-golang v1.7.3/go.mod h1:z4ZhJzjayrtPIMvpKyumA5lHz+IqDOvwcBzqw9m5N7g=
 github.com/markus-wa/go-unassert v0.1.1 h1:Bn7NfuD85DFdUoGQREI3PWNT1m0THYbYazHmOVIPNYQ=
 github.com/markus-wa/go-unassert v0.1.1/go.mod h1:XEvrxR+trvZeMDfXcZPvzqGo6eumEtdk5VjNRuvvzxQ=
 github.com/markus-wa/gobitread v0.2.2 h1:4Z4oJ8Bf1XnOy6JZ2/9AdFKVAoxdq7awRjrb+j2BeSQ=
