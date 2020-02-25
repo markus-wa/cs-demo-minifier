@@ -10,6 +10,8 @@ const (
 	AttrKindText     = "text"
 	AttrKindSender   = "sender"
 	AttrKindWeapon   = "weapon"
+	AttrKindAttacker = "attacker"
+	AttrKindPlayer   = "player"
 )
 
 // Possible event types

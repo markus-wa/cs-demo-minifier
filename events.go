@@ -106,7 +106,12 @@ func (defaultEventHandlers) RegisterPlayerHurt(ec *EventCollector) {
 
 func (defaultEventHandlers) RegisterPlayerFlashed(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerFlashed) {
-		ec.AddEvent(createEntityEvent(rep.EventFlashed, e.Player.EntityID))
+		eb := buildEvent(rep.EventFlashed)
+
+		eb.intAttr(rep.AttrKindAttacker, e.Attacker.EntityID)
+		eb.intAttr(rep.AttrKindPlayer, e.Player.EntityID)
+
+		ec.AddEvent(eb.build())
 	})
 }
 
