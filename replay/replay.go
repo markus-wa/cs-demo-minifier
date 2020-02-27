@@ -3,30 +3,35 @@ package replay
 
 // Possible attribute kinds
 const (
-	AttrKindEntityID = "entityId"
-	AttrKindVictim   = "victim"
-	AttrKindKiller   = "killer"
-	AttrKindAssister = "assister"
-	AttrKindText     = "text"
-	AttrKindSender   = "sender"
-	AttrKindWeapon   = "weapon"
-	AttrKindAttacker = "attacker"
-	AttrKindPlayer   = "player"
+	AttrKindEntityID        = "entityId"
+	AttrKindVictim          = "victim"
+	AttrKindKiller          = "killer"
+	AttrKindAssister        = "assister"
+	AttrKindText            = "text"
+	AttrKindSender          = "sender"
+	AttrKindWeapon          = "weapon"
+	AttrKindAttacker        = "attacker"
+	AttrKindPlayer          = "player"
+	AttrKindFlashDur        = "flashDuration"
+	AttrKindTrajectoryStart = "trajectory_start"
+	AttrKindTrajectoryEnd   = "trajectory_end"
+	AttrKindTrajectory      = "trajectory"
 )
 
 // Possible event types
 const (
-	EventJump         = "jump"
-	EventFire         = "fire"
-	EventHurt         = "hurt"
-	EventKill         = "kill"
-	EventFlashed      = "flashed"
-	EventRoundStarted = "round_started"
-	EventRoundEnded   = "round_ended"
-	EventSwapTeam     = "swap_team"
-	EventDisconnect   = "disconnect"
-	EventChatMessage  = "chat_message"
-	EventFootstep     = "footstep"
+	EventJump                     = "jump"
+	EventFire                     = "fire"
+	EventHurt                     = "hurt"
+	EventKill                     = "kill"
+	EventFlashed                  = "flashed"
+	EventRoundStarted             = "round_started"
+	EventRoundEnded               = "round_ended"
+	EventSwapTeam                 = "swap_team"
+	EventDisconnect               = "disconnect"
+	EventChatMessage              = "chat_message"
+	EventFootstep                 = "footstep"
+	EventGrenadeProjectileDestroy = "grenade_destroy"
 )
 
 // Replay contains a minified demo
@@ -91,7 +96,8 @@ type Event struct {
 
 // EventAttribute stores an additional attribute to an event
 type EventAttribute struct {
-	Key    string  `json:"key" msgpack:"key"`
-	StrVal string  `json:"strVal,omitempty" msgpack:"strVal,omitempty"`
-	NumVal float64 `json:"numVal,omitempty" msgpack:"numVal,omitempty"`
+	Key           string  `json:"key" msgpack:"key"`
+	StrVal        string  `json:"strVal,omitempty" msgpack:"strVal,omitempty"`
+	NumVal        float64 `json:"numVal,omitempty" msgpack:"numVal,omitempty"`
+	TrajectoryVal []Point `json:"trajectory,omitempty" msgpack:"trajectory,omitempty"`
 }

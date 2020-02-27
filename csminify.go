@@ -194,6 +194,14 @@ func r3VectorToPoint(v r3.Vector) rep.Point {
 	return rep.Point{X: int(v.X), Y: int(v.Y), Z: int(v.Z)}
 }
 
+func r3VectorsToPoints(v []r3.Vector) []rep.Point {
+	var result []rep.Point
+	for _, x := range v {
+		result = append(result, r3VectorToPoint(x))
+	}
+	return result
+}
+
 // roundTo wraps math.Round and allows specifying the rounding precision.
 func roundTo(x, precision float64) float64 {
 	return math.Round(x/precision) * precision
