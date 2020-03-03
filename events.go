@@ -109,8 +109,12 @@ func (defaultEventHandlers) RegisterPlayerFlashed(ec *EventCollector) {
 	ec.AddHandler(func(e events.PlayerFlashed) {
 		eb := buildEvent(rep.EventFlashed)
 
-		eb.intAttr(rep.AttrKindAttacker, e.Attacker.EntityID)
-		eb.intAttr(rep.AttrKindPlayer, e.Player.EntityID)
+		if e.Attacker != nil {
+			eb.intAttr(rep.AttrKindAttacker, e.Attacker.EntityID)
+		}
+		if e.Player != nil {
+			eb.intAttr(rep.AttrKindPlayer, e.Player.EntityID)
+		}
 		eb.floatAttr(rep.AttrKindFlashDur, e.FlashDuration().Seconds())
 
 		ec.AddEvent(eb.build())
