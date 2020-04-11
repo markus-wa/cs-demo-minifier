@@ -62,7 +62,8 @@ type EntityUpdate struct {
 	Team          int     `json:"team,omitempty" msgpack:"team,omitempty"`
 	IsNpc         bool    `json:"isNpc,omitempty" msgpack:"isNpc,omitempty"`
 	Positions     []Point `json:"positions,omitempty" msgpack:"positions,omitempty"` // This allows us smoother replay with less overhead compared to higher snapshot rate
-	Angle         int     `json:"angle,omitempty" msgpack:"angle,omitempty"`
+	AngleX        int     `json:"angleX,omitempty" msgpack:"angleX,omitempty"`
+	AngleY        int     `json:"angleY,omitempty" msgpack:"angleY,omitempty"`
 	Hp            int     `json:"hp,omitempty" msgpack:"hp,omitempty"`
 	Armor         int     `json:"armor,omitempty" msgpack:"armor,omitempty"`
 	FlashDuration float32 `json:"flashDuration,omitempty" msgpack:"flashDuration,omitempty"`

@@ -36,7 +36,8 @@ func init() {
 
 	var entUpd []rep.EntityUpdate
 	entUpd = append(entUpd, rep.EntityUpdate{
-		Angle:         90,
+		AngleX:        90,
+		AngleY:        45,
 		Armor:         80,
 		EntityID:      5,
 		FlashDuration: 2.35,

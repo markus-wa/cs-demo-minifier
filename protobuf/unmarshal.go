@@ -97,7 +97,8 @@ func mapFromEntityUpdates(entityUpdates []*gen.Replay_Snapshot_EntityUpdate) []r
 	result := make([]rep.EntityUpdate, len(entityUpdates))
 	for i, u := range entityUpdates {
 		result[i] = rep.EntityUpdate{
-			Angle:         int(u.Angle),
+			AngleX:        int(u.AngleX),
+			AngleY:        int(u.AngleY),
 			Armor:         int(u.Armor),
 			EntityID:      int(u.EntityId),
 			FlashDuration: u.FlashDuration,
