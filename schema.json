@@ -30,7 +30,10 @@
 				"entityId"
 			],
 			"properties": {
-				"angle": {
+				"angleX": {
+					"type": "integer"
+				},
+				"angleY": {
 					"type": "integer"
 				},
 				"armor": {

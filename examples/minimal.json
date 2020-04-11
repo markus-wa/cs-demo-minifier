@@ -6,21 +6,6 @@
 	},
 	"entities": [
 		{
-			"id": 8,
-			"name": "eswc.com | Samy",
-			"team": 1
-		},
-		{
-			"id": 12,
-			"name": "Ptikrazy",
-			"team": 1
-		},
-		{
-			"id": 13,
-			"name": "keev",
-			"team": 3
-		},
-		{
 			"id": 2,
 			"name": "xms*ASUS ♥ /F/",
 			"team": 2
@@ -29,11 +14,6 @@
 			"id": 3,
 			"name": "to1nou * Seagate",
 			"team": 2
-		},
-		{
-			"id": 4,
-			"name": "tiziaN",
-			"team": 3
 		},
 		{
 			"id": 5,
@@ -46,10 +26,9 @@
 			"team": 2
 		},
 		{
-			"id": 1,
-			"name": "ESWC TV - By VeryGames.net",
-			"team": 0,
-			"isNpc": true
+			"id": 8,
+			"name": "eswc.com | Samy",
+			"team": 1
 		},
 		{
 			"id": 9,
@@ -62,13 +41,34 @@
 			"team": 3
 		},
 		{
+			"id": 1,
+			"name": "ESWC TV - By VeryGames.net",
+			"team": 0,
+			"isNpc": true
+		},
+		{
+			"id": 12,
+			"name": "Ptikrazy",
+			"team": 1
+		},
+		{
+			"id": 13,
+			"name": "keev",
+			"team": 3
+		},
+		{
+			"id": 14,
+			"name": "kzy LJ∼",
+			"team": 3
+		},
+		{
 			"id": 11,
 			"name": "mistou * Cooler Master",
 			"team": 2
 		},
 		{
-			"id": 14,
-			"name": "kzy LJ∼",
+			"id": 4,
+			"name": "tiziaN",
 			"team": 3
 		},
 		{
@@ -90,19 +90,61 @@
 							"z": 1613
 						}
 					],
-					"angle": 182,
+					"angleX": 182,
 					"hp": 100
 				},
 				{
-					"entityId": 13,
+					"entityId": 2,
 					"positions": [
 						{
-							"x": -1572,
-							"y": 722,
+							"x": 513,
+							"y": -85,
+							"z": 1744
+						}
+					],
+					"angleX": 170,
+					"angleY": 4,
+					"hp": 24,
+					"armor": 83
+				},
+				{
+					"entityId": 14,
+					"positions": [
+						{
+							"x": -825,
+							"y": 606,
+							"z": 1636
+						}
+					],
+					"angleX": 86,
+					"angleY": 8,
+					"hp": 8,
+					"armor": 86
+				},
+				{
+					"entityId": 5,
+					"positions": [
+						{
+							"x": 418,
+							"y": 233,
+							"z": 1613
+						}
+					],
+					"angleX": 195,
+					"angleY": 357,
+					"hp": 11,
+					"armor": 86
+				},
+				{
+					"entityId": 10,
+					"positions": [
+						{
+							"x": -1382,
+							"y": 815,
 							"z": 1614
 						}
 					],
-					"angle": 270,
+					"angleX": 270,
 					"hp": 100
 				},
 				{
@@ -114,72 +156,10 @@
 							"z": 1613
 						}
 					],
-					"angle": 187,
+					"angleX": 187,
+					"angleY": 357,
 					"hp": 100,
 					"armor": 100
-				},
-				{
-					"entityId": 14,
-					"positions": [
-						{
-							"x": -825,
-							"y": 606,
-							"z": 1636
-						}
-					],
-					"angle": 86,
-					"hp": 8,
-					"armor": 86
-				},
-				{
-					"entityId": 4,
-					"positions": [
-						{
-							"x": -817,
-							"y": -451,
-							"z": 1614
-						}
-					],
-					"angle": 92,
-					"hp": 97
-				},
-				{
-					"entityId": 5,
-					"positions": [
-						{
-							"x": 418,
-							"y": 233,
-							"z": 1613
-						}
-					],
-					"angle": 195,
-					"hp": 11,
-					"armor": 86
-				},
-				{
-					"entityId": 2,
-					"positions": [
-						{
-							"x": 513,
-							"y": -85,
-							"z": 1744
-						}
-					],
-					"angle": 170,
-					"hp": 24,
-					"armor": 83
-				},
-				{
-					"entityId": 10,
-					"positions": [
-						{
-							"x": -1382,
-							"y": 815,
-							"z": 1614
-						}
-					],
-					"angle": 270,
-					"hp": 100
 				},
 				{
 					"entityId": 11,
@@ -190,15 +170,70 @@
 							"z": 1748
 						}
 					],
-					"angle": 195,
+					"angleX": 195,
+					"angleY": 6,
 					"hp": 16,
 					"armor": 98
+				},
+				{
+					"entityId": 13,
+					"positions": [
+						{
+							"x": -1572,
+							"y": 722,
+							"z": 1614
+						}
+					],
+					"angleX": 270,
+					"angleY": 359,
+					"hp": 100
+				},
+				{
+					"entityId": 4,
+					"positions": [
+						{
+							"x": -817,
+							"y": -451,
+							"z": 1614
+						}
+					],
+					"angleX": 92,
+					"angleY": 12,
+					"hp": 97
 				}
 			]
 		},
 		{
 			"tick": 102,
 			"entityUpdates": [
+				{
+					"entityId": 2,
+					"positions": [
+						{
+							"x": 336,
+							"y": -127,
+							"z": 1790
+						}
+					],
+					"angleX": 163,
+					"angleY": 8,
+					"hp": 24,
+					"armor": 83
+				},
+				{
+					"entityId": 14,
+					"positions": [
+						{
+							"x": -825,
+							"y": 606,
+							"z": 1636
+						}
+					],
+					"angleX": 86,
+					"angleY": 8,
+					"hp": 8,
+					"armor": 86
+				},
 				{
 					"entityId": 3,
 					"positions": [
@@ -208,21 +243,9 @@
 							"z": 1613
 						}
 					],
-					"angle": 150,
+					"angleX": 150,
 					"hp": 100,
 					"armor": 100
-				},
-				{
-					"entityId": 4,
-					"positions": [
-						{
-							"x": -840,
-							"y": 37,
-							"z": 1614
-						}
-					],
-					"angle": 87,
-					"hp": 97
 				},
 				{
 					"entityId": 5,
@@ -233,22 +256,10 @@
 							"z": 1613
 						}
 					],
-					"angle": 101,
+					"angleX": 101,
+					"angleY": 353,
 					"hp": 11,
 					"armor": 86
-				},
-				{
-					"entityId": 2,
-					"positions": [
-						{
-							"x": 336,
-							"y": -127,
-							"z": 1790
-						}
-					],
-					"angle": 163,
-					"hp": 24,
-					"armor": 83
 				},
 				{
 					"entityId": 9,
@@ -259,7 +270,33 @@
 							"z": 1614
 						}
 					],
-					"angle": 281,
+					"angleX": 281,
+					"angleY": 2,
+					"hp": 100
+				},
+				{
+					"entityId": 4,
+					"positions": [
+						{
+							"x": -840,
+							"y": 37,
+							"z": 1614
+						}
+					],
+					"angleX": 87,
+					"angleY": 11,
+					"hp": 97
+				},
+				{
+					"entityId": 7,
+					"positions": [
+						{
+							"x": 2973,
+							"y": 250,
+							"z": 1613
+						}
+					],
+					"angleX": 182,
 					"hp": 100
 				},
 				{
@@ -271,7 +308,20 @@
 							"z": 1614
 						}
 					],
-					"angle": 270,
+					"angleX": 270,
+					"hp": 100
+				},
+				{
+					"entityId": 13,
+					"positions": [
+						{
+							"x": -1572,
+							"y": 722,
+							"z": 1614
+						}
+					],
+					"angleX": 270,
+					"angleY": 359,
 					"hp": 100
 				},
 				{
@@ -283,46 +333,10 @@
 							"z": 1614
 						}
 					],
-					"angle": 201,
+					"angleX": 201,
+					"angleY": 1,
 					"hp": 16,
 					"armor": 98
-				},
-				{
-					"entityId": 14,
-					"positions": [
-						{
-							"x": -825,
-							"y": 606,
-							"z": 1636
-						}
-					],
-					"angle": 86,
-					"hp": 8,
-					"armor": 86
-				},
-				{
-					"entityId": 13,
-					"positions": [
-						{
-							"x": -1572,
-							"y": 722,
-							"z": 1614
-						}
-					],
-					"angle": 270,
-					"hp": 100
-				},
-				{
-					"entityId": 7,
-					"positions": [
-						{
-							"x": 2973,
-							"y": 250,
-							"z": 1613
-						}
-					],
-					"angle": 182,
-					"hp": 100
 				}
 			]
 		}

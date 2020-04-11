@@ -159,7 +159,8 @@ func (m *minifier) snapshot() rep.Snapshot {
 				Armor:         pl.Armor,
 				FlashDuration: float32(roundTo(float64(pl.FlashDuration), 0.1)), // Round to nearest 0.1 sec - saves space in JSON
 				Positions:     []rep.Point{r3VectorToPoint(pl.Position)},
-				Angle:         int(pl.ViewDirectionX),
+				AngleX:        int(pl.ViewDirectionX),
+				AngleY:        int(pl.ViewDirectionY),
 			}
 
 			// FIXME: Smoothify Positions
