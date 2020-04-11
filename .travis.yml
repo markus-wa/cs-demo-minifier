@@ -12,42 +12,60 @@ matrix:
     - go: master
 
 env:
-  - GO111MODULE=on
+  global:
+    - GO111MODULE=on
+    - REVIEWDOG_REPORTER=github-check
+
+before_install:
+  # Install golangci-lint
+  - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $GOPATH/bin v1.24.0
+
+  # install reviewdog for github integration of lint results
+  - mkdir -p ~/bin/ && export PATH="~/bin/:$PATH"
+  - curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b ~/bin
 
 # Override Travis's default 'go get' step, since we use Go modules
 install:
   - go mod download
 
 before_script:
-  # Download test data
-  - pushd test/cs-demos && git lfs pull -I '*' && popd
+  # Fetch refs for linter
+  - git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+  - git fetch
 
   # Don't record coverage for protobuf/gen & replay/nondefault
   - cover_packages=$(go list ./... | grep -v "protobuf/gen\|replay/nondefault" | awk -vORS=',' '{ print $1 }' | sed 's/,$/\n/')
 
 script:
+  # Lint changed code
+  - scripts/lint-changes.sh
+
+  # Download test data
+  - pushd test/cs-demos && git lfs pull -I '*' && popd
+
+  # Run tests
   - go test -coverprofile=coverage.txt -covermode=count -coverpkg=$cover_packages ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 deploy:
-- provider: script
-  skip_cleanup: true
-  script: curl -sL https://git.io/goreleaser | bash
-  on:
-    tags: true
-    condition: $TRAVIS_GO_VERSION =~ ^1\.11
+  - provider: script
+    skip_cleanup: true
+    script: curl -sL https://git.io/goreleaser | bash
+    on:
+      tags: true
+      condition: $TRAVIS_GO_VERSION =~ ^1\.11
 
-- provider: releases
-  api_key: $GITHUB_TOKEN
-  file:
-    - test/results/example.json
-    - test/results/example.mp
-    - test/results/example.pb
-  skip_cleanup: true
-  on:
-    tags: true
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file:
+      - test/results/example.json
+      - test/results/example.mp
+      - test/results/example.pb
+    skip_cleanup: true
+    on:
+      tags: true
 
 notifications:
   webhooks:
