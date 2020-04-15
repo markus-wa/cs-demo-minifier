@@ -45,6 +45,8 @@ func init() {
 		IsNpc:         true,
 		Positions:     pos,
 		Team:          1,
+		HasDefuseKit:  true,
+		HasHelmet:     true,
 	})
 
 	var snaps []rep.Snapshot

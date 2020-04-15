@@ -82,6 +82,8 @@ func mapToEntityUpdates(entityUpdates []rep.EntityUpdate) []*gen.Replay_Snapshot
 			Positions:     mapToPositions(u.Positions),
 			IsNpc:         u.IsNpc,
 			Team:          mapToTeam(u.Team),
+			HasHelmet:     u.HasHelmet,
+			HasDefuseKit:  u.HasDefuseKit,
 		})
 	}
 	return result

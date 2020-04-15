@@ -53,6 +53,8 @@ type eventHandlers struct {
 type defaultEventHandlers struct{}
 
 func (defaultEventHandlers) RegisterAll(ec *EventCollector) {
+	EventHandlers.Default.RegisterMatchStarted(ec)
+	EventHandlers.Default.RegisterGamePhaseChanged(ec)
 	EventHandlers.Default.RegisterRoundStarted(ec)
 	EventHandlers.Default.RegisterRoundEnded(ec)
 	EventHandlers.Default.RegisterPlayerKilled(ec)
@@ -63,6 +65,21 @@ func (defaultEventHandlers) RegisterAll(ec *EventCollector) {
 	EventHandlers.Default.RegisterPlayerDisconnect(ec)
 	EventHandlers.Default.RegisterWeaponFired(ec)
 	EventHandlers.Default.RegisterChatMessage(ec)
+}
+
+func (defaultEventHandlers) RegisterMatchStarted(ec *EventCollector) {
+	ec.AddHandler(func(e events.MatchStart) {
+		ec.AddEvent(createEvent(rep.EventMatchStarted))
+	})
+}
+
+func (defaultEventHandlers) RegisterGamePhaseChanged(ec *EventCollector) {
+	ec.AddHandler(func(e events.GamePhaseChanged) {
+		eb := buildEvent(rep.EventGamePhaseChanged)
+		eb.intAttr("oldGamePhase", int(e.OldGamePhase))
+		eb.intAttr("newGamePhase", int(e.NewGamePhase))
+		ec.AddEvent(eb.build())
+	})
 }
 
 func (defaultEventHandlers) RegisterRoundStarted(ec *EventCollector) {
