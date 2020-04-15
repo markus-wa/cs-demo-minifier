@@ -45,6 +45,12 @@
 				"flashDuration": {
 					"type": "number"
 				},
+				"hasDefuseKit": {
+					"type": "boolean"
+				},
+				"hasHelmet": {
+					"type": "boolean"
+				},
 				"hp": {
 					"type": "integer"
 				},

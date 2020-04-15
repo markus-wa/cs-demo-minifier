@@ -161,6 +161,8 @@ func (m *minifier) snapshot() rep.Snapshot {
 				Positions:     []rep.Point{r3VectorToPoint(pl.Position)},
 				AngleX:        int(pl.ViewDirectionX),
 				AngleY:        int(pl.ViewDirectionY),
+				HasHelmet:     pl.HasHelmet,
+				HasDefuseKit:  pl.HasDefuseKit,
 			}
 
 			// FIXME: Smoothify Positions

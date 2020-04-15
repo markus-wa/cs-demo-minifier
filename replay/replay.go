@@ -14,17 +14,19 @@ const (
 
 // Possible event types
 const (
-	EventJump         = "jump"
-	EventFire         = "fire"
-	EventHurt         = "hurt"
-	EventKill         = "kill"
-	EventFlashed      = "flashed"
-	EventRoundStarted = "round_started"
-	EventRoundEnded   = "round_ended"
-	EventSwapTeam     = "swap_team"
-	EventDisconnect   = "disconnect"
-	EventChatMessage  = "chat_message"
-	EventFootstep     = "footstep"
+	EventJump             = "jump"
+	EventFire             = "fire"
+	EventHurt             = "hurt"
+	EventKill             = "kill"
+	EventFlashed          = "flashed"
+	EventGamePhaseChanged = "game_phase_changed"
+	EventMatchStarted     = "match_started"
+	EventRoundStarted     = "round_started"
+	EventRoundEnded       = "round_ended"
+	EventSwapTeam         = "swap_team"
+	EventDisconnect       = "disconnect"
+	EventChatMessage      = "chat_message"
+	EventFootstep         = "footstep"
 )
 
 // Replay contains a minified demo
@@ -60,13 +62,15 @@ type Snapshot struct {
 type EntityUpdate struct {
 	EntityID      int     `json:"entityId" msgpack:"entityId"`
 	Team          int     `json:"team,omitempty" msgpack:"team,omitempty"`
-	IsNpc         bool    `json:"isNpc,omitempty" msgpack:"isNpc,omitempty"`
 	Positions     []Point `json:"positions,omitempty" msgpack:"positions,omitempty"` // This allows us smoother replay with less overhead compared to higher snapshot rate
 	AngleX        int     `json:"angleX,omitempty" msgpack:"angleX,omitempty"`
 	AngleY        int     `json:"angleY,omitempty" msgpack:"angleY,omitempty"`
 	Hp            int     `json:"hp,omitempty" msgpack:"hp,omitempty"`
 	Armor         int     `json:"armor,omitempty" msgpack:"armor,omitempty"`
 	FlashDuration float32 `json:"flashDuration,omitempty" msgpack:"flashDuration,omitempty"`
+	IsNpc         bool    `json:"isNpc,omitempty" msgpack:"isNpc,omitempty"`
+	HasHelmet     bool    `json:"hasHelmet,omitempty" msgpack:"hasHelmet,omitempty"`
+	HasDefuseKit  bool    `json:"hasDefuseKit,omitempty" msgpack:"hasDefuseKit,omitempty"`
 }
 
 // Point is a position on the map

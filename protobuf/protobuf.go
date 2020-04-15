@@ -35,4 +35,6 @@ func init() {
 	eventKindMap.Insert(rep.EventSwapTeam, gen.Replay_Tick_Event_SWAP_TEAM)
 	eventKindMap.Insert(rep.EventDisconnect, gen.Replay_Tick_Event_DISCONNECT)
 	eventKindMap.Insert(rep.EventChatMessage, gen.Replay_Tick_Event_CHAT_MESSAGE)
+	eventKindMap.Insert(rep.EventMatchStarted, gen.Replay_Tick_Event_MATCH_STARTED)
+	eventKindMap.Insert(rep.EventGamePhaseChanged, gen.Replay_Tick_Event_GAME_PHASE_CHANGED)
 }
