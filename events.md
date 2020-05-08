@@ -31,7 +31,7 @@
 | attribute | type | description |
 | --- | --- | --- |
 | `victim` | `numVal` | EntityID |
-| `weapon` | `numVal` | see [`EquipmentElement`](https://godoc.org/github.com/markus-wa/demoinfocs-golang/common#EquipmentElement) |
+| `weapon` | `numVal` | see [`EquipmentType`](https://pkg.go.dev/github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/common?tab=doc#EquipmentType) |
 | `killer` | `numVal` | EntityID |
 | `assister` | `numVal` | EntityID |
 
@@ -82,5 +82,5 @@
 
 | attribute | type | description |
 | --- | --- | --- |
-| `winner` | `numVal` | see [`Team`](https://godoc.org/github.com/markus-wa/demoinfocs-golang/common#Team) |
-| `reason` | `numVal` | see [`RoundEndReason`](https://godoc.org/github.com/markus-wa/demoinfocs-golang/events#RoundEndReason) |
+| `winner` | `numVal` | see [`Team`](https://pkg.go.dev/github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/common?tab=doc#Team) |
+| `reason` | `numVal` | see [`RoundEndReason`](https://pkg.go.dev/github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events?tab=doc#RoundEndReason) |

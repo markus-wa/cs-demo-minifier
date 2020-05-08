@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/markus-wa/demoinfocs-golang/events"
+	"github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/vmihailenco/msgpack.v2"
 

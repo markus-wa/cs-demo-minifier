@@ -8,8 +8,8 @@ import (
 	"math"
 
 	r3 "github.com/golang/geo/r3"
-	dem "github.com/markus-wa/demoinfocs-golang"
-	events "github.com/markus-wa/demoinfocs-golang/events"
+	dem "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
+	events "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
 
 	rep "github.com/markus-wa/cs-demo-minifier/replay"
 )
@@ -107,14 +107,14 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 }
 
 type minifier struct {
-	parser         *dem.Parser
+	parser         dem.Parser
 	replay         rep.Replay
 	eventCollector *EventCollector
 
 	knownPlayerEntityIDs map[int]struct{}
 }
 
-func newMinifier(parser *dem.Parser, eventCollector *EventCollector) minifier {
+func newMinifier(parser dem.Parser, eventCollector *EventCollector) minifier {
 	return minifier{
 		parser:               parser,
 		eventCollector:       eventCollector,
@@ -155,14 +155,14 @@ func (m *minifier) snapshot() rep.Snapshot {
 		if pl.IsAlive() {
 			e := rep.EntityUpdate{
 				EntityID:      pl.EntityID,
-				Hp:            pl.Hp,
-				Armor:         pl.Armor,
+				Hp:            pl.Health(),
+				Armor:         pl.Armor(),
 				FlashDuration: float32(roundTo(float64(pl.FlashDuration), 0.1)), // Round to nearest 0.1 sec - saves space in JSON
-				Positions:     []rep.Point{r3VectorToPoint(pl.Position)},
-				AngleX:        int(pl.ViewDirectionX),
-				AngleY:        int(pl.ViewDirectionY),
-				HasHelmet:     pl.HasHelmet,
-				HasDefuseKit:  pl.HasDefuseKit,
+				Positions:     []rep.Point{r3VectorToPoint(pl.Position())},
+				AngleX:        int(pl.ViewDirectionX()),
+				AngleY:        int(pl.ViewDirectionY()),
+				HasHelmet:     pl.HasHelmet(),
+				HasDefuseKit:  pl.HasDefuseKit(),
 			}
 
 			// FIXME: Smoothify Positions

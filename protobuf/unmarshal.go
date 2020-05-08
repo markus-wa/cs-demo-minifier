@@ -5,7 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	common "github.com/markus-wa/demoinfocs-golang/common"
+	common "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/common"
 
 	gen "github.com/markus-wa/cs-demo-minifier/protobuf/gen"
 	rep "github.com/markus-wa/cs-demo-minifier/replay"
