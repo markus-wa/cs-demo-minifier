@@ -2,8 +2,8 @@ package csminify
 
 import (
 	rep "github.com/markus-wa/cs-demo-minifier/replay"
-	dem "github.com/markus-wa/demoinfocs-golang"
-	events "github.com/markus-wa/demoinfocs-golang/events"
+	dem "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
+	events "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
 )
 
 // EventCollector provides the possibility of adding custom events to replays.
@@ -14,15 +14,15 @@ import (
 type EventCollector struct {
 	handlers []interface{}
 	events   []rep.Event
-	parser   *dem.Parser
+	parser   dem.Parser
 }
 
 // AddHandler adds a handler which will be registered on the Parser to the collector.
 // The handler should use EventCollector.AddEvent() and be of the type
 // func(<EventType>) where EventType is the type of the event to be handled.
 // The handler parameter is of type interface because lolnogenerics.
-// See: github.com/markus-wa/demoinfocs-golang demoinfocs.Parser.RegisterEventHandler()
-// GoDoc: https://godoc.org/github.com/markus-wa/demoinfocs-golang#Parser.RegisterEventHandler
+// See: github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs.Parser.RegisterEventHandler()
+// GoDoc: https://pkg.go.dev/github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs?tab=doc#Parser
 func (ec *EventCollector) AddHandler(handler interface{}) {
 	ec.handlers = append(ec.handlers, handler)
 }
@@ -35,7 +35,7 @@ func (ec *EventCollector) AddEvent(event rep.Event) {
 
 // Parser returns the demo-parser through which custom handlers can access game-state information.
 // Returns nil before minification has started - so don't call this before you need it.
-func (ec *EventCollector) Parser() *dem.Parser {
+func (ec *EventCollector) Parser() dem.Parser {
 	return ec.parser
 }
 
@@ -101,7 +101,7 @@ func (defaultEventHandlers) RegisterPlayerKilled(ec *EventCollector) {
 	ec.AddHandler(func(e events.Kill) {
 		eb := buildEvent(rep.EventKill)
 		eb.intAttr(rep.AttrKindVictim, e.Victim.EntityID)
-		eb.intAttr(rep.AttrKindWeapon, int(e.Weapon.Weapon))
+		eb.intAttr(rep.AttrKindWeapon, int(e.Weapon.Type))
 
 		if e.Killer != nil {
 			eb.intAttr(rep.AttrKindKiller, e.Killer.EntityID)
