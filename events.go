@@ -1,9 +1,9 @@
 package csminify
 
 import (
-	rep "github.com/markus-wa/cs-demo-minifier/replay"
-	dem "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
-	events "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
+  rep "github.com/markus-wa/cs-demo-minifier/replay"
+  dem "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
+  events "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
 )
 
 // EventCollector provides the possibility of adding custom events to replays.
@@ -65,6 +65,7 @@ func (defaultEventHandlers) RegisterAll(ec *EventCollector) {
 	EventHandlers.Default.RegisterPlayerDisconnect(ec)
 	EventHandlers.Default.RegisterWeaponFired(ec)
 	EventHandlers.Default.RegisterChatMessage(ec)
+	EventHandlers.Default.RegisterGrenadeEvents(ec)
 }
 
 func (defaultEventHandlers) RegisterMatchStarted(ec *EventCollector) {
@@ -175,6 +176,73 @@ func (defaultEventHandlers) RegisterChatMessage(ec *EventCollector) {
 	})
 }
 
+func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
+  ec.AddHandler(func(e events.SmokeStart) {
+    eb := buildEvent(rep.EventSmokeStart)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+  ec.AddHandler(func(e events.SmokeExpired) {
+    eb := buildEvent(rep.EventSmokeExpired)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+  ec.AddHandler(func(e events.DecoyStart) {
+    eb := buildEvent(rep.EventDecoyStart)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+  ec.AddHandler(func(e events.DecoyExpired) {
+    eb := buildEvent(rep.EventDecoyExpired)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+  ec.AddHandler(func(e events.FireGrenadeStart) {
+    eb := buildEvent(rep.EventFireGrenadeStart)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    //eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+  ec.AddHandler(func(e events.FireGrenadeExpired) {
+    eb := buildEvent(rep.EventFireGrenadeExpired)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    //eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+  ec.AddHandler(func(e events.HeExplode) {
+    eb := buildEvent(rep.EventHEGrenadeExplosion)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+  ec.AddHandler(func(e events.FlashExplode) {
+    eb := buildEvent(rep.EventFlashExplosion)
+    eb.floatAttr("x", e.Position.X)
+    eb.floatAttr("y", e.Position.Y)
+    eb.floatAttr("z", e.Position.Z)
+    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    ec.AddEvent(eb.build())
+  })
+}
+
 type extraEventHandlers struct{}
 
 func (extraEventHandlers) RegisterAll(ec *EventCollector) {
@@ -205,6 +273,14 @@ func (b *eventBuilder) intAttr(key string, value int) *eventBuilder {
 		NumVal: float64(value),
 	})
 	return b
+}
+
+func (b *eventBuilder) floatAttr(key string, value float64) *eventBuilder {
+  b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
+    Key:    key,
+    NumVal: value,
+  })
+  return b
 }
 
 func (b eventBuilder) build() rep.Event {
