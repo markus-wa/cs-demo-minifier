@@ -199,7 +199,9 @@ For Protobuf use `protobuf.Unmarshal()` (in the sub-package).
 
 ## Development
 
-### Running Tests
+### Tests
+
+#### Running tests
 
 To run tests [Git LFS](https://git-lfs.github.com) is required.
 
@@ -209,6 +211,15 @@ git submodule update
 pushd test/cs-demos && git lfs pull -I '*' && popd
 go test ./...
 ```
+
+#### Updating `.golden` files
+
+There are `golden` files that are used to make sure no unintended changes are introduced.
+This will cause tests to fail when adding new data to the output.
+
+To update these files when you inteded to make such a change (such as adding new events etc.) you will need to run the following command
+
+	go test -updateGolden
 
 
 ### Generating Protobuf Code
