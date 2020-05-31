@@ -6,9 +6,55 @@
 	},
 	"entities": [
 		{
+			"id": 5,
+			"name": "ALEX * Intel",
+			"team": 2
+		},
+		{
+			"id": 7,
+			"name": "Ex6TenZ-BALLISTIX",
+			"team": 2
+		},
+		{
 			"id": 8,
 			"name": "eswc.com | Samy",
 			"team": 1
+		},
+		{
+			"id": 10,
+			"name": "syrsoNR",
+			"team": 3
+		},
+		{
+			"id": 1,
+			"name": "ESWC TV - By VeryGames.net",
+			"team": 0,
+			"isNpc": true
+		},
+		{
+			"id": 2,
+			"name": "xms*ASUS ♥ /F/",
+			"team": 2
+		},
+		{
+			"id": 3,
+			"name": "to1nou * Seagate",
+			"team": 2
+		},
+		{
+			"id": 4,
+			"name": "tiziaN",
+			"team": 3
+		},
+		{
+			"id": 13,
+			"name": "keev",
+			"team": 3
+		},
+		{
+			"id": 14,
+			"name": "kzy LJ∼",
+			"team": 3
 		},
 		{
 			"id": 9,
@@ -26,52 +72,6 @@
 			"team": 1
 		},
 		{
-			"id": 13,
-			"name": "keev",
-			"team": 3
-		},
-		{
-			"id": 3,
-			"name": "to1nou * Seagate",
-			"team": 2
-		},
-		{
-			"id": 5,
-			"name": "ALEX * Intel",
-			"team": 2
-		},
-		{
-			"id": 7,
-			"name": "Ex6TenZ-BALLISTIX",
-			"team": 2
-		},
-		{
-			"id": 10,
-			"name": "syrsoNR",
-			"team": 3
-		},
-		{
-			"id": 14,
-			"name": "kzy LJ∼",
-			"team": 3
-		},
-		{
-			"id": 1,
-			"name": "ESWC TV - By VeryGames.net",
-			"team": 0,
-			"isNpc": true
-		},
-		{
-			"id": 2,
-			"name": "xms*ASUS ♥ /F/",
-			"team": 2
-		},
-		{
-			"id": 4,
-			"name": "tiziaN",
-			"team": 3
-		},
-		{
 			"id": 6,
 			"name": "eswc.com | Samy",
 			"team": 0
@@ -81,59 +81,6 @@
 		{
 			"tick": 51,
 			"entityUpdates": [
-				{
-					"entityId": 13,
-					"positions": [
-						{
-							"x": -1572,
-							"y": 722,
-							"z": 1614
-						}
-					],
-					"angleX": 270,
-					"angleY": 359,
-					"hp": 100
-				},
-				{
-					"entityId": 2,
-					"positions": [
-						{
-							"x": 513,
-							"y": -85,
-							"z": 1744
-						}
-					],
-					"angleX": 170,
-					"angleY": 4,
-					"hp": 24,
-					"armor": 83,
-					"hasHelmet": true
-				},
-				{
-					"entityId": 4,
-					"positions": [
-						{
-							"x": -817,
-							"y": -451,
-							"z": 1614
-						}
-					],
-					"angleX": 92,
-					"angleY": 12,
-					"hp": 97
-				},
-				{
-					"entityId": 10,
-					"positions": [
-						{
-							"x": -1382,
-							"y": 815,
-							"z": 1614
-						}
-					],
-					"angleX": 270,
-					"hp": 100
-				},
 				{
 					"entityId": 5,
 					"positions": [
@@ -159,6 +106,19 @@
 						}
 					],
 					"angleX": 182,
+					"hp": 100
+				},
+				{
+					"entityId": 13,
+					"positions": [
+						{
+							"x": -1572,
+							"y": 722,
+							"z": 1614
+						}
+					],
+					"angleX": 270,
+					"angleY": 359,
 					"hp": 100
 				},
 				{
@@ -192,6 +152,21 @@
 					"hasHelmet": true
 				},
 				{
+					"entityId": 2,
+					"positions": [
+						{
+							"x": 513,
+							"y": -85,
+							"z": 1744
+						}
+					],
+					"angleX": 170,
+					"angleY": 4,
+					"hp": 24,
+					"armor": 83,
+					"hasHelmet": true
+				},
+				{
 					"entityId": 3,
 					"positions": [
 						{
@@ -205,80 +180,37 @@
 					"hp": 100,
 					"armor": 100,
 					"hasHelmet": true
+				},
+				{
+					"entityId": 4,
+					"positions": [
+						{
+							"x": -817,
+							"y": -451,
+							"z": 1614
+						}
+					],
+					"angleX": 92,
+					"angleY": 12,
+					"hp": 97
+				},
+				{
+					"entityId": 10,
+					"positions": [
+						{
+							"x": -1382,
+							"y": 815,
+							"z": 1614
+						}
+					],
+					"angleX": 270,
+					"hp": 100
 				}
 			]
 		},
 		{
 			"tick": 102,
 			"entityUpdates": [
-				{
-					"entityId": 7,
-					"positions": [
-						{
-							"x": 2973,
-							"y": 250,
-							"z": 1613
-						}
-					],
-					"angleX": 182,
-					"hp": 100
-				},
-				{
-					"entityId": 11,
-					"positions": [
-						{
-							"x": 112,
-							"y": -366,
-							"z": 1614
-						}
-					],
-					"angleX": 201,
-					"angleY": 1,
-					"hp": 16,
-					"armor": 98,
-					"hasHelmet": true
-				},
-				{
-					"entityId": 14,
-					"positions": [
-						{
-							"x": -825,
-							"y": 606,
-							"z": 1636
-						}
-					],
-					"angleX": 86,
-					"angleY": 8,
-					"hp": 8,
-					"armor": 86,
-					"hasHelmet": true
-				},
-				{
-					"entityId": 13,
-					"positions": [
-						{
-							"x": -1572,
-							"y": 722,
-							"z": 1614
-						}
-					],
-					"angleX": 270,
-					"angleY": 359,
-					"hp": 100
-				},
-				{
-					"entityId": 4,
-					"positions": [
-						{
-							"x": -840,
-							"y": 37,
-							"z": 1614
-						}
-					],
-					"angleX": 87,
-					"angleY": 11,
-					"hp": 97
-				},
 				{
 					"entityId": 10,
 					"positions": [
@@ -306,6 +238,19 @@
 					"hasHelmet": true
 				},
 				{
+					"entityId": 4,
+					"positions": [
+						{
+							"x": -840,
+							"y": 37,
+							"z": 1614
+						}
+					],
+					"angleX": 87,
+					"angleY": 11,
+					"hp": 97
+				},
+				{
 					"entityId": 5,
 					"positions": [
 						{
@@ -317,6 +262,33 @@
 					"angleX": 101,
 					"angleY": 353,
 					"hp": 11,
+					"armor": 86,
+					"hasHelmet": true
+				},
+				{
+					"entityId": 7,
+					"positions": [
+						{
+							"x": 2973,
+							"y": 250,
+							"z": 1613
+						}
+					],
+					"angleX": 182,
+					"hp": 100
+				},
+				{
+					"entityId": 14,
+					"positions": [
+						{
+							"x": -825,
+							"y": 606,
+							"z": 1636
+						}
+					],
+					"angleX": 86,
+					"angleY": 8,
+					"hp": 8,
 					"armor": 86,
 					"hasHelmet": true
 				},
@@ -334,6 +306,21 @@
 					"hp": 100
 				},
 				{
+					"entityId": 11,
+					"positions": [
+						{
+							"x": 112,
+							"y": -366,
+							"z": 1614
+						}
+					],
+					"angleX": 201,
+					"angleY": 1,
+					"hp": 16,
+					"armor": 98,
+					"hasHelmet": true
+				},
+				{
 					"entityId": 2,
 					"positions": [
 						{
@@ -347,6 +334,19 @@
 					"hp": 24,
 					"armor": 83,
 					"hasHelmet": true
+				},
+				{
+					"entityId": 13,
+					"positions": [
+						{
+							"x": -1572,
+							"y": 722,
+							"z": 1614
+						}
+					],
+					"angleX": 270,
+					"angleY": 359,
+					"hp": 100
 				}
 			]
 		}
@@ -508,6 +508,84 @@
 			]
 		},
 		{
+			"nr": 903,
+			"events": [
+				{
+					"name": "decoy_started",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": -261.5856628417969
+						},
+						{
+							"key": "y",
+							"numVal": 1296.1536865234375
+						},
+						{
+							"key": "z",
+							"numVal": 1689.03125
+						},
+						{
+							"key": "throwerEntityId",
+							"numVal": 14
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 1312,
+			"events": [
+				{
+					"name": "decoy_expired",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": -261.5856628417969
+						},
+						{
+							"key": "y",
+							"numVal": 1296.1536865234375
+						},
+						{
+							"key": "z",
+							"numVal": 1689.03125
+						},
+						{
+							"key": "throwerEntityId",
+							"numVal": 14
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 2480,
+			"events": [
+				{
+					"name": "smoke_started",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": 943.7857055664062
+						},
+						{
+							"key": "y",
+							"numVal": -716.610107421875
+						},
+						{
+							"key": "z",
+							"numVal": 1616.003173828125
+						},
+						{
+							"key": "throwerEntityId",
+							"numVal": 13
+						}
+					]
+				}
+			]
+		},
+		{
 			"nr": 2516,
 			"events": [
 				{
@@ -561,8 +639,151 @@
 			]
 		},
 		{
+			"nr": 3249,
+			"events": [
+				{
+					"name": "fire_grenade_started",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": 933.8363647460938
+						},
+						{
+							"key": "y",
+							"numVal": 658.8897705078125
+						},
+						{
+							"key": "z",
+							"numVal": 1834.861328125
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 3342,
+			"events": [
+				{
+					"name": "he_grenade_explosion",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": 786.9524536132812
+						},
+						{
+							"key": "y",
+							"numVal": -961.5076293945312
+						},
+						{
+							"key": "z",
+							"numVal": 1666.120361328125
+						},
+						{
+							"key": "throwerEntityId",
+							"numVal": 13
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 3428,
+			"events": [
+				{
+					"name": "fire_grenade_expired",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": 933.8363647460938
+						},
+						{
+							"key": "y",
+							"numVal": 658.8897705078125
+						},
+						{
+							"key": "z",
+							"numVal": 1834.861328125
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 3622,
+			"events": [
+				{
+					"name": "smoke_expired",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": 920.5975341796875
+						},
+						{
+							"key": "y",
+							"numVal": 269.741943359375
+						},
+						{
+							"key": "z",
+							"numVal": 1616.0150146484375
+						},
+						{
+							"key": "throwerEntityId",
+							"numVal": 9
+						}
+					]
+				}
+			]
+		},
+		{
+			"nr": 3916,
+			"events": [
+				{
+					"name": "flash_explosion",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": 146.4983367919922
+						},
+						{
+							"key": "y",
+							"numVal": -703.4071044921875
+						},
+						{
+							"key": "z",
+							"numVal": 1666.1900634765625
+						},
+						{
+							"key": "throwerEntityId",
+							"numVal": 13
+						}
+					]
+				}
+			]
+		},
+		{
 			"nr": 4565,
 			"events": [
+				{
+					"name": "flash_explosion",
+					"attrs": [
+						{
+							"key": "x",
+							"numVal": -67.47831726074219
+						},
+						{
+							"key": "y",
+							"numVal": 326.1033020019531
+						},
+						{
+							"key": "z",
+							"numVal": 1772.932861328125
+						},
+						{
+							"key": "throwerEntityId",
+							"numVal": 7
+						}
+					]
+				},
 				{
 					"name": "flashed",
 					"attrs": [

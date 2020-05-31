@@ -25,6 +25,7 @@ func init() {
 	attributeKindMap.Insert(rep.AttrKindAssister, gen.Replay_Tick_Event_Attribute_ASSISTER)
 	attributeKindMap.Insert(rep.AttrKindText, gen.Replay_Tick_Event_Attribute_TEXT)
 	attributeKindMap.Insert(attrKindEventName, gen.Replay_Tick_Event_Attribute_EVENT_NAME)
+	attributeKindMap.Insert(rep.AttrKindThrowerID, gen.Replay_Tick_Event_Attribute_THROWER_ENTITY_ID)
 
 	eventKindMap.Insert(rep.EventJump, gen.Replay_Tick_Event_JUMP)
 	eventKindMap.Insert(rep.EventFire, gen.Replay_Tick_Event_FIRE)
@@ -37,4 +38,12 @@ func init() {
 	eventKindMap.Insert(rep.EventChatMessage, gen.Replay_Tick_Event_CHAT_MESSAGE)
 	eventKindMap.Insert(rep.EventMatchStarted, gen.Replay_Tick_Event_MATCH_STARTED)
 	eventKindMap.Insert(rep.EventGamePhaseChanged, gen.Replay_Tick_Event_GAME_PHASE_CHANGED)
+	eventKindMap.Insert(rep.EventSmokeStart, gen.Replay_Tick_Event_SMOKE_STARTED)
+	eventKindMap.Insert(rep.EventSmokeExpired, gen.Replay_Tick_Event_SMOKE_EXPIRED)
+	eventKindMap.Insert(rep.EventDecoyStart, gen.Replay_Tick_Event_DECOY_STARTED)
+	eventKindMap.Insert(rep.EventDecoyExpired, gen.Replay_Tick_Event_DECOY_EXPIRED)
+	eventKindMap.Insert(rep.EventFireGrenadeStart, gen.Replay_Tick_Event_FIRE_GRENADE_STARTED)
+	eventKindMap.Insert(rep.EventFireGrenadeExpired, gen.Replay_Tick_Event_FIRE_GRENADE_EXPIRED)
+	eventKindMap.Insert(rep.EventHEGrenadeExplosion, gen.Replay_Tick_Event_HE_GRENADE_EXPLOSION)
+	eventKindMap.Insert(rep.EventFlashExplosion, gen.Replay_Tick_Event_FLASH_EXPLOSION)
 }
