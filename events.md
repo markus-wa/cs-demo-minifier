@@ -17,7 +17,7 @@
 - [`decoy_expired`](#decoy_expired)
 - [`fire_grenade_started`](#fire_grenade_started)
 - [`fire_grenade_expired`](#fire_grenade_expired)
-- [`flash_explosion`](#flash_explosion)
+- [`he_grenade_explosion`](#he_grenade_explosion)
 - [`flash_explosion`](#flash_explosion)
 
 ## Attributes
