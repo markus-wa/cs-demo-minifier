@@ -182,7 +182,7 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    eb.intAttr(rep.AttrKindThrowerID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
   ec.AddHandler(func(e events.SmokeExpired) {
@@ -190,7 +190,7 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    eb.intAttr(rep.AttrKindThrowerID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
   ec.AddHandler(func(e events.DecoyStart) {
@@ -198,7 +198,7 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    eb.intAttr(rep.AttrKindThrowerID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
   ec.AddHandler(func(e events.DecoyExpired) {
@@ -206,7 +206,7 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    eb.intAttr(rep.AttrKindThrowerID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
   ec.AddHandler(func(e events.FireGrenadeStart) {
@@ -214,7 +214,6 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    //eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
   ec.AddHandler(func(e events.FireGrenadeExpired) {
@@ -222,7 +221,6 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    //eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
   ec.AddHandler(func(e events.HeExplode) {
@@ -230,7 +228,7 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    eb.intAttr(rep.AttrKindThrowerID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
   ec.AddHandler(func(e events.FlashExplode) {
@@ -238,7 +236,7 @@ func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
     eb.floatAttr("x", e.Position.X)
     eb.floatAttr("y", e.Position.Y)
     eb.floatAttr("z", e.Position.Z)
-    eb.intAttr(rep.AttrKindEntityID, e.Thrower.EntityID);
+    eb.intAttr(rep.AttrKindThrowerID, e.Thrower.EntityID);
     ec.AddEvent(eb.build())
   })
 }

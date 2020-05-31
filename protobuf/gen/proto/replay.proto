@@ -43,7 +43,7 @@ message Replay {
 			bool hasHelmet = 10;
 			bool hasDefuseKit = 11;
 		}
-		
+
 		int32 tick = 1;
 		repeated EntityUpdate entityUpdates = 2;
 	}

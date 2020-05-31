@@ -37,4 +37,12 @@ func init() {
 	eventKindMap.Insert(rep.EventChatMessage, gen.Replay_Tick_Event_CHAT_MESSAGE)
 	eventKindMap.Insert(rep.EventMatchStarted, gen.Replay_Tick_Event_MATCH_STARTED)
 	eventKindMap.Insert(rep.EventGamePhaseChanged, gen.Replay_Tick_Event_GAME_PHASE_CHANGED)
+	eventKindMap.Insert(rep.EventSmokeStart, gen.Replay_Tick_Event_SMOKE_START)
+	eventKindMap.Insert(rep.EventSmokeExpired, gen.Replay_Tick_Event_SMOKE_EXPIRED)
+	eventKindMap.Insert(rep.EventDecoyStart, gen.Replay_Tick_Event_DECOY_START)
+	eventKindMap.Insert(rep.EventDecoyExpired, gen.Replay_Tick_Event_DECOY_EXPIRED)
+	eventKindMap.Insert(rep.EventFireGrenadeStart, gen.Replay_Tick_Event_FIRE_GRENADE_START)
+	eventKindMap.Insert(rep.EventFireGrenadeExpired, gen.Replay_Tick_Event_FIRE_GRENADE_EXPIRED)
+	eventKindMap.Insert(rep.EventHEGrenadeExplosion, gen.Replay_Tick_Event_HE_GRENADE_EXPLOSION)
+	eventKindMap.Insert(rep.EventFlashExplosion, gen.Replay_Tick_Event_FLASH_EXPLOSION)
 }

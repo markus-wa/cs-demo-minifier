@@ -3,13 +3,14 @@ package replay
 
 // Possible attribute kinds
 const (
-	AttrKindEntityID = "entityId"
-	AttrKindVictim   = "victim"
-	AttrKindKiller   = "killer"
-	AttrKindAssister = "assister"
-	AttrKindText     = "text"
-	AttrKindSender   = "sender"
-	AttrKindWeapon   = "weapon"
+	AttrKindEntityID  = "entityId"
+	AttrKindVictim    = "victim"
+	AttrKindKiller    = "killer"
+	AttrKindAssister  = "assister"
+	AttrKindText      = "text"
+	AttrKindSender    = "sender"
+	AttrKindWeapon    = "weapon"
+	AttrKindThrowerID = "throwerEntityId"
 )
 
 // Possible event types

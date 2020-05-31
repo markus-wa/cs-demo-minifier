@@ -57,18 +57,26 @@ func (Team) EnumDescriptor() ([]byte, []int) {
 type Replay_Tick_Event_Kind int32
 
 const (
-	Replay_Tick_Event_JUMP               Replay_Tick_Event_Kind = 0
-	Replay_Tick_Event_FIRE               Replay_Tick_Event_Kind = 1
-	Replay_Tick_Event_HURT               Replay_Tick_Event_Kind = 2
-	Replay_Tick_Event_FLASHED            Replay_Tick_Event_Kind = 3
-	Replay_Tick_Event_KILL               Replay_Tick_Event_Kind = 4
-	Replay_Tick_Event_ROUND_STARTED      Replay_Tick_Event_Kind = 5
-	Replay_Tick_Event_SWAP_TEAM          Replay_Tick_Event_Kind = 6
-	Replay_Tick_Event_DISCONNECT         Replay_Tick_Event_Kind = 7
-	Replay_Tick_Event_CHAT_MESSAGE       Replay_Tick_Event_Kind = 8
-	Replay_Tick_Event_CUSTOM             Replay_Tick_Event_Kind = 9
-	Replay_Tick_Event_MATCH_STARTED      Replay_Tick_Event_Kind = 10
-	Replay_Tick_Event_GAME_PHASE_CHANGED Replay_Tick_Event_Kind = 11
+	Replay_Tick_Event_JUMP                 Replay_Tick_Event_Kind = 0
+	Replay_Tick_Event_FIRE                 Replay_Tick_Event_Kind = 1
+	Replay_Tick_Event_HURT                 Replay_Tick_Event_Kind = 2
+	Replay_Tick_Event_FLASHED              Replay_Tick_Event_Kind = 3
+	Replay_Tick_Event_KILL                 Replay_Tick_Event_Kind = 4
+	Replay_Tick_Event_ROUND_STARTED        Replay_Tick_Event_Kind = 5
+	Replay_Tick_Event_SWAP_TEAM            Replay_Tick_Event_Kind = 6
+	Replay_Tick_Event_DISCONNECT           Replay_Tick_Event_Kind = 7
+	Replay_Tick_Event_CHAT_MESSAGE         Replay_Tick_Event_Kind = 8
+	Replay_Tick_Event_CUSTOM               Replay_Tick_Event_Kind = 9
+	Replay_Tick_Event_MATCH_STARTED        Replay_Tick_Event_Kind = 10
+	Replay_Tick_Event_GAME_PHASE_CHANGED   Replay_Tick_Event_Kind = 11
+  Replay_Tick_Event_SMOKE_START          Replay_Tick_Event_Kind = 12
+  Replay_Tick_Event_SMOKE_EXPIRED        Replay_Tick_Event_Kind = 13
+  Replay_Tick_Event_DECOY_START          Replay_Tick_Event_Kind = 14
+  Replay_Tick_Event_DECOY_EXPIRED        Replay_Tick_Event_Kind = 15
+  Replay_Tick_Event_FIRE_GRENADE_START   Replay_Tick_Event_Kind = 16
+  Replay_Tick_Event_FIRE_GRENADE_EXPIRED Replay_Tick_Event_Kind = 17
+  Replay_Tick_Event_HE_GRENADE_EXPLOSION Replay_Tick_Event_Kind = 18
+  Replay_Tick_Event_FLASH_EXPLOSION      Replay_Tick_Event_Kind = 19
 )
 
 var Replay_Tick_Event_Kind_name = map[int32]string{
@@ -84,21 +92,37 @@ var Replay_Tick_Event_Kind_name = map[int32]string{
 	9:  "CUSTOM",
 	10: "MATCH_STARTED",
 	11: "GAME_PHASE_CHANGED",
+	12: "SMOKE_START",
+	13: "SMOKE_EXPIRED",
+	14: "DECOY_START",
+	15: "DECOY_EXPIRED",
+	16: "FIRE_GRENADE_START",
+	17: "FIRE_GRENADE_EXPIRED",
+	18: "HE_GRENADE_EXPLOSION",
+	19: "FLASH_EXPLOSION",
 }
 
 var Replay_Tick_Event_Kind_value = map[string]int32{
-	"JUMP":               0,
-	"FIRE":               1,
-	"HURT":               2,
-	"FLASHED":            3,
-	"KILL":               4,
-	"ROUND_STARTED":      5,
-	"SWAP_TEAM":          6,
-	"DISCONNECT":         7,
-	"CHAT_MESSAGE":       8,
-	"CUSTOM":             9,
-	"MATCH_STARTED":      10,
-	"GAME_PHASE_CHANGED": 11,
+	"JUMP":                  0,
+	"FIRE":                  1,
+	"HURT":                  2,
+	"FLASHED":               3,
+	"KILL":                  4,
+	"ROUND_STARTED":         5,
+	"SWAP_TEAM":             6,
+	"DISCONNECT":            7,
+	"CHAT_MESSAGE":          8,
+	"CUSTOM":                9,
+	"MATCH_STARTED":        10,
+	"GAME_PHASE_CHANGED":   11,
+  "SMOKE_START":          12,
+  "SMOKE_EXPIRED":        13,
+  "DECOY_START":          14,
+  "DECOY_EXPIRED":        15,
+  "FIRE_GRENADE_START":   16,
+  "FIRE_GRENADE_EXPIRED": 17,
+  "HE_GRENADE_EXPLOSION": 18,
+  "FLASH_EXPLOSION":      19,
 }
 
 func (x Replay_Tick_Event_Kind) String() string {
