@@ -177,56 +177,49 @@ func (defaultEventHandlers) RegisterChatMessage(ec *EventCollector) {
 }
 
 func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
-  ec.AddHandler(func(smokeStartEvent events.SmokeStart) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventSmokeStart), smokeStartEvent);
-    eb.intAttr(rep.AttrKindThrowerID, smokeStartEvent.Thrower.EntityID);
-    ec.AddEvent(eb.build())
-  })
-  ec.AddHandler(func(smokeExpired events.SmokeExpired) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventSmokeExpired), smokeExpired);
-    eb.intAttr(rep.AttrKindThrowerID, smokeExpired.Thrower.EntityID);
-    ec.AddEvent(eb.build())
-  })
-  ec.AddHandler(func(decoyStart events.DecoyStart) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventDecoyStart), decoyStart);
-    eb.intAttr(rep.AttrKindThrowerID, decoyStart.Thrower.EntityID);
-    ec.AddEvent(eb.build())
-  })
-  ec.AddHandler(func(decoyExpired events.DecoyExpired) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventDecoyExpired), decoyExpired);
-    eb.intAttr(rep.AttrKindThrowerID, decoyExpired.Thrower.EntityID);
-    ec.AddEvent(eb.build())
-  })
-  ec.AddHandler(func(fireStart events.FireGrenadeStart) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventFireGrenadeStart), fireStart);
-    // Adding a AttrKindThrowerID throws a Nil Reference
-    ec.AddEvent(eb.build())
-  })
-  ec.AddHandler(func(fireExpired events.FireGrenadeExpired) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventFireGrenadeExpired), fireExpired)
-    // Adding a AttrKindThrowerID throws a Nil Reference
-    ec.AddEvent(eb.build())
-  })
-  ec.AddHandler(func(heEvent events.HeExplode) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventHEGrenadeExplosion), heEvent)
-    eb.intAttr(rep.AttrKindThrowerID, heEvent.Thrower.EntityID);
-    ec.AddEvent(eb.build())
-  })
-  ec.AddHandler(func(flashExplode events.FlashExplode) {
-    eb := WithGrenadePositionAttributes(buildEvent(rep.EventFlashExplosion), flashExplode);
-    eb.intAttr(rep.AttrKindThrowerID, flashExplode.Thrower.EntityID);
-    ec.AddEvent(eb.build())
-  })
+	ec.AddHandler(func(smokeStartEvent events.SmokeStart) {
+		eb := withGrenadePosition(buildEvent(rep.EventSmokeStart), smokeStartEvent)
+		eb.intAttr(rep.AttrKindThrowerID, smokeStartEvent.Thrower.EntityID)
+		ec.AddEvent(eb.build())
+	})
+	ec.AddHandler(func(smokeExpired events.SmokeExpired) {
+		eb := withGrenadePosition(buildEvent(rep.EventSmokeExpired), smokeExpired)
+		eb.intAttr(rep.AttrKindThrowerID, smokeExpired.Thrower.EntityID)
+		ec.AddEvent(eb.build())
+	})
+	ec.AddHandler(func(decoyStart events.DecoyStart) {
+		eb := withGrenadePosition(buildEvent(rep.EventDecoyStart), decoyStart)
+		eb.intAttr(rep.AttrKindThrowerID, decoyStart.Thrower.EntityID)
+		ec.AddEvent(eb.build())
+	})
+	ec.AddHandler(func(decoyExpired events.DecoyExpired) {
+		eb := withGrenadePosition(buildEvent(rep.EventDecoyExpired), decoyExpired)
+		eb.intAttr(rep.AttrKindThrowerID, decoyExpired.Thrower.EntityID)
+		ec.AddEvent(eb.build())
+	})
+	ec.AddHandler(func(fireStart events.FireGrenadeStart) {
+		eb := withGrenadePosition(buildEvent(rep.EventFireGrenadeStart), fireStart)
+		// Adding a AttrKindThrowerID throws a Nil Reference
+		ec.AddEvent(eb.build())
+	})
+	ec.AddHandler(func(fireExpired events.FireGrenadeExpired) {
+		eb := withGrenadePosition(buildEvent(rep.EventFireGrenadeExpired), fireExpired)
+		// Adding a AttrKindThrowerID throws a Nil Reference
+		ec.AddEvent(eb.build())
+	})
+	ec.AddHandler(func(heEvent events.HeExplode) {
+		eb := withGrenadePosition(buildEvent(rep.EventHEGrenadeExplosion), heEvent)
+		eb.intAttr(rep.AttrKindThrowerID, heEvent.Thrower.EntityID)
+		ec.AddEvent(eb.build())
+	})
+	ec.AddHandler(func(flashExplode events.FlashExplode) {
+		eb := withGrenadePosition(buildEvent(rep.EventFlashExplosion), flashExplode)
+		eb.intAttr(rep.AttrKindThrowerID, flashExplode.Thrower.EntityID)
+		ec.AddEvent(eb.build())
+	})
 }
 
 type extraEventHandlers struct{}
-
-func WithGrenadePositionAttributes(eb *eventBuilder, e events.GrenadeEventIf) *eventBuilder {
-  eb.floatAttr("x", e.Base().Position.X)
-  eb.floatAttr("y", e.Base().Position.Y)
-  eb.floatAttr("z", e.Base().Position.Z)
-  return eb
-}
 
 func (extraEventHandlers) RegisterAll(ec *EventCollector) {
 	EventHandlers.Extra.RegisterFootstep(ec)
@@ -259,10 +252,10 @@ func (b *eventBuilder) intAttr(key string, value int) *eventBuilder {
 }
 
 func (b *eventBuilder) floatAttr(key string, value float64) {
-  b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
-    Key:    key,
-    NumVal: value,
-  })
+	b.event.Attributes = append(b.event.Attributes, rep.EventAttribute{
+		Key:    key,
+		NumVal: value,
+	})
 }
 
 func (b eventBuilder) build() rep.Event {
@@ -283,4 +276,12 @@ func createEvent(eventName string) rep.Event {
 
 func createEntityEvent(eventName string, entityID int) rep.Event {
 	return buildEvent(eventName).intAttr(rep.AttrKindEntityID, entityID).build()
+}
+
+func withGrenadePosition(eb *eventBuilder, e events.GrenadeEventIf) *eventBuilder {
+	eb.floatAttr("x", e.Base().Position.X)
+	eb.floatAttr("y", e.Base().Position.Y)
+	eb.floatAttr("z", e.Base().Position.Z)
+
+	return eb
 }
