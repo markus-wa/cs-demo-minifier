@@ -69,11 +69,11 @@ const (
 	Replay_Tick_Event_CUSTOM               Replay_Tick_Event_Kind = 9
 	Replay_Tick_Event_MATCH_STARTED        Replay_Tick_Event_Kind = 10
 	Replay_Tick_Event_GAME_PHASE_CHANGED   Replay_Tick_Event_Kind = 11
-  Replay_Tick_Event_SMOKE_START          Replay_Tick_Event_Kind = 12
+  Replay_Tick_Event_SMOKE_STARTED        Replay_Tick_Event_Kind = 12
   Replay_Tick_Event_SMOKE_EXPIRED        Replay_Tick_Event_Kind = 13
-  Replay_Tick_Event_DECOY_START          Replay_Tick_Event_Kind = 14
+  Replay_Tick_Event_DECOY_STARTED        Replay_Tick_Event_Kind = 14
   Replay_Tick_Event_DECOY_EXPIRED        Replay_Tick_Event_Kind = 15
-  Replay_Tick_Event_FIRE_GRENADE_START   Replay_Tick_Event_Kind = 16
+  Replay_Tick_Event_FIRE_GRENADE_STARTED Replay_Tick_Event_Kind = 16
   Replay_Tick_Event_FIRE_GRENADE_EXPIRED Replay_Tick_Event_Kind = 17
   Replay_Tick_Event_HE_GRENADE_EXPLOSION Replay_Tick_Event_Kind = 18
   Replay_Tick_Event_FLASH_EXPLOSION      Replay_Tick_Event_Kind = 19
@@ -92,11 +92,11 @@ var Replay_Tick_Event_Kind_name = map[int32]string{
 	9:  "CUSTOM",
 	10: "MATCH_STARTED",
 	11: "GAME_PHASE_CHANGED",
-	12: "SMOKE_START",
+	12: "SMOKE_STARTED",
 	13: "SMOKE_EXPIRED",
-	14: "DECOY_START",
+	14: "DECOY_STARTED",
 	15: "DECOY_EXPIRED",
-	16: "FIRE_GRENADE_START",
+	16: "FIRE_GRENADE_STARTED",
 	17: "FIRE_GRENADE_EXPIRED",
 	18: "HE_GRENADE_EXPLOSION",
 	19: "FLASH_EXPLOSION",
@@ -115,11 +115,11 @@ var Replay_Tick_Event_Kind_value = map[string]int32{
 	"CUSTOM":                9,
 	"MATCH_STARTED":        10,
 	"GAME_PHASE_CHANGED":   11,
-  "SMOKE_START":          12,
+  "SMOKE_STARTED":          12,
   "SMOKE_EXPIRED":        13,
-  "DECOY_START":          14,
+  "DECOY_STARTED":          14,
   "DECOY_EXPIRED":        15,
-  "FIRE_GRENADE_START":   16,
+  "FIRE_GRENADE_STARTED":   16,
   "FIRE_GRENADE_EXPIRED": 17,
   "HE_GRENADE_EXPLOSION": 18,
   "FLASH_EXPLOSION":      19,
@@ -136,13 +136,14 @@ func (Replay_Tick_Event_Kind) EnumDescriptor() ([]byte, []int) {
 type Replay_Tick_Event_Attribute_Kind int32
 
 const (
-	Replay_Tick_Event_Attribute_ENTITY_ID  Replay_Tick_Event_Attribute_Kind = 0
-	Replay_Tick_Event_Attribute_VICTIM     Replay_Tick_Event_Attribute_Kind = 1
-	Replay_Tick_Event_Attribute_KILLER     Replay_Tick_Event_Attribute_Kind = 2
-	Replay_Tick_Event_Attribute_ASSISTER   Replay_Tick_Event_Attribute_Kind = 3
-	Replay_Tick_Event_Attribute_TEXT       Replay_Tick_Event_Attribute_Kind = 4
-	Replay_Tick_Event_Attribute_EVENT_NAME Replay_Tick_Event_Attribute_Kind = 5
-	Replay_Tick_Event_Attribute_CUSTOM     Replay_Tick_Event_Attribute_Kind = 6
+	Replay_Tick_Event_Attribute_ENTITY_ID             Replay_Tick_Event_Attribute_Kind = 0
+	Replay_Tick_Event_Attribute_VICTIM                Replay_Tick_Event_Attribute_Kind = 1
+	Replay_Tick_Event_Attribute_KILLER                Replay_Tick_Event_Attribute_Kind = 2
+	Replay_Tick_Event_Attribute_ASSISTER              Replay_Tick_Event_Attribute_Kind = 3
+	Replay_Tick_Event_Attribute_TEXT                  Replay_Tick_Event_Attribute_Kind = 4
+	Replay_Tick_Event_Attribute_EVENT_NAME            Replay_Tick_Event_Attribute_Kind = 5
+	Replay_Tick_Event_Attribute_CUSTOM                Replay_Tick_Event_Attribute_Kind = 6
+	Replay_Tick_Event_Attribute_THROWER_ENTITY_ID     Replay_Tick_Event_Attribute_Kind = 7
 )
 
 var Replay_Tick_Event_Attribute_Kind_name = map[int32]string{
@@ -153,16 +154,18 @@ var Replay_Tick_Event_Attribute_Kind_name = map[int32]string{
 	4: "TEXT",
 	5: "EVENT_NAME",
 	6: "CUSTOM",
+	7: "THROWER_ENTITY_ID",
 }
 
 var Replay_Tick_Event_Attribute_Kind_value = map[string]int32{
-	"ENTITY_ID":  0,
-	"VICTIM":     1,
-	"KILLER":     2,
-	"ASSISTER":   3,
-	"TEXT":       4,
-	"EVENT_NAME": 5,
-	"CUSTOM":     6,
+	"ENTITY_ID":             0,
+	"VICTIM":                1,
+	"KILLER":                2,
+	"ASSISTER":              3,
+	"TEXT":                  4,
+	"EVENT_NAME":            5,
+	"CUSTOM":                6,
+	"THROWER_ENTITY_ID":     7,
 }
 
 func (x Replay_Tick_Event_Attribute_Kind) String() string {
