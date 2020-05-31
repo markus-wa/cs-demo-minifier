@@ -55,6 +55,7 @@ github.com/markus-wa/godispatch v1.1.0 h1:J8O+hRkOCexDUQevaSKWDtKeZ3+HcmbEUKY1uY
 github.com/markus-wa/godispatch v1.1.0/go.mod h1:6o18u24oo58yseMXYD0zQFI6LbSkjJSSBQ4YyDqFX5c=
 github.com/markus-wa/godispatch v1.2.1 h1:Bj6blK4xJ/72pDi0rprVYluOGW9CV55FUDFPApyw91Q=
 github.com/markus-wa/godispatch v1.2.1/go.mod h1:GNzV7xdnZ9+VBi0z+hma9oUQrJmtqRrqyAuGKTTTcKY=
+github.com/markus-wa/godispatch v1.3.0 h1:eHT5Xm8ZEwilj9b/Tu7gyMfmtSau+yC0qpM7NRR+CQk=
 github.com/markus-wa/godispatch v1.3.0/go.mod h1:GNzV7xdnZ9+VBi0z+hma9oUQrJmtqRrqyAuGKTTTcKY=
 github.com/markus-wa/quickhull-go/v2 v2.1.0 h1:DA2pzEzH0k5CEnlUsouRqNdD+jzNFb4DBhrX4Hpa5So=
 github.com/markus-wa/quickhull-go/v2 v2.1.0/go.mod h1:bOlBUpIzGSMMhHX0f9N8CQs0VZD4nnPeta0OocH7m4o=
