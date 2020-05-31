@@ -1,7 +1,7 @@
 package csminify
 
 import (
-	rep "github.com/markus-wa/cs-demo-minifier/replay" 
+	rep "github.com/markus-wa/cs-demo-minifier/replay"
 	dem "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
 	events "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
 )
