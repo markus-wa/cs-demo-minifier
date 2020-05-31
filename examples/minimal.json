@@ -6,9 +6,19 @@
 	},
 	"entities": [
 		{
-			"id": 5,
-			"name": "ALEX * Intel",
+			"id": 2,
+			"name": "xms*ASUS ♥ /F/",
 			"team": 2
+		},
+		{
+			"id": 3,
+			"name": "to1nou * Seagate",
+			"team": 2
+		},
+		{
+			"id": 4,
+			"name": "tiziaN",
+			"team": 3
 		},
 		{
 			"id": 9,
@@ -26,14 +36,19 @@
 			"team": 3
 		},
 		{
+			"id": 14,
+			"name": "kzy LJ∼",
+			"team": 3
+		},
+		{
 			"id": 1,
 			"name": "ESWC TV - By VeryGames.net",
 			"team": 0,
 			"isNpc": true
 		},
 		{
-			"id": 3,
-			"name": "to1nou * Seagate",
+			"id": 5,
+			"name": "ALEX * Intel",
 			"team": 2
 		},
 		{
@@ -57,21 +72,6 @@
 			"team": 1
 		},
 		{
-			"id": 14,
-			"name": "kzy LJ∼",
-			"team": 3
-		},
-		{
-			"id": 2,
-			"name": "xms*ASUS ♥ /F/",
-			"team": 2
-		},
-		{
-			"id": 4,
-			"name": "tiziaN",
-			"team": 3
-		},
-		{
 			"id": 6,
 			"name": "eswc.com | Samy",
 			"team": 0
@@ -81,6 +81,21 @@
 		{
 			"tick": 51,
 			"entityUpdates": [
+				{
+					"entityId": 11,
+					"positions": [
+						{
+							"x": 529,
+							"y": -250,
+							"z": 1748
+						}
+					],
+					"angleX": 195,
+					"angleY": 6,
+					"hp": 16,
+					"armor": 98,
+					"hasHelmet": true
+				},
 				{
 					"entityId": 4,
 					"positions": [
@@ -95,28 +110,30 @@
 					"hp": 97
 				},
 				{
-					"entityId": 10,
+					"entityId": 5,
 					"positions": [
 						{
-							"x": -1382,
-							"y": 815,
-							"z": 1614
+							"x": 418,
+							"y": 233,
+							"z": 1613
 						}
 					],
-					"angleX": 270,
-					"hp": 100
+					"angleX": 195,
+					"angleY": 357,
+					"hp": 11,
+					"armor": 86,
+					"hasHelmet": true
 				},
 				{
-					"entityId": 13,
+					"entityId": 7,
 					"positions": [
 						{
-							"x": -1572,
-							"y": 722,
-							"z": 1614
+							"x": 2973,
+							"y": 250,
+							"z": 1613
 						}
 					],
-					"angleX": 270,
-					"angleY": 359,
+					"angleX": 182,
 					"hp": 100
 				},
 				{
@@ -135,49 +152,29 @@
 					"hasHelmet": true
 				},
 				{
-					"entityId": 5,
+					"entityId": 10,
 					"positions": [
 						{
-							"x": 418,
-							"y": 233,
-							"z": 1613
+							"x": -1382,
+							"y": 815,
+							"z": 1614
 						}
 					],
-					"angleX": 195,
-					"angleY": 357,
-					"hp": 11,
-					"armor": 86,
-					"hasHelmet": true
+					"angleX": 270,
+					"hp": 100
 				},
 				{
-					"entityId": 11,
+					"entityId": 13,
 					"positions": [
 						{
-							"x": 529,
-							"y": -250,
-							"z": 1748
+							"x": -1572,
+							"y": 722,
+							"z": 1614
 						}
 					],
-					"angleX": 195,
-					"angleY": 6,
-					"hp": 16,
-					"armor": 98,
-					"hasHelmet": true
-				},
-				{
-					"entityId": 2,
-					"positions": [
-						{
-							"x": 513,
-							"y": -85,
-							"z": 1744
-						}
-					],
-					"angleX": 170,
-					"angleY": 4,
-					"hp": 24,
-					"armor": 83,
-					"hasHelmet": true
+					"angleX": 270,
+					"angleY": 359,
+					"hp": 100
 				},
 				{
 					"entityId": 14,
@@ -195,22 +192,54 @@
 					"hasHelmet": true
 				},
 				{
-					"entityId": 7,
+					"entityId": 2,
 					"positions": [
 						{
-							"x": 2973,
-							"y": 250,
-							"z": 1613
+							"x": 513,
+							"y": -85,
+							"z": 1744
 						}
 					],
-					"angleX": 182,
-					"hp": 100
+					"angleX": 170,
+					"angleY": 4,
+					"hp": 24,
+					"armor": 83,
+					"hasHelmet": true
 				}
 			]
 		},
 		{
 			"tick": 102,
 			"entityUpdates": [
+				{
+					"entityId": 2,
+					"positions": [
+						{
+							"x": 336,
+							"y": -127,
+							"z": 1790
+						}
+					],
+					"angleX": 163,
+					"angleY": 8,
+					"hp": 24,
+					"armor": 83,
+					"hasHelmet": true
+				},
+				{
+					"entityId": 3,
+					"positions": [
+						{
+							"x": 374,
+							"y": 167,
+							"z": 1613
+						}
+					],
+					"angleX": 150,
+					"hp": 100,
+					"armor": 100,
+					"hasHelmet": true
+				},
 				{
 					"entityId": 7,
 					"positions": [
@@ -236,61 +265,6 @@
 					"hp": 100
 				},
 				{
-					"entityId": 14,
-					"positions": [
-						{
-							"x": -825,
-							"y": 606,
-							"z": 1636
-						}
-					],
-					"angleX": 86,
-					"angleY": 8,
-					"hp": 8,
-					"armor": 86,
-					"hasHelmet": true
-				},
-				{
-					"entityId": 3,
-					"positions": [
-						{
-							"x": 374,
-							"y": 167,
-							"z": 1613
-						}
-					],
-					"angleX": 150,
-					"hp": 100,
-					"armor": 100,
-					"hasHelmet": true
-				},
-				{
-					"entityId": 9,
-					"positions": [
-						{
-							"x": -1394,
-							"y": 515,
-							"z": 1614
-						}
-					],
-					"angleX": 281,
-					"angleY": 2,
-					"hp": 100
-				},
-				{
-					"entityId": 13,
-					"positions": [
-						{
-							"x": -1572,
-							"y": 722,
-							"z": 1614
-						}
-					],
-					"angleX": 270,
-					"angleY": 359,
-					"hp": 100
-				},
-				{
 					"entityId": 5,
 					"positions": [
 						{
@@ -304,6 +278,32 @@
 					"hp": 11,
 					"armor": 86,
 					"hasHelmet": true
+				},
+				{
+					"entityId": 4,
+					"positions": [
+						{
+							"x": -840,
+							"y": 37,
+							"z": 1614
+						}
+					],
+					"angleX": 87,
+					"angleY": 11,
+					"hp": 97
+				},
+				{
+					"entityId": 9,
+					"positions": [
+						{
+							"x": -1394,
+							"y": 515,
+							"z": 1614
+						}
+					],
+					"angleX": 281,
+					"angleY": 2,
+					"hp": 100
 				},
 				{
 					"entityId": 11,
@@ -321,32 +321,32 @@
 					"hasHelmet": true
 				},
 				{
-					"entityId": 2,
+					"entityId": 13,
 					"positions": [
 						{
-							"x": 336,
-							"y": -127,
-							"z": 1790
-						}
-					],
-					"angleX": 163,
-					"angleY": 8,
-					"hp": 24,
-					"armor": 83,
-					"hasHelmet": true
-				},
-				{
-					"entityId": 4,
-					"positions": [
-						{
-							"x": -840,
-							"y": 37,
+							"x": -1572,
+							"y": 722,
 							"z": 1614
 						}
 					],
-					"angleX": 87,
-					"angleY": 11,
-					"hp": 97
+					"angleX": 270,
+					"angleY": 359,
+					"hp": 100
+				},
+				{
+					"entityId": 14,
+					"positions": [
+						{
+							"x": -825,
+							"y": 606,
+							"z": 1636
+						}
+					],
+					"angleX": 86,
+					"angleY": 8,
+					"hp": 8,
+					"armor": 86,
+					"hasHelmet": true
 				}
 			]
 		}
@@ -511,7 +511,7 @@
 			"nr": 903,
 			"events": [
 				{
-					"name": "decoy_start",
+					"name": "decoy_started",
 					"attrs": [
 						{
 							"key": "x",
@@ -537,7 +537,7 @@
 			"nr": 1312,
 			"events": [
 				{
-					"name": "decoy_end",
+					"name": "decoy_expired",
 					"attrs": [
 						{
 							"key": "x",
@@ -563,7 +563,7 @@
 			"nr": 2480,
 			"events": [
 				{
-					"name": "smoke_start",
+					"name": "smoke_started",
 					"attrs": [
 						{
 							"key": "x",
@@ -642,7 +642,7 @@
 			"nr": 3249,
 			"events": [
 				{
-					"name": "fire_grenade_start",
+					"name": "fire_grenade_started",
 					"attrs": [
 						{
 							"key": "x",
