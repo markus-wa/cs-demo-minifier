@@ -63,6 +63,14 @@ message Replay {
 				CUSTOM = 9;
 				MATCH_STARTED = 10;
 				GAME_PHASE_CHANGED = 11;
+				SMOKE_START = 12;
+				SMOKE_EXPIRED = 13;
+				DECOY_START = 14;
+				DECOY_EXPIRED = 15;
+				FIRE_GRENADE_START = 16;
+				FIRE_GRENADE_EXPIRED = 17;
+				HE_GRENADE_EXPLOSION = 18;
+				FLASH_EXPLOSION = 19;
 			}
 
 			message Attribute {
@@ -74,6 +82,7 @@ message Replay {
 					TEXT = 4;
 					EVENT_NAME = 5;
 					CUSTOM = 6;
+					THROWER_ENTITY_ID = 7;
 				}
 
 				Kind kind = 1;
