@@ -65,7 +65,7 @@ func (defaultEventHandlers) RegisterAll(ec *EventCollector) {
 	EventHandlers.Default.RegisterPlayerDisconnect(ec)
 	EventHandlers.Default.RegisterWeaponFired(ec)
 	EventHandlers.Default.RegisterChatMessage(ec)
-	EventHandlers.Default.RegisterGrenadeEvents(ec)
+	EventHandlers.Default.RegisterGrenades(ec)
 }
 
 func (defaultEventHandlers) RegisterMatchStarted(ec *EventCollector) {
@@ -176,7 +176,7 @@ func (defaultEventHandlers) RegisterChatMessage(ec *EventCollector) {
 	})
 }
 
-func (defaultEventHandlers) RegisterGrenadeEvents(ec *EventCollector) {
+func (defaultEventHandlers) RegisterGrenades(ec *EventCollector) {
   ec.AddHandler(func(e events.SmokeStart) {
     eb := buildEvent(rep.EventSmokeStart)
     eb.floatAttr("x", e.Position.X)
