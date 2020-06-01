@@ -46,10 +46,10 @@ func main() {
 	demPath := *demPathPtr
 	outPath := *outPathPtr
 
-	if *webserver == true {
+	if *webserver {
 		fmt.Println("orld")
 		log.Println("Started a WebServer")
-		http.HandleFunc("/", HttpHandler)
+		http.HandleFunc("/", HTTPHandler)
 		log.Fatal(http.ListenAndServe(":"+strconv.Itoa(*httpPort), nil))
 	} else {
 		err = minify(demPath, freq, format, outPath)
@@ -115,20 +115,32 @@ func minify(demPath string, freq float64, format string, outPath string) error {
 	return min.MinifyTo(in, freq, marshaller, out)
 }
 
-func HttpHandler(w http.ResponseWriter, r *http.Request) {
+func HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	freqStr := r.Header.Get("x-freq")
 	freq, _ := strconv.ParseFloat(freqStr, 64)
 
 	var fileAsBytes = StreamToByte(r.Body)
+
+	if fileAsBytes == nil {
+		return
+	}
+
 	byteReader := bytes.NewReader(fileAsBytes)
+
 	var marshaller min.ReplayMarshaller = func(replay rep.Replay, w io.Writer) error {
 		return json.NewEncoder(w).Encode(replay)
 	}
+
 	min.MinifyTo(byteReader, freq, marshaller, w)
 }
 
 func StreamToByte(stream io.Reader) []byte {
 	buf := new(bytes.Buffer)
-	buf.ReadFrom(stream)
+	_, err := buf.ReadFrom(stream)
+
+	if err == nil {
+		return nil
+	}
+
 	return buf.Bytes()
 }
