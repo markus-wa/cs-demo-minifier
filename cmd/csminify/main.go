@@ -1,11 +1,15 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
+	"log"
+	"net/http"
 	"os"
+	"strconv"
 
 	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 
@@ -27,6 +31,9 @@ func main() {
 	freqPtr := fl.Float64("freq", 0.5, "Snapshot frequency - per second")
 	demPathPtr := fl.String("demo", "", "Demo file `path` (default stdin)")
 	outPathPtr := fl.String("out", "", "Output file `path` (default stdout)")
+	webserver := fl.Bool("server", false, "When set, the app starts a webserver instead. "+
+		"The WebServer accepts all arguments the CLI does as headers. E.g x-freq. For now JSON Response is supported")
+	httpPort := fl.Int("port", 8080, "The HTTP Port of the Webserver. Only considered when 'server' is set to true")
 
 	err := fl.Parse(os.Args[1:])
 	if err != nil {
@@ -39,9 +46,16 @@ func main() {
 	demPath := *demPathPtr
 	outPath := *outPathPtr
 
-	err = minify(demPath, freq, format, outPath)
-	if err != nil {
-		panic(err)
+	if *webserver == true {
+		fmt.Println("orld")
+		log.Println("Started a WebServer")
+		http.HandleFunc("/", HttpHandler)
+		log.Fatal(http.ListenAndServe(":"+strconv.Itoa(*httpPort), nil))
+	} else {
+		err = minify(demPath, freq, format, outPath)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
@@ -99,4 +113,22 @@ func minify(demPath string, freq float64, format string, outPath string) error {
 	}
 
 	return min.MinifyTo(in, freq, marshaller, out)
+}
+
+func HttpHandler(w http.ResponseWriter, r *http.Request) {
+	freqStr := r.Header.Get("x-freq")
+	freq, _ := strconv.ParseFloat(freqStr, 64)
+
+	var fileAsBytes = StreamToByte(r.Body)
+	byteReader := bytes.NewReader(fileAsBytes)
+	var marshaller min.ReplayMarshaller = func(replay rep.Replay, w io.Writer) error {
+		return json.NewEncoder(w).Encode(replay)
+	}
+	min.MinifyTo(byteReader, freq, marshaller, w)
+}
+
+func StreamToByte(stream io.Reader) []byte {
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(stream)
+	return buf.Bytes()
 }
