@@ -47,7 +47,6 @@ func main() {
 	outPath := *outPathPtr
 
 	if *webserver {
-		fmt.Println("orld")
 		log.Println("Started a WebServer")
 		http.HandleFunc("/", HTTPHandler)
 		log.Fatal(http.ListenAndServe(":"+strconv.Itoa(*httpPort), nil))
@@ -131,7 +130,11 @@ func HTTPHandler(w http.ResponseWriter, r *http.Request) {
 		return json.NewEncoder(w).Encode(replay)
 	}
 
-	min.MinifyTo(byteReader, freq, marshaller, w)
+	err := min.MinifyTo(byteReader, freq, marshaller, w)
+
+	if err != nil {
+		log.Println("An Error occured when minifying")
+	}
 }
 
 func StreamToByte(stream io.Reader) []byte {
