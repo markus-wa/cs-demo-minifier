@@ -57,7 +57,7 @@ Usage of csminify:
   -out path
         Output file path (default stdout)
   -server true/false
-        Start a Webserver listening on Port 8080 instead. It accepts a demo as binary body. By setting the 
+        Start a Webserver listening on Port 8080 instead. The resulting API, listening on POST '/', accepts a demo as binary body. By setting the 
         x-freq header, the minification can be configured. When setting 'server' to true, all other parameters
         but 'httpPort' get ignored.
   -httpPort number
