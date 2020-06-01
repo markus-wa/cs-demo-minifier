@@ -141,7 +141,7 @@ func StreamToByte(stream io.Reader) []byte {
 	buf := new(bytes.Buffer)
 	_, err := buf.ReadFrom(stream)
 
-	if err == nil {
+	if err != nil {
 		return nil
 	}
 
