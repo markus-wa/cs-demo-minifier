@@ -56,6 +56,12 @@ Usage of csminify:
         Snapshot frequency - per second (default 0.5)
   -out path
         Output file path (default stdout)
+  -server true/false
+        Start a Webserver listening on Port 8080 instead. It accepts a demo as binary body. By setting the 
+        x-freq header, the minification can be configured. When setting 'server' to true, all other parameters
+        but 'httpPort' get ignored.
+  -httpPort number
+        Only gets considered when server is set to true. It can be used to change the default port of 8080. 
 ```
 
 
