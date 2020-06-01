@@ -133,7 +133,7 @@ func HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	err := min.MinifyTo(byteReader, freq, marshaller, w)
 
 	if err != nil {
-		log.Println("An Error occured when minifying")
+		log.Println("An Error occurred when minifying")
 	}
 }
 
