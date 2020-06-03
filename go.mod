@@ -8,7 +8,7 @@ require (
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/markus-wa/demoinfocs-golang/v2 v2.2.0
 	github.com/stretchr/objx v0.2.0 // indirect
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.6.0
 	github.com/vishalkuo/bimap v0.0.0-20180703190407-09cff2814645
 	golang.org/x/net v0.0.0-20190918130420-a8b05e9114ab // indirect
 	google.golang.org/appengine v1.6.2 // indirect
