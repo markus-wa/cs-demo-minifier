@@ -73,17 +73,17 @@ type EntityEquipment struct {
 
 // EntityUpdate contains changes of player & NPCs attributes
 type EntityUpdate struct {
-	EntityID      int             `json:"entityId" msgpack:"entityId"`
-	Team          int             `json:"team,omitempty" msgpack:"team,omitempty"`
-	Positions     []Point         `json:"positions,omitempty" msgpack:"positions,omitempty"` // This allows us smoother replay with less overhead compared to higher snapshot rate
-	AngleX        int             `json:"angleX,omitempty" msgpack:"angleX,omitempty"`
-	AngleY        int             `json:"angleY,omitempty" msgpack:"angleY,omitempty"`
-	Hp            int             `json:"hp,omitempty" msgpack:"hp,omitempty"`
-	Armor         int             `json:"armor,omitempty" msgpack:"armor,omitempty"`
-	FlashDuration float32         `json:"flashDuration,omitempty" msgpack:"flashDuration,omitempty"`
-	IsNpc         bool            `json:"isNpc,omitempty" msgpack:"isNpc,omitempty"`
-	HasHelmet     bool            `json:"hasHelmet,omitempty" msgpack:"hasHelmet,omitempty"`
-	HasDefuseKit  bool            `json:"hasDefuseKit,omitempty" msgpack:"hasDefuseKit,omitempty"`
+	EntityID      int               `json:"entityId" msgpack:"entityId"`
+	Team          int               `json:"team,omitempty" msgpack:"team,omitempty"`
+	Positions     []Point           `json:"positions,omitempty" msgpack:"positions,omitempty"` // This allows us smoother replay with less overhead compared to higher snapshot rate
+	AngleX        int               `json:"angleX,omitempty" msgpack:"angleX,omitempty"`
+	AngleY        int               `json:"angleY,omitempty" msgpack:"angleY,omitempty"`
+	Hp            int               `json:"hp,omitempty" msgpack:"hp,omitempty"`
+	Armor         int               `json:"armor,omitempty" msgpack:"armor,omitempty"`
+	FlashDuration float32           `json:"flashDuration,omitempty" msgpack:"flashDuration,omitempty"`
+	IsNpc         bool              `json:"isNpc,omitempty" msgpack:"isNpc,omitempty"`
+	HasHelmet     bool              `json:"hasHelmet,omitempty" msgpack:"hasHelmet,omitempty"`
+	HasDefuseKit  bool              `json:"hasDefuseKit,omitempty" msgpack:"hasDefuseKit,omitempty"`
 	Equipment     []EntityEquipment `json:"equipment,omitempty" msgpack:"equipment,omitempty"`
 }
 

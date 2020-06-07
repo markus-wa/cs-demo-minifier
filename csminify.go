@@ -205,7 +205,8 @@ func roundTo(x, precision float64) float64 {
 }
 
 func toEntityEquipment(eq []*common.Equipment) []rep.EntityEquipment {
-	var equipmentForPlayer []rep.EntityEquipment
+	var equipmentForPlayer = make([]rep.EntityEquipment, 0, len(eq))
+
 	for _, equipment := range eq {
 		equipmentForPlayer = append(equipmentForPlayer, rep.EntityEquipment{
 			Type: int(equipment.Type),
