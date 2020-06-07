@@ -9,6 +9,7 @@ import (
 
 	r3 "github.com/golang/geo/r3"
 	dem "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
+	common "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/common"
 	events "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
 
 	rep "github.com/markus-wa/cs-demo-minifier/replay"
@@ -163,6 +164,7 @@ func (m *minifier) snapshot() rep.Snapshot {
 				AngleY:        int(pl.ViewDirectionY()),
 				HasHelmet:     pl.HasHelmet(),
 				HasDefuseKit:  pl.HasDefuseKit(),
+				Equipment:     toEntityEquipment(pl.Weapons()),
 			}
 
 			// FIXME: Smoothify Positions
@@ -200,4 +202,15 @@ func r3VectorToPoint(v r3.Vector) rep.Point {
 // roundTo wraps math.Round and allows specifying the rounding precision.
 func roundTo(x, precision float64) float64 {
 	return math.Round(x/precision) * precision
+}
+
+func toEntityEquipment(eq []*common.Equipment) []rep.EntityEquipment {
+	var equipmentForPlayer []rep.EntityEquipment
+	for _, equipment := range eq {
+		equipmentForPlayer = append(equipmentForPlayer, rep.EntityEquipment{
+			Type: int(equipment.Type),
+		})
+	}
+
+	return equipmentForPlayer
 }
