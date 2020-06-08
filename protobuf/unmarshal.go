@@ -108,6 +108,22 @@ func mapFromEntityUpdates(entityUpdates []*gen.Replay_Snapshot_EntityUpdate) []r
 			Team:          mapFromTeam(u.Team),
 			HasHelmet:     u.HasHelmet,
 			HasDefuseKit:  u.HasDefuseKit,
+			Equipment:     mapFromEquipment(u.Equipment),
+		}
+	}
+
+	return result
+}
+
+func mapFromEquipment(equipment []*gen.Replay_Snapshot_EntityEquipment) []rep.EntityEquipment {
+	if equipment == nil {
+		return nil
+	}
+
+	result := make([]rep.EntityEquipment, len(equipment))
+	for i, eq := range equipment {
+		result[i] = rep.EntityEquipment{
+			Type: int(eq.Type),
 		}
 	}
 
