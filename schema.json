@@ -25,6 +25,18 @@
 			"additionalProperties": false,
 			"type": "object"
 		},
+		"EntityEquipment": {
+			"required": [
+				"type"
+			],
+			"properties": {
+				"type": {
+					"type": "integer"
+				}
+			},
+			"additionalProperties": false,
+			"type": "object"
+		},
 		"EntityUpdate": {
 			"required": [
 				"entityId"
@@ -41,6 +53,13 @@
 				},
 				"entityId": {
 					"type": "integer"
+				},
+				"equipment": {
+					"items": {
+						"$schema": "http://json-schema.org/draft-04/schema#",
+						"$ref": "#/definitions/EntityEquipment"
+					},
+					"type": "array"
 				},
 				"flashDuration": {
 					"type": "number"

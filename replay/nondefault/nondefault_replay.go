@@ -47,7 +47,11 @@ func init() {
 		Team:          1,
 		HasDefuseKit:  true,
 		HasHelmet:     true,
-	})
+		Equipment: []rep.EntityEquipment{
+			{
+				Type: 1,
+			},
+		}})
 
 	var snaps []rep.Snapshot
 	snaps = append(snaps, rep.Snapshot{

@@ -30,6 +30,10 @@ message Replay {
 	}
 
 	message Snapshot {
+	  message EntityEquipment {
+      int32 type = 1;
+	  }
+
 		message EntityUpdate{
 			int32 entityId = 1;
 			repeated Point positions = 2;
@@ -42,6 +46,7 @@ message Replay {
 			int32 angleY = 9; // TODO: move next to angleX, and change to int16 before v1.0
 			bool hasHelmet = 10;
 			bool hasDefuseKit = 11;
+			repeated EntityEquipment equipment = 12;
 		}
 
 		int32 tick = 1;
