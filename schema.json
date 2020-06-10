@@ -27,6 +27,8 @@
 		},
 		"EntityEquipment": {
 			"required": [
+				"type",
+				"type",
 				"type"
 			],
 			"properties": {

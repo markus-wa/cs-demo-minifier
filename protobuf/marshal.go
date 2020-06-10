@@ -95,7 +95,9 @@ func mapToEquipment(equipment []rep.EntityEquipment) []*gen.Replay_Snapshot_Enti
 	result := make([]*gen.Replay_Snapshot_EntityEquipment, 0)
 	for _, eq := range equipment {
 		result = append(result, &gen.Replay_Snapshot_EntityEquipment{
-			Type: int32(eq.Type),
+			Type:           int32(eq.Type),
+			AmmoReserve:    int32(eq.AmmoReserve),
+			AmmoInMagazine: int32(eq.AmmoInMagazine),
 		})
 	}
 

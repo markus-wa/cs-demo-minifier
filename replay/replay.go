@@ -68,7 +68,9 @@ type Snapshot struct {
 }
 
 type EntityEquipment struct {
-	Type int `json:"type" msgpack:"type"`
+	Type           int `json:"type" msgpack:"type"`
+	AmmoInMagazine int `json:"ammoInMagazine" msgpack:"ammoInMagazine"`
+	AmmoReserve    int `json:"ammoReserve" msgpack:"ammoReserve"`
 }
 
 // EntityUpdate contains changes of player & NPCs attributes

@@ -123,7 +123,9 @@ func mapFromEquipment(equipment []*gen.Replay_Snapshot_EntityEquipment) []rep.En
 	result := make([]rep.EntityEquipment, len(equipment))
 	for i, eq := range equipment {
 		result[i] = rep.EntityEquipment{
-			Type: int(eq.Type),
+			Type:           int(eq.Type),
+			AmmoInMagazine: int(eq.AmmoInMagazine),
+			AmmoReserve:    int(eq.AmmoReserve),
 		}
 	}
 

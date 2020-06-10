@@ -6,29 +6,9 @@
 	},
 	"entities": [
 		{
-			"id": 3,
-			"name": "to1nou * Seagate",
+			"id": 7,
+			"name": "Ex6TenZ-BALLISTIX",
 			"team": 2
-		},
-		{
-			"id": 4,
-			"name": "tiziaN",
-			"team": 3
-		},
-		{
-			"id": 12,
-			"name": "Ptikrazy",
-			"team": 1
-		},
-		{
-			"id": 13,
-			"name": "keev",
-			"team": 3
-		},
-		{
-			"id": 14,
-			"name": "kzy LJ∼",
-			"team": 3
 		},
 		{
 			"id": 9,
@@ -41,9 +21,14 @@
 			"team": 3
 		},
 		{
-			"id": 11,
-			"name": "mistou * Cooler Master",
-			"team": 2
+			"id": 12,
+			"name": "Ptikrazy",
+			"team": 1
+		},
+		{
+			"id": 14,
+			"name": "kzy LJ∼",
+			"team": 3
 		},
 		{
 			"id": 1,
@@ -57,13 +42,28 @@
 			"team": 2
 		},
 		{
-			"id": 5,
-			"name": "ALEX * Intel",
+			"id": 3,
+			"name": "to1nou * Seagate",
 			"team": 2
 		},
 		{
-			"id": 7,
-			"name": "Ex6TenZ-BALLISTIX",
+			"id": 11,
+			"name": "mistou * Cooler Master",
+			"team": 2
+		},
+		{
+			"id": 13,
+			"name": "keev",
+			"team": 3
+		},
+		{
+			"id": 4,
+			"name": "tiziaN",
+			"team": 3
+		},
+		{
+			"id": 5,
+			"name": "ALEX * Intel",
 			"team": 2
 		},
 		{
@@ -82,26 +82,35 @@
 			"tick": 51,
 			"entityUpdates": [
 				{
-					"entityId": 11,
+					"entityId": 7,
 					"positions": [
 						{
-							"x": 529,
-							"y": -250,
-							"z": 1748
+							"x": 2973,
+							"y": 250,
+							"z": 1613
 						}
 					],
-					"angleX": 195,
-					"angleY": 6,
-					"hp": 16,
-					"armor": 98,
-					"hasHelmet": true,
+					"angleX": 182,
+					"hp": 100,
 					"equipment": [
+						{},
+						{}
+					]
+				},
+				{
+					"entityId": 10,
+					"positions": [
 						{
-							"type": 405
-						},
-						{
-							"type": 4
+							"x": -1382,
+							"y": 815,
+							"z": 1614
 						}
+					],
+					"angleX": 270,
+					"hp": 100,
+					"equipment": [
+						{},
+						{}
 					]
 				},
 				{
@@ -117,64 +126,8 @@
 					"angleY": 12,
 					"hp": 97,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						}
-					]
-				},
-				{
-					"entityId": 3,
-					"positions": [
-						{
-							"x": 555,
-							"y": 186,
-							"z": 1613
-						}
-					],
-					"angleX": 187,
-					"angleY": 357,
-					"hp": 100,
-					"armor": 100,
-					"hasHelmet": true,
-					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 2
-						},
-						{
-							"type": 303
-						}
-					]
-				},
-				{
-					"entityId": 2,
-					"positions": [
-						{
-							"x": 513,
-							"y": -85,
-							"z": 1744
-						}
-					],
-					"angleX": 170,
-					"angleY": 4,
-					"hp": 24,
-					"armor": 83,
-					"hasHelmet": true,
-					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 2
-						},
-						{
-							"type": 303
-						}
+						{},
+						{}
 					]
 				},
 				{
@@ -192,12 +145,28 @@
 					"armor": 86,
 					"hasHelmet": true,
 					"equipment": [
+						{},
+						{}
+					]
+				},
+				{
+					"entityId": 2,
+					"positions": [
 						{
-							"type": 405
-						},
-						{
-							"type": 3
+							"x": 513,
+							"y": -85,
+							"z": 1744
 						}
+					],
+					"angleX": 170,
+					"angleY": 4,
+					"hp": 24,
+					"armor": 83,
+					"hasHelmet": true,
+					"equipment": [
+						{},
+						{},
+						{}
 					]
 				},
 				{
@@ -213,12 +182,27 @@
 					"angleY": 359,
 					"hp": 100,
 					"equipment": [
+						{},
+						{}
+					]
+				},
+				{
+					"entityId": 11,
+					"positions": [
 						{
-							"type": 405
-						},
-						{
-							"type": 9
+							"x": 529,
+							"y": -250,
+							"z": 1748
 						}
+					],
+					"angleX": 195,
+					"angleY": 6,
+					"hp": 16,
+					"armor": 98,
+					"hasHelmet": true,
+					"equipment": [
+						{},
+						{}
 					]
 				},
 				{
@@ -236,58 +220,30 @@
 					"armor": 86,
 					"hasHelmet": true,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						},
-						{
-							"type": 309
-						},
-						{
-							"type": 505
-						}
+						{},
+						{},
+						{},
+						{}
 					]
 				},
 				{
-					"entityId": 7,
+					"entityId": 3,
 					"positions": [
 						{
-							"x": 2973,
-							"y": 250,
+							"x": 555,
+							"y": 186,
 							"z": 1613
 						}
 					],
-					"angleX": 182,
+					"angleX": 187,
+					"angleY": 357,
 					"hp": 100,
+					"armor": 100,
+					"hasHelmet": true,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 2
-						}
-					]
-				},
-				{
-					"entityId": 10,
-					"positions": [
-						{
-							"x": -1382,
-							"y": 815,
-							"z": 1614
-						}
-					],
-					"angleX": 270,
-					"hp": 100,
-					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						}
+						{},
+						{},
+						{}
 					]
 				}
 			]
@@ -296,51 +252,6 @@
 			"tick": 102,
 			"entityUpdates": [
 				{
-					"entityId": 7,
-					"positions": [
-						{
-							"x": 2973,
-							"y": 250,
-							"z": 1613
-						}
-					],
-					"angleX": 182,
-					"hp": 100,
-					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 2
-						}
-					]
-				},
-				{
-					"entityId": 3,
-					"positions": [
-						{
-							"x": 374,
-							"y": 167,
-							"z": 1613
-						}
-					],
-					"angleX": 150,
-					"hp": 100,
-					"armor": 100,
-					"hasHelmet": true,
-					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 2
-						},
-						{
-							"type": 303
-						}
-					]
-				},
-				{
 					"entityId": 13,
 					"positions": [
 						{
@@ -353,64 +264,41 @@
 					"angleY": 359,
 					"hp": 100,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						}
+						{},
+						{}
 					]
 				},
 				{
-					"entityId": 14,
+					"entityId": 7,
 					"positions": [
 						{
-							"x": -825,
-							"y": 606,
-							"z": 1636
+							"x": 2973,
+							"y": 250,
+							"z": 1613
 						}
 					],
-					"angleX": 86,
-					"angleY": 8,
-					"hp": 8,
-					"armor": 86,
-					"hasHelmet": true,
+					"angleX": 182,
+					"hp": 100,
 					"equipment": [
-						{
-							"type": 505
-						},
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						},
-						{
-							"type": 309
-						}
+						{},
+						{}
 					]
 				},
 				{
-					"entityId": 11,
+					"entityId": 9,
 					"positions": [
 						{
-							"x": 112,
-							"y": -366,
+							"x": -1394,
+							"y": 515,
 							"z": 1614
 						}
 					],
-					"angleX": 201,
-					"angleY": 1,
-					"hp": 16,
-					"armor": 98,
-					"hasHelmet": true,
+					"angleX": 281,
+					"angleY": 2,
+					"hp": 100,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 4
-						}
+						{},
+						{}
 					]
 				},
 				{
@@ -428,56 +316,28 @@
 					"armor": 83,
 					"hasHelmet": true,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 2
-						},
-						{
-							"type": 303
-						}
+						{},
+						{},
+						{}
 					]
 				},
 				{
-					"entityId": 9,
+					"entityId": 11,
 					"positions": [
 						{
-							"x": -1394,
-							"y": 515,
+							"x": 112,
+							"y": -366,
 							"z": 1614
 						}
 					],
-					"angleX": 281,
-					"angleY": 2,
-					"hp": 100,
+					"angleX": 201,
+					"angleY": 1,
+					"hp": 16,
+					"armor": 98,
+					"hasHelmet": true,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						}
-					]
-				},
-				{
-					"entityId": 10,
-					"positions": [
-						{
-							"x": -1382,
-							"y": 815,
-							"z": 1614
-						}
-					],
-					"angleX": 270,
-					"hp": 100,
-					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						}
+						{},
+						{}
 					]
 				},
 				{
@@ -493,12 +353,8 @@
 					"angleY": 11,
 					"hp": 97,
 					"equipment": [
-						{
-							"type": 405
-						},
-						{
-							"type": 9
-						}
+						{},
+						{}
 					]
 				},
 				{
@@ -516,12 +372,64 @@
 					"armor": 86,
 					"hasHelmet": true,
 					"equipment": [
+						{},
+						{}
+					]
+				},
+				{
+					"entityId": 3,
+					"positions": [
 						{
-							"type": 405
-						},
-						{
-							"type": 3
+							"x": 374,
+							"y": 167,
+							"z": 1613
 						}
+					],
+					"angleX": 150,
+					"hp": 100,
+					"armor": 100,
+					"hasHelmet": true,
+					"equipment": [
+						{},
+						{},
+						{}
+					]
+				},
+				{
+					"entityId": 10,
+					"positions": [
+						{
+							"x": -1382,
+							"y": 815,
+							"z": 1614
+						}
+					],
+					"angleX": 270,
+					"hp": 100,
+					"equipment": [
+						{},
+						{}
+					]
+				},
+				{
+					"entityId": 14,
+					"positions": [
+						{
+							"x": -825,
+							"y": 606,
+							"z": 1636
+						}
+					],
+					"angleX": 86,
+					"angleY": 8,
+					"hp": 8,
+					"armor": 86,
+					"hasHelmet": true,
+					"equipment": [
+						{},
+						{},
+						{},
+						{}
 					]
 				}
 			]

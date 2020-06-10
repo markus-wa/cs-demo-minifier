@@ -49,7 +49,9 @@ func init() {
 		HasHelmet:     true,
 		Equipment: []rep.EntityEquipment{
 			{
-				Type: 1,
+				Type:           1,
+				AmmoReserve:    10,
+				AmmoInMagazine: 30,
 			},
 		}})
 

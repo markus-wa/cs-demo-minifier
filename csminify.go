@@ -209,7 +209,9 @@ func toEntityEquipment(eq []*common.Equipment) []rep.EntityEquipment {
 
 	for _, equipment := range eq {
 		equipmentForPlayer = append(equipmentForPlayer, rep.EntityEquipment{
-			Type: int(equipment.Type),
+			Type:           int(equipment.Type),
+			AmmoInMagazine: equipment.AmmoInMagazine(),
+			AmmoReserve:    equipment.AmmoReserve(),
 		})
 	}
 
