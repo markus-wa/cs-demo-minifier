@@ -28,10 +28,16 @@
 		"EntityEquipment": {
 			"required": [
 				"type",
-				"type",
-				"type"
+				"ammoInMagazine",
+				"ammoReserve"
 			],
 			"properties": {
+				"ammoInMagazine": {
+					"type": "integer"
+				},
+				"ammoReserve": {
+					"type": "integer"
+				},
 				"type": {
 					"type": "integer"
 				}
