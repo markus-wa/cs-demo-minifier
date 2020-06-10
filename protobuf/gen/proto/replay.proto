@@ -32,6 +32,8 @@ message Replay {
 	message Snapshot {
 	  message EntityEquipment {
       int32 type = 1;
+      int32 ammoReserve = 2;
+      int32 ammoInMagazine = 3;
 	  }
 
 		message EntityUpdate{
