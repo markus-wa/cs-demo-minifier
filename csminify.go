@@ -165,6 +165,7 @@ func (m *minifier) snapshot() rep.Snapshot {
 				HasHelmet:     pl.HasHelmet(),
 				HasDefuseKit:  pl.HasDefuseKit(),
 				Equipment:     toEntityEquipment(pl.Weapons()),
+				Team:          int(pl.Team),
 			}
 
 			// FIXME: Smoothify Positions
