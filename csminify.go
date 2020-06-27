@@ -86,11 +86,16 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 	// Make the parser accessible for the custom event handlers
 	cfg.EventCollector.parser = p
 
-	m := newMinifier(p, cfg.EventCollector)
+	m := newMinifier(p, cfg.EventCollector, cfg.SnapshotFrequency)
 
 	m.replay.Header.MapName = header.MapName
-	m.replay.Header.TickRate = header.FrameRate()
-	m.replay.Header.SnapshotRate = int(math.Round(m.replay.Header.TickRate / cfg.SnapshotFrequency))
+	m.tickRate(p.TickRate())
+
+	p.RegisterEventHandler(func(events.ConVarsUpdated) {
+		if tickRate := p.TickRate(); tickRate != 0 {
+			m.tickRate(tickRate)
+		}
+	})
 
 	// Register event handlers from collector
 	for _, h := range cfg.EventCollector.handlers {
@@ -108,18 +113,20 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 }
 
 type minifier struct {
-	parser         dem.Parser
-	replay         rep.Replay
-	eventCollector *EventCollector
+	parser            dem.Parser
+	replay            rep.Replay
+	eventCollector    *EventCollector
+	snapshotFrequency float64
 
 	knownPlayerEntityIDs map[int]struct{}
 }
 
-func newMinifier(parser dem.Parser, eventCollector *EventCollector) minifier {
+func newMinifier(parser dem.Parser, eventCollector *EventCollector, snapshotFrequency float64) minifier {
 	return minifier{
 		parser:               parser,
 		eventCollector:       eventCollector,
 		knownPlayerEntityIDs: make(map[int]struct{}),
+		snapshotFrequency:    snapshotFrequency,
 	}
 }
 
@@ -194,6 +201,11 @@ func (m *minifier) updateKnownPlayers() {
 			}
 		}
 	}
+}
+
+func (m *minifier) tickRate(rate float64) {
+	m.replay.Header.TickRate = rate
+	m.replay.Header.SnapshotRate = int(math.Round(rate / m.snapshotFrequency))
 }
 
 func r3VectorToPoint(v r3.Vector) rep.Point {
