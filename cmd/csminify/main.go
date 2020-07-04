@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 
+	demoinfocs "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
 	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 
 	min "github.com/markus-wa/cs-demo-minifier"
@@ -19,6 +20,8 @@ func main() {
 	fl.Usage = func() {
 		fmt.Fprintln(os.Stderr, "Usage of csminify:")
 		fl.PrintDefaults()
+		fmt.Fprintln(os.Stderr)
+		fmt.Fprintln(os.Stderr, "May exit with code 3 if a demo ends unexpectedly, but the minified data may still be usable if this happens")
 		fmt.Fprintln(os.Stderr)
 		fmt.Fprintln(os.Stderr, "Direct bug reports and feature requests to https://github.com/markus-wa/cs-demo-minifier")
 	}
@@ -40,13 +43,17 @@ func main() {
 	outPath := *outPathPtr
 
 	err = minify(demPath, freq, format, outPath)
-	if err != nil {
+	if err == demoinfocs.ErrUnexpectedEndOfDemo {
+		fmt.Fprintln(os.Stderr, "WARNING: encountered unexpected end of demo, but the minified data may still be usable")
+		os.Exit(3)
+	} else if err != nil {
 		panic(err)
 	}
 }
 
 func minify(demPath string, freq float64, format string, outPath string) error {
 	var marshaller min.ReplayMarshaller
+
 	switch format {
 	case "json":
 		marshaller = func(replay rep.Replay, w io.Writer) error {
@@ -73,6 +80,7 @@ func minify(demPath string, freq float64, format string, outPath string) error {
 	}
 
 	var in io.Reader
+
 	switch demPath {
 	case "":
 		in = os.Stdin
@@ -80,12 +88,14 @@ func minify(demPath string, freq float64, format string, outPath string) error {
 		f, err := os.Open(demPath)
 		defer f.Close()
 		in = f
+
 		if err != nil {
 			return err
 		}
 	}
 
 	var out io.Writer
+
 	switch outPath {
 	case "":
 		out = os.Stdout
@@ -93,6 +103,7 @@ func minify(demPath string, freq float64, format string, outPath string) error {
 		f, err := os.Create(outPath)
 		defer f.Close()
 		out = f
+
 		if err != nil {
 			return err
 		}

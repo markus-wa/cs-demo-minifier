@@ -56,6 +56,10 @@ Usage of csminify:
         Snapshot frequency - per second (default 0.5)
   -out path
         Output file path (default stdout)
+
+May exit with code 3 if a demo ends unexpectedly, but the minified data may still be usable if this happens
+
+Direct bug reports and feature requests to https://github.com/markus-wa/cs-demo-minifier
 ```
 
 

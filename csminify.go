@@ -27,9 +27,11 @@ func Minify(r io.Reader, snapFreq float64, marshal ReplayMarshaller) ([]byte, er
 func MinifyWithConfig(r io.Reader, cfg ReplayConfig, marshal ReplayMarshaller) ([]byte, error) {
 	var buf bytes.Buffer
 	err := MinifyToWithConfig(r, cfg, marshal, bufio.NewWriter(&buf))
+
 	if err != nil {
 		return nil, err
 	}
+
 	return buf.Bytes(), nil
 }
 
@@ -43,11 +45,21 @@ func MinifyTo(r io.Reader, snapFreq float64, marshal ReplayMarshaller, w io.Writ
 // See also: ToReplayWithConfig
 func MinifyToWithConfig(r io.Reader, cfg ReplayConfig, marshal ReplayMarshaller, w io.Writer) error {
 	replay, err := ToReplayWithConfig(r, cfg)
-	if err != nil {
+
+	if err == dem.ErrUnexpectedEndOfDemo {
+		err = marshal(replay, w)
+
+		if err != nil {
+			return err
+		}
+
+		return dem.ErrUnexpectedEndOfDemo
+	} else if err != nil {
 		return err
 	}
 
 	err = marshal(replay, w)
+
 	return err
 }
 
@@ -79,6 +91,7 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 	// TODO: Provide a way to pass on warnings to the caller
 	p := dem.NewParser(r)
 	header, err := p.ParseHeader()
+
 	if err != nil {
 		return rep.Replay{}, err
 	}
@@ -105,11 +118,8 @@ func ToReplayWithConfig(r io.Reader, cfg ReplayConfig) (rep.Replay, error) {
 	m.parser.RegisterEventHandler(m.frameDone)
 
 	err = p.ParseToEnd()
-	if err != nil {
-		return rep.Replay{}, err
-	}
 
-	return m.replay, nil
+	return m.replay, err
 }
 
 type minifier struct {
@@ -130,7 +140,7 @@ func newMinifier(parser dem.Parser, eventCollector *EventCollector, snapshotFreq
 	}
 }
 
-func (m *minifier) frameDone(e events.FrameDone) {
+func (m *minifier) frameDone(events.FrameDone) {
 	tick := m.parser.CurrentFrame()
 	// Is it snapshot o'clock?
 	if tick%m.replay.Header.SnapshotRate == 0 {
