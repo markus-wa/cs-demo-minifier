@@ -50,6 +50,7 @@ github.com/markus-wa/demoinfocs-golang/v2 v2.2.0 h1:giTibTL0VVcwcJ191ZmaOdjLaBRk
 github.com/markus-wa/demoinfocs-golang/v2 v2.2.0/go.mod h1:yLydbjqMxvbIQWYOC8MbQpDPclIU9cRe/OFkCZ+VdEI=
 github.com/markus-wa/demoinfocs-golang/v2 v2.3.0 h1:rXw4pSeSHL7b+/Ip2vRNeyYI1ho/hsprhP02RjCQqgo=
 github.com/markus-wa/demoinfocs-golang/v2 v2.3.0/go.mod h1:qjgSVfhCIrr6Gf6ZjN0ZCGhl5bPC4rSVhc3cIpVkFWI=
+github.com/markus-wa/demoinfocs-golang/v2 v2.5.0/go.mod h1:qjgSVfhCIrr6Gf6ZjN0ZCGhl5bPC4rSVhc3cIpVkFWI=
 github.com/markus-wa/go-unassert v0.1.1 h1:Bn7NfuD85DFdUoGQREI3PWNT1m0THYbYazHmOVIPNYQ=
 github.com/markus-wa/go-unassert v0.1.1/go.mod h1:XEvrxR+trvZeMDfXcZPvzqGo6eumEtdk5VjNRuvvzxQ=
 github.com/markus-wa/go-unassert v0.1.2 h1:uXWlMDa8JVtc4RgNq4XJIjyRejv9MOVuy/E0VECPxxo=
