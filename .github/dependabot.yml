@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: gomod
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: github.com/gogo/protobuf
+    versions:
+    - 1.3.2
+  - dependency-name: github.com/markus-wa/demoinfocs-golang/v2
+    versions:
+    - 2.5.0
