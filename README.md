@@ -1,8 +1,6 @@
 # cs-demo-minifier
 
 This tool and library aims to provide a way of converting CS:GO demos into a more easily digestible format while decreasing the data size ([up to 99.7%](#compressing-the-converted-demo)) and retaining all important information. It is based on the demo parser [demoinfocs-golang](https://github.com/markus-wa/demoinfocs-golang).
-	
-The project is still under development and the data formats may change in backwards-incompatible ways without notice.
 
 [![GoDoc](https://godoc.org/github.com/markus-wa/cs-demo-minifier?status.svg)](https://godoc.org/github.com/markus-wa/cs-demo-minifier)
 [![Build Status](https://travis-ci.org/markus-wa/cs-demo-minifier.svg?branch=master)](https://travis-ci.org/markus-wa/cs-demo-minifier)
@@ -11,6 +9,11 @@ The project is still under development and the data formats may change in backwa
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE.md)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmarkus-wa%2Fcs-demo-minifier?ref=badge_shield)
 
+## Maintenance Mode Notice
+
+`cs-demo-minifier` is no longer actively maintained, it's recommended to use [`demoinfocs-golang`](https://github.com/markus-wa/demoinfocs-golang/) directly instead.
+
+Small updates to keep the project working with new demos may be done but there are no plans to develop any big new features.
 
 ## Discussions / Chat
 
