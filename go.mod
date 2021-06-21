@@ -6,7 +6,7 @@ require (
 	github.com/golang/geo v0.0.0-20210211234256-740aa86cb551
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
-	github.com/markus-wa/demoinfocs-golang/v2 v2.8.1
+	github.com/markus-wa/demoinfocs-golang/v2 v2.9.1
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/stretchr/testify v1.7.0
 	github.com/vishalkuo/bimap v0.0.0-20180703190407-09cff2814645
