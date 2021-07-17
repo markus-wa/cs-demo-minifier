@@ -60,12 +60,14 @@ github.com/markus-wa/demoinfocs-golang/v2 v2.3.0/go.mod h1:qjgSVfhCIrr6Gf6ZjN0ZC
 github.com/markus-wa/demoinfocs-golang/v2 v2.6.0/go.mod h1:ckL0zoSqko9oVV5Vy7pnCmEW/X+8FJNVjGLhR258h3g=
 github.com/markus-wa/demoinfocs-golang/v2 v2.8.0/go.mod h1:cA2eUctmtZ0Pbw+vgpMmOAJCMUR6nWiTMLfsomWMjdo=
 github.com/markus-wa/demoinfocs-golang/v2 v2.8.1/go.mod h1:cA2eUctmtZ0Pbw+vgpMmOAJCMUR6nWiTMLfsomWMjdo=
+github.com/markus-wa/demoinfocs-golang/v2 v2.10.0/go.mod h1:BPIElNIVtyVzzc2AD3w/yMbiHiaq91o6L873PdZJobo=
 github.com/markus-wa/go-unassert v0.1.1 h1:Bn7NfuD85DFdUoGQREI3PWNT1m0THYbYazHmOVIPNYQ=
 github.com/markus-wa/go-unassert v0.1.1/go.mod h1:XEvrxR+trvZeMDfXcZPvzqGo6eumEtdk5VjNRuvvzxQ=
 github.com/markus-wa/go-unassert v0.1.2 h1:uXWlMDa8JVtc4RgNq4XJIjyRejv9MOVuy/E0VECPxxo=
 github.com/markus-wa/go-unassert v0.1.2/go.mod h1:XEvrxR+trvZeMDfXcZPvzqGo6eumEtdk5VjNRuvvzxQ=
 github.com/markus-wa/gobitread v0.2.2 h1:4Z4oJ8Bf1XnOy6JZ2/9AdFKVAoxdq7awRjrb+j2BeSQ=
 github.com/markus-wa/gobitread v0.2.2/go.mod h1:PcWXMH4gx7o2CKslbkFkLyJB/aHW7JVRG3MRZe3PINg=
+github.com/markus-wa/gobitread v0.2.3/go.mod h1:PcWXMH4gx7o2CKslbkFkLyJB/aHW7JVRG3MRZe3PINg=
 github.com/markus-wa/godispatch v1.1.0 h1:J8O+hRkOCexDUQevaSKWDtKeZ3+HcmbEUKY1uYraAjY=
 github.com/markus-wa/godispatch v1.1.0/go.mod h1:6o18u24oo58yseMXYD0zQFI6LbSkjJSSBQ4YyDqFX5c=
 github.com/markus-wa/godispatch v1.2.1 h1:Bj6blK4xJ/72pDi0rprVYluOGW9CV55FUDFPApyw91Q=
@@ -75,6 +77,7 @@ github.com/markus-wa/godispatch v1.3.0/go.mod h1:GNzV7xdnZ9+VBi0z+hma9oUQrJmtqRr
 github.com/markus-wa/godispatch v1.4.1/go.mod h1:tk8L0yzLO4oAcFwM2sABMge0HRDJMdE8E7xm4gK/+xM=
 github.com/markus-wa/quickhull-go/v2 v2.1.0 h1:DA2pzEzH0k5CEnlUsouRqNdD+jzNFb4DBhrX4Hpa5So=
 github.com/markus-wa/quickhull-go/v2 v2.1.0/go.mod h1:bOlBUpIzGSMMhHX0f9N8CQs0VZD4nnPeta0OocH7m4o=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
