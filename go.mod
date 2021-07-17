@@ -12,7 +12,7 @@ require (
 	github.com/vishalkuo/bimap v0.0.0-20180703190407-09cff2814645
 	google.golang.org/appengine v1.6.2 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
-	gopkg.in/vmihailenco/msgpack.v2 v2.9.1
+	gopkg.in/vmihailenco/msgpack.v2 v2.9.2
 )
 
 go 1.11
